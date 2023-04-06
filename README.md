@@ -1,7 +1,7 @@
 # OpenAPIGenerator
 
 The generator uses [K-OpenApi-Parser](https://github.com/Qawaz/K-OpenApi-Parser) and [__KATE__](https://github.com/Qawaz/KATE) to 
-generate templates
+generate client and server code for different languages
 
 ## Licensing
 
