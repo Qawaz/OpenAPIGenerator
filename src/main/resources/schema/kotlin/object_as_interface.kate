@@ -1,0 +1,41 @@
+@partial_raw
+
+    @embed_once ./type.kate
+
+    @function writeObjectAsKotlinInterface(object,appendI)
+
+		@var keys = object.getKeys()
+
+		@for(@var i=0;i<keys.size();i++)
+            @if(object[keys[i]].getType() == "object")
+                @var(writeObjectAsKotlinInterface(object[keys[i]],appendI))
+                @runtime.print_string("\n\n")
+            @endif
+        @endfor
+
+		<%-- Creating interface definition --%>
+		@default_no_raw
+			interface @if(appendI) I @endif @var(object.getName()) {
+		@end_default_no_raw
+        @runtime.print_string("\n")
+
+		@for(@var i=0;i<keys.size();i++)
+		    @runtime.print_char('\t')
+		    @default_no_raw
+				val @var(keys[i].decapitalize()) : @var(getKotlinType(object[keys[i]]))
+			@end_default_no_raw
+			@runtime.print_string("\n")
+		@endfor
+		@raw } @endraw
+
+    @end_function
+
+	@define_placeholder(object,KotlinInterface)
+	    @var appendI = false
+	    @if(this.parent.contains("__append_i__"))
+	        @var appendI = this.parent.__append_i__
+        @endif
+        writeObjectAsKotlinInterface(__param__,appendI)
+	@end_define_placeholder
+
+@end_partial_raw

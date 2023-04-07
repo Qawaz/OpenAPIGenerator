@@ -1,0 +1,46 @@
+@partial_raw
+
+    @embed_once ./type.kate
+
+    @function writeObjectAsKotlinDataClass(object,overriding)
+
+        @var keys = object.getKeys()
+
+        @for(@var i=0;i<keys.size();i++)
+            @if(object[keys[i]].getType() == "object")
+                @var(writeObjectAsKotlinDataClass(object[keys[i]],overriding))
+                @runtime.print_string("\n\n")
+            @endif
+        @endfor
+
+		<%-- Creating interface definition --%>
+		@default_no_raw
+			data class @var(object.getName()) (
+
+		@end_default_no_raw
+
+		@for(@var i=0;i<keys.size();i++)
+		    @default_no_raw
+                    @if(overriding) override  @endif val @var(keys[i].decapitalize()) : @var(getKotlinType(object[keys[i]])),
+			@end_default_no_raw
+			@runtime.print_string("\n")
+		@endfor
+		@default_no_raw
+		    )
+		@end_default_no_raw
+		@default_no_raw
+            @if(overriding)
+                 : I@var(object.getName())
+            @endif
+        @end_default_no_raw
+    @end_function
+
+	@define_placeholder(object,KotlinDataClass)
+        @var overriding = false
+        @if(this.parent.contains("__overriding__"))
+            @var overriding = this.parent.__overriding__
+        @endif
+        writeObjectAsKotlinDataClass(__param__,overriding)
+	@end_define_placeholder
+
+@end_partial_raw

@@ -1,0 +1,17 @@
+
+{
+	"thread_id" : 0,
+	"is_interrupted" : false,
+	"thread_name" : "",
+	"is_alive" : false,
+	"thread_traces" : [{
+		"is_native_method" : false,
+		"method_name" : "",
+		"file_name" : "",
+		"line_number" : 0,
+		"class_name" : ""
+	}],
+	"thread_state" : "",
+	"is_daemon" : false,
+	"priority" : 0
+}
