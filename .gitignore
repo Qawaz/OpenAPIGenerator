@@ -9,6 +9,8 @@ build
 **/build/
 !src/**/build/
 
+/src/test/resources/custom
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
