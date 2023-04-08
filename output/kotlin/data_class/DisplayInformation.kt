@@ -6,5 +6,5 @@ data class DisplayInformation (
 	val left : Int,
 	val bottom : Int,
 	val right : Int,
-	val display_name : String,
+	val displayName : String,
 )

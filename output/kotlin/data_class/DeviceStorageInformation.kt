@@ -1,7 +1,7 @@
 package data_class
 
 data class DeviceStorageInformation (
-	val storage_name : String,
-	val total_space : Int,
-	val free_space : Int,
+	val storageName : String,
+	val totalSpace : Int,
+	val freeSpace : Int,
 )

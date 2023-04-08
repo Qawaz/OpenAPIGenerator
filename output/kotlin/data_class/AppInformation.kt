@@ -1,7 +1,7 @@
 package data_class
 
 data class AppInformation (
-	val package_name : String,
-	val version_number : Int,
+	val packageName : String,
+	val versionNumber : Int,
 	val version : String,
 )

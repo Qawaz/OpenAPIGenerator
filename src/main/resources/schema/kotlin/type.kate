@@ -16,4 +16,12 @@
     @endif
 @end_function
 
+@function capitalizer(param)
+    @return param.capitalize()
+@end_function
+
+@function getKey(param)
+    @return param.split("_").joinToString("",capitalizer).decapitalize()
+@end_function
+
 @end_partial_raw

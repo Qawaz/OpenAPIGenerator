@@ -1,9 +1,9 @@
 package `interface`
 
 interface StackTraceElem {
-	val is_native_method : Boolean
-	val method_name : String
-	val file_name : String
-	val line_number : Int
-	val class_name : String
+	val isNativeMethod : Boolean
+	val methodName : String
+	val fileName : String
+	val lineNumber : Int
+	val className : String
 }

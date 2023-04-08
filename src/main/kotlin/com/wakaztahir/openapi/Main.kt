@@ -32,6 +32,10 @@ fun Schema.generateAsKotlinDataClass() {
     generateUsingTemplate("kotlin/data_class", "kotlin/object_as_data_class.kate", ".kt", "package data_class\n\n")
 }
 
+fun Schema.generateAsSerializableKotlinDataClass() {
+    generateUsingTemplate("kotlin/serializable_data_class", "kotlin/object_as_serializable_data_class.kate", ".kt", "package data_class\n\n")
+}
+
 fun Schema.generateAsGolangStructs() {
     generateUsingTemplate("golang/struct", "golang/object_as_go_struct.kate", ".go", "package main\n\n")
 }
@@ -49,6 +53,7 @@ fun testCustomTemplate() {
     for (schema in parsed.getSchemas()) {
         schema.value.generateAsKotlinInterface()
         schema.value.generateAsKotlinDataClass()
+        schema.value.generateAsSerializableKotlinDataClass()
         schema.value.generateAsGolangStructs()
         schema.value.generateAsJson()
     }

@@ -1,11 +1,11 @@
 package data_class
 
 data class LogEntry (
-	val device_state : DeviceState,
-	val time_fired : Int,
+	val deviceState : DeviceState,
+	val timeFired : Int,
 	val values : Map<String,String>,
 	val tag : String,
-	val stack_trace : String,
+	val stackTrace : String,
 	val type : String,
 	val message : String,
 )
