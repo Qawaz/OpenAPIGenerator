@@ -4,7 +4,7 @@
 
     @embed_once ./../general/default_object.kate
 
-    @define_placeholder(__object_declaration__,kotlin_interface)
+    @define_placeholder(__object_declaration__,go_struct)
         @default_no_raw
             type @var(object.getName()) struct {
             @var(printMembers())
@@ -12,10 +12,14 @@
         @end_default_no_raw
     @end_define_placeholder
 
-    @define_placeholder(__object_member__,kotlin_interface)
+    @function getKey(param)
+        @return param.capitalize()
+    @end_function
+
+    @define_placeholder(__object_member__,go_struct_member)
         @runtime.print_char('\t')
         @default_no_raw
-            @var(keys[i].decapitalize()) @var(getGolangType(object[keys[i]]))
+            @var(getKey(keys[i])) @var(getGolangType(object[keys[i]])) `json:"@var(keys[i])" bson:"@var(keys[i])"`
         @end_default_no_raw
     @end_define_placeholder
 

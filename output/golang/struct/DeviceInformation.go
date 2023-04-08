@@ -1,8 +1,8 @@
 package main
 
 type DeviceInformation struct {
-	platform_type string
-	os_version string
-	os_name string
-	info_map map[string]string
+	Platform_type string `json:"platform_type" bson:"platform_type"`
+	Os_version string `json:"os_version" bson:"os_version"`
+	Os_name string `json:"os_name" bson:"os_name"`
+	Info_map map[string]string `json:"info_map" bson:"info_map"`
 }

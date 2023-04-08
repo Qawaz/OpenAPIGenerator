@@ -1,6 +1,6 @@
 package main
 
 type Error struct {
-	error string
-	message string
+	Error string `json:"error" bson:"error"`
+	Message string `json:"message" bson:"message"`
 }

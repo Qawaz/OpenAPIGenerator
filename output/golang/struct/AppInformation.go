@@ -1,7 +1,7 @@
 package main
 
 type AppInformation struct {
-	package_name string
-	version_number int
-	version string
+	Package_name string `json:"package_name" bson:"package_name"`
+	Version_number int `json:"version_number" bson:"version_number"`
+	Version string `json:"version" bson:"version"`
 }
