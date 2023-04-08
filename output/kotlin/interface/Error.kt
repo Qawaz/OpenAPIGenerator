@@ -1,6 +1,6 @@
 package `interface`
 
 interface Error {
-	val error: String
-	val message: String
+    val error: String
+    val message: String
 }

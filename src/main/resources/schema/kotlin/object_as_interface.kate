@@ -13,7 +13,7 @@
     @end_define_placeholder
 
     @define_placeholder(__object_member__,kotlin_interface)
-        @runtime.print_char('\t')
+        @runtime.print_string("    ")
         @default_no_raw
             val @var(getKey(keys[i])): @var(getKotlinType(object[keys[i]]))
         @end_default_no_raw
