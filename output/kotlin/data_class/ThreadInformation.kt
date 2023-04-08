@@ -1,4 +1,4 @@
-package main
+package data_class
 
 data class ThreadInformation (
 	val thread_id : Int,

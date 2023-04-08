@@ -1,4 +1,4 @@
-package main
+package `interface`
 
 interface UserInformation {
 	val user_email : String

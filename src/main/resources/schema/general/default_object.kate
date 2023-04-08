@@ -32,8 +32,10 @@
 
 		@for(@var i=0;i<keys.size();i++)
             @if(object[keys[i]].getType() == "object")
-                @var(__write_object_and_its_nested_objects__(object[keys[i]]))
-                @runtime.print_string("\n\n")
+                @if(object[keys[i]].contains("__no_nested__") == false)
+                    @var(__write_object_and_its_nested_objects__(object[keys[i]]))
+                    @runtime.print_string("\n\n")
+                @endif
             @endif
         @endfor
 

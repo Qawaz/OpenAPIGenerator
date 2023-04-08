@@ -1,4 +1,4 @@
-package main
+package `interface`
 
 interface DisplayInformation {
 	val orientation : String

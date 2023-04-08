@@ -1,12 +1,9 @@
-package main
-
-interface info_map {
-
-}
+package `interface`
 
 interface DeviceState {
 	val other_threads : List<ThreadInformation>
-	val info_map : Info_map
+	val current_thread : ThreadInformation
+	val info_map : Map<String,String>
 	val is_connected_to_internet : Boolean
 	val time_zone : String
 	val storage_information : List<DeviceStorageInformation>

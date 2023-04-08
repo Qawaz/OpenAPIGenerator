@@ -1,4 +1,4 @@
-package main
+package `interface`
 
 interface ThreadInformation {
 	val thread_id : Int

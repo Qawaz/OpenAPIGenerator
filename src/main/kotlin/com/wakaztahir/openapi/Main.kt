@@ -8,12 +8,12 @@ import com.wakaztahir.kate.model.model.MutableKATEObject
 import com.wakaztahir.kate.parser.stream.TextSourceStream
 import java.io.File
 
-fun Schema.generateUsingTemplate(outputDir: String, template: String, extension: String, prefix: String?) {
+fun Schema.generateUsingTemplate(outputDir: String, template: String, extension: String, prefix: String?,allowNested : Boolean = false) {
     val name = getName()!!
     val output = File("output/$outputDir/${name}$extension")
     val source = TextSourceStream(
         sourceCode = """@partial_raw @embed_once ./schema/$template${"\n"}@default_no_raw $prefix@var(${name}) @end_default_no_raw @end_partial_raw""",
-        model = MutableKATEObject { putValue(name, toKATEValue()) }.also {
+        model = MutableKATEObject { putValue(name, toKATEValue(allowNested = allowNested)) }.also {
 //            println("Object $name , Template $template , Extension $extension")
 //            println(it)
         },
@@ -25,11 +25,11 @@ fun Schema.generateUsingTemplate(outputDir: String, template: String, extension:
 }
 
 fun Schema.generateAsKotlinInterface() {
-    generateUsingTemplate("kotlin/interface", "kotlin/object_as_interface.kate", ".kt", "package main\n\n")
+    generateUsingTemplate("kotlin/interface", "kotlin/object_as_interface.kate", ".kt", "package `interface`\n\n")
 }
 
 fun Schema.generateAsKotlinDataClass() {
-    generateUsingTemplate("kotlin/data_class", "kotlin/object_as_data_class.kate", ".kt", "package main\n\n")
+    generateUsingTemplate("kotlin/data_class", "kotlin/object_as_data_class.kate", ".kt", "package data_class\n\n")
 }
 
 fun Schema.generateAsGolangStructs() {
@@ -37,7 +37,7 @@ fun Schema.generateAsGolangStructs() {
 }
 
 fun Schema.generateAsJson() {
-    generateUsingTemplate("json/simple", "json/object_as_json.kate", ".json", "")
+    generateUsingTemplate("json/simple", "json/object_as_json.kate", ".json", "", allowNested = true)
 }
 
 fun testCustomTemplate() {

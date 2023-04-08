@@ -1,4 +1,4 @@
-package main
+package `interface`
 
 interface StackTraceElem {
 	val is_native_method : Boolean

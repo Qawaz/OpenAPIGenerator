@@ -6,4 +6,7 @@ type DatabaseLogEntry struct {
 	created_at int
 	id string
 	state string
+	device DeviceInformation
+	app_information AppInformation
+	user_information UserInformation
 }

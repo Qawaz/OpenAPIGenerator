@@ -7,7 +7,7 @@ import com.wakaztahir.kate.dsl.ModelObjectImpl
 import com.wakaztahir.kate.model.*
 import com.wakaztahir.kate.model.model.*
 
-fun Schema.toKATEValue(): KATEValue {
+fun Schema.toKATEValue(allowNested: Boolean): KATEValue {
     return when (this.getType()) {
         "string" -> {
             StringValue("")
@@ -26,19 +26,36 @@ fun Schema.toKATEValue(): KATEValue {
         }
 
         "array" -> {
-            KATEListImpl(listOf(this.getItemsSchema()!!.toKATEValue()))
+            KATEListImpl(listOf(this.getItemsSchema()!!.toKATEValue(allowNested = allowNested)))
         }
 
         "object" -> {
             val references = mutableListOf<String>()
             getNode()?.getReferencesInto(references)
-            toMutableKATEObject(avoidObjects = references)
+            toMutableKATEObject(avoidObjects = references,allowNested = allowNested)
         }
 
         else -> {
             throw IllegalArgumentException("unknown openapi type ${this.getType()}")
         }
     }
+}
+
+fun MutableKATEObject.addNoNested(): MutableKATEObject {
+    putValue("__no_nested__", true)
+    return this
+}
+
+fun MutableKATEObject.addMapOf(value: String): MutableKATEObject {
+    putValue("__map_of__", value)
+    return this
+}
+
+fun Schema.getMapOf(): String? {
+    if (this.getAdditionalPropertiesSchema()?.getType() == "string") {
+        return "string"
+    }
+    return null
 }
 
 private fun JsonNode.getReferencesInto(list: MutableList<String>) {
@@ -53,7 +70,7 @@ private fun JsonNode.getReferencesInto(list: MutableList<String>) {
 
 private fun Schema.getNode() = (this as? PropertiesOverlay<*>)?.json
 
-fun Schema.toMutableKATEObject(avoidObjects: List<String>): MutableKATEObject {
+fun Schema.toMutableKATEObject(avoidObjects: List<String>,allowNested : Boolean): MutableKATEObject {
 
     require(this.getType() == "object")
 
@@ -63,10 +80,23 @@ fun Schema.toMutableKATEObject(avoidObjects: List<String>): MutableKATEObject {
 
     val properties = this.getProperties()
     for (property in properties) {
-        if (property.value.getType() == "object" && avoidObjects.contains(property.value.getName())) {
-            continue
+        if (property.value.getType() == "object" && !allowNested) {
+            if (avoidObjects.contains(property.value.getName())) {
+                kateObj.putValue(property.key, ModelObjectImpl(property.value.getName()!!).addNoNested().also { obj ->
+                    property.value.getMapOf()?.let { obj.addMapOf(it) }
+                })
+                continue
+            }else {
+                val mapOf = property.value.getMapOf()
+                if(mapOf != null){
+                    kateObj.putValue(property.key, ModelObjectImpl(property.value.getName()!!).addNoNested().also { obj ->
+                        property.value.getMapOf()?.let { obj.addMapOf(it) }
+                    })
+                    continue
+                }
+            }
         }
-        kateObj.putValue(property.key, property.value.toKATEValue())
+        kateObj.putValue(property.key, property.value.toKATEValue(allowNested = allowNested))
     }
 
     return kateObj

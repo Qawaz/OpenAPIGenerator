@@ -1,4 +1,47 @@
 {
+	"device_state" : {
+		"other_threads" : [{
+			"thread_id" : 0,
+			"is_interrupted" : false,
+			"thread_name" : "",
+			"is_alive" : false,
+			"thread_traces" : [{
+				"is_native_method" : false,
+				"method_name" : "",
+				"file_name" : "",
+				"line_number" : 0,
+				"class_name" : ""
+			}],
+			"thread_state" : "",
+			"is_daemon" : false,
+			"priority" : 0
+		}],
+		"current_thread" : {
+			"thread_id" : 0,
+			"is_interrupted" : false,
+			"thread_name" : "",
+			"is_alive" : false,
+			"thread_traces" : [{
+				"is_native_method" : false,
+				"method_name" : "",
+				"file_name" : "",
+				"line_number" : 0,
+				"class_name" : ""
+			}],
+			"thread_state" : "",
+			"is_daemon" : false,
+			"priority" : 0
+		},
+		"info_map" : {
+		},
+		"is_connected_to_internet" : false,
+		"time_zone" : "",
+		"storage_information" : [{
+			"storage_name" : "",
+			"total_space" : 0,
+			"free_space" : 0
+		}]
+	},
 	"time_fired" : 0,
 	"values" : {
 	},

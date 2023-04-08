@@ -1,4 +1,4 @@
-package main
+package data_class
 
 data class AppInformation (
 	val package_name : String,

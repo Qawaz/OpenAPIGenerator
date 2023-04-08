@@ -2,7 +2,11 @@
 
 @function getGolangType(param)
     @if(param.getType() == "object")
-        @return param.getName().capitalize()
+        @if(param.contains("__map_of__"))
+            @return "map[string]" + getGolangType(param.__map_of__)
+        @else
+            @return param.getName()
+        @endif
     @elseif(param.getType() == "list")
         @return "[]" + getGolangType(param[0])
     @elseif(param.getType() == "mutable_list")

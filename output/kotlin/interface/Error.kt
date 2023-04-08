@@ -1,4 +1,4 @@
-package main
+package `interface`
 
 interface Error {
 	val error : String

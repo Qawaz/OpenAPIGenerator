@@ -1,4 +1,4 @@
-package main
+package data_class
 
 data class StackTraceElem (
 	val is_native_method : Boolean,

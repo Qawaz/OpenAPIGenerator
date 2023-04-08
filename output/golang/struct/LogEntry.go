@@ -1,12 +1,9 @@
 package main
 
-type values struct {
-
-}
-
 type LogEntry struct {
+	device_state DeviceState
 	time_fired int
-	values Values
+	values map[string]string
 	tag string
 	stack_trace string
 	type string

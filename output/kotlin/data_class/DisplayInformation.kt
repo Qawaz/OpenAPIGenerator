@@ -1,4 +1,4 @@
-package main
+package data_class
 
 data class DisplayInformation (
 	val orientation : String,
