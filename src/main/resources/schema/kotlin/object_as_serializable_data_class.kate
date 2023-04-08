@@ -7,7 +7,7 @@
     @define_placeholder(__object_declaration__,kotlin_interface)
         @default_no_raw
             @Serializable
-            data class @var(object.getName()) (
+            data class @var(object.getName())(
             @var(printMembers())
             )
         @end_default_no_raw
@@ -16,7 +16,7 @@
     @define_placeholder(__object_member__,kotlin_interface)
         @runtime.print_char('\t')
         @default_no_raw
-            @SerialName("@var(keys[i])") val @var(getKey(keys[i])) : @var(getKotlinType(object[keys[i]])),
+            @SerialName("@var(keys[i])") val @var(getKey(keys[i])): @var(getKotlinType(object[keys[i]])),
         @end_default_no_raw
     @end_define_placeholder
 

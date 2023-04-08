@@ -3,7 +3,7 @@
 @function getKotlinType(param)
     @if(@var(param.getType()) == "object")
         @if(param.contains("__map_of__"))
-            @return "Map<String," + getKotlinType(param.__map_of__) + ">"
+            @return "Map<String, " + getKotlinType(param.__map_of__) + ">"
         @else
             @return param.getName()
         @endif

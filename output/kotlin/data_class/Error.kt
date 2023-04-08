@@ -1,6 +1,6 @@
 package data_class
 
-data class Error (
-	val error : String,
-	val message : String,
+data class Error(
+	val error: String,
+	val message: String,
 )

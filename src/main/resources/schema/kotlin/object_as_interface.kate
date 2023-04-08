@@ -15,7 +15,7 @@
     @define_placeholder(__object_member__,kotlin_interface)
         @runtime.print_char('\t')
         @default_no_raw
-            val @var(getKey(keys[i])) : @var(getKotlinType(object[keys[i]]))
+            val @var(getKey(keys[i])): @var(getKotlinType(object[keys[i]]))
         @end_default_no_raw
     @end_define_placeholder
 
