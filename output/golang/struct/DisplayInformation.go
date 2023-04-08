@@ -1,3 +1,4 @@
+package main
 
 type DisplayInformation struct {
 	orientation string

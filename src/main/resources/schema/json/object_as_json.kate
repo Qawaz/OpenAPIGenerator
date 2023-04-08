@@ -1,6 +1,22 @@
 @partial_raw
 
-    @function writeObjectAsJson(object,indentation)
+    @define_placeholder(__object_declaration__,json_object)
+        @default_no_raw
+            {
+            @var(printMembers())}
+        @end_default_no_raw
+    @end_define_placeholder
+
+    @define_placeholder(__object_member__,json_object_member)
+        @runtime.print_char('\t')
+        @default_no_raw
+            "@var(keys[i].decapitalize())" :
+        @end_default_no_raw
+        @runtime.print_char(' ')
+        @var(jsonValue(object[keys[i]]))
+    @end_define_placeholder
+
+    @function __write_object_as_json__(object,indentation)
 
         @var keys = object.getKeys()
 
@@ -10,71 +26,63 @@
             @endfor
         @end_function
 
-		@runtime.print_char('{')
+        @function printMembers()
 
-        @runtime.print_char('\n')
+            @function listValue(param)
+                @runtime.print_char('[')
+                @for(@var j = 0;j<param.size();j++)
+                    @var(jsonValue(param[j]))
+                    @default_no_raw
+                        @if(j != param.size() @- 1) , @endif
+                    @end_default_no_raw
+                @endfor
+                @runtime.print_char(']')
+            @end_function
 
-        @function listValue(param)
-            @runtime.print_char('[')
-            @for(@var j = 0;j<param.size();j++)
-                @var(jsonValue(param[j]))
-                @default_no_raw
-                    @if(j != param.size() @- 1) , @endif
-                @end_default_no_raw
+            @function jsonValue(param)
+                @if(param.getType() == "object")
+                    @default_no_raw
+                        @var(__write_object_as_json__(param,indentation + 1))
+                    @end_default_no_raw
+                @elseif(param.getType() == "list")
+                    @var(listValue(param))
+                @elseif(param.getType() == "mutable_list")
+                    @var(listValue(param))
+                @elseif(param.getType() == "string")
+                    @default_no_raw "@var(param)" @end_default_no_raw
+                @elseif(param.getType() == "char")
+                    @default_no_raw "@var(param)" @end_default_no_raw
+                @else
+                    @default_no_raw @var(param) @end_default_no_raw
+                @endif
+            @end_function
+
+            @for(@var i=0;i<keys.size();i++)
+
+                @function separator()
+                    @if(i != keys.size() @- 1) @return "," @else @return "" @endif
+                @end_function
+
+                @var(indent())
+
+                @placeholder(__object_member__)
+
+                @var(separator())
+
+                @runtime.print_char('\n')
+
             @endfor
-            @runtime.print_char(']')
-        @end_function
-
-        @function jsonValue(param)
-            @if(param.getType() == "object")
-                @default_no_raw
-                    @var(writeObjectAsJson(param,indentation + 1))
-                @end_default_no_raw
-            @elseif(param.getType() == "list")
-                @var(listValue(param))
-            @elseif(param.getType() == "mutable_list")
-                @var(listValue(param))
-            @elseif(param.getType() == "string")
-                @default_no_raw "@var(param)" @end_default_no_raw
-            @elseif(param.getType() == "char")
-                @default_no_raw "@var(param)" @end_default_no_raw
-            @else
-                @default_no_raw @var(param) @end_default_no_raw
-            @endif
-        @end_function
-
-		@for(@var i=0;i<keys.size();i++)
-
-		    @function separator()
-		        @if(i != keys.size() @- 1) @return "," @else @return "" @endif
-		    @end_function
 
             @var(indent())
 
-            @runtime.print_char('\t')
+        @end_function
 
-		    @default_no_raw
-                "@var(keys[i].decapitalize())" :
-			@end_default_no_raw
-
-			@runtime.print_char(' ')
-
-			@var(jsonValue(object[keys[i]]))
-
-			@var(separator())
-
-			@runtime.print_char('\n')
-
-		@endfor
-
-		@var(indent())
-
-		@runtime.print_char('}')
+        @placeholder(__object_declaration__)
 
     @end_function
 
 	@define_placeholder(object,JsonObject)
-        writeObjectAsJson(__param__,0)
+        __write_object_as_json__(__param__,0)
 	@end_define_placeholder
 
 @end_partial_raw

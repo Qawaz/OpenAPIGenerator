@@ -1,3 +1,4 @@
+package main
 
 interface Error {
 	val error : String

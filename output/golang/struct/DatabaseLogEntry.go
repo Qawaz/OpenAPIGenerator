@@ -1,5 +1,7 @@
+package main
 
 type info_map struct {
+
 }
 
 type DeviceInformation struct {

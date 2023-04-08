@@ -1,6 +1,9 @@
 package com.wakaztahir.openapi
 
+import com.fasterxml.jackson.databind.JsonNode
+import com.reprezen.jsonoverlay.PropertiesOverlay
 import com.reprezen.kaizen.oasparser.model3.Schema
+import com.wakaztahir.kate.dsl.ModelObjectImpl
 import com.wakaztahir.kate.model.*
 import com.wakaztahir.kate.model.model.*
 
@@ -28,7 +31,7 @@ fun MutableKATEObject.putOpenApiType(type: String, name: String) {
     }
 }
 
-fun Schema.toKATEValue(): KATEValue {
+fun Schema.toKATEValue(skipReferences: Boolean): KATEValue {
 
     return when (this.getType()) {
         "string" -> {
@@ -48,11 +51,15 @@ fun Schema.toKATEValue(): KATEValue {
         }
 
         "array" -> {
-            KATEListImpl(listOf(this.getItemsSchema()!!.toKATEValue()))
+            KATEListImpl(listOf(this.getItemsSchema()!!.toKATEValue(skipReferences = skipReferences)))
         }
 
         "object" -> {
-            toMutableKATEObject()
+            if(this.checkIsReference()) {
+                StringValue("SKIP_${getName()}")
+            } else {
+                toMutableKATEObject()
+            }
         }
 
         else -> {
@@ -61,18 +68,28 @@ fun Schema.toKATEValue(): KATEValue {
     }
 }
 
+private fun JsonNode.isReference(): Boolean {
+    val refNode = this.get("\$ref")
+    return refNode != null && !refNode.isNull
+}
+
+private fun Schema.checkIsReference(): Boolean {
+    val jsonNode = (this as? PropertiesOverlay<*>)?.json
+    return jsonNode != null && jsonNode.isReference()
+}
+
 fun Schema.toMutableKATEObject(): MutableKATEObject {
 
     val name = this.getName() ?: "UNKNOWN"
 
-    val kateObj = MutableKTEObject(name = name) { }
+    val kateObj = MutableKATEObject(name = name) { }
 
     when (this.getType()) {
 
         "object" -> {
             val properties = this.getProperties()
             for (property in properties) {
-                kateObj.putValue(property.key, property.value.toKATEValue())
+                kateObj.putValue(property.key, property.value.toKATEValue(skipReferences = true))
             }
         }
 

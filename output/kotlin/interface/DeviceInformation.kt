@@ -1,5 +1,7 @@
+package main
 
 interface info_map {
+
 }
 
 interface DeviceInformation {

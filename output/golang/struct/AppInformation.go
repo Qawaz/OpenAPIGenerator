@@ -1,3 +1,4 @@
+package main
 
 type AppInformation struct {
 	package_name string

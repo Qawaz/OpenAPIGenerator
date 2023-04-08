@@ -1,3 +1,4 @@
+package main
 
 type ThreadInformation struct {
 	thread_id int
@@ -11,6 +12,7 @@ type ThreadInformation struct {
 }
 
 type info_map struct {
+
 }
 
 type DeviceState struct {

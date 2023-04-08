@@ -1,3 +1,4 @@
+package main
 
 type DeviceStorageInformation struct {
 	storage_name string

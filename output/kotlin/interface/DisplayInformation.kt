@@ -1,3 +1,4 @@
+package main
 
 interface DisplayInformation {
 	val orientation : String

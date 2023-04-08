@@ -1,3 +1,4 @@
+package main
 
 interface ThreadInformation {
 	val thread_id : Int
@@ -11,6 +12,7 @@ interface ThreadInformation {
 }
 
 interface info_map {
+
 }
 
 interface DeviceState {

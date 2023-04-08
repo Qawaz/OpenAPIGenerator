@@ -1,3 +1,4 @@
+package main
 
 type ThreadInformation struct {
 	thread_id int

@@ -1,6 +1,7 @@
+package main
 
 data class AppInformation (
-    val package_name : String,
-    val version_number : Int,
-    val version : String,
+	val package_name : String,
+	val version_number : Int,
+	val version : String,
 )

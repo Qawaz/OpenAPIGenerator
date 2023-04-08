@@ -1,3 +1,4 @@
+package main
 
 interface DeviceStorageInformation {
 	val storage_name : String

@@ -1,3 +1,4 @@
+package main
 
 type UserInformation struct {
 	user_email string

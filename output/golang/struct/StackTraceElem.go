@@ -1,3 +1,4 @@
+package main
 
 type StackTraceElem struct {
 	is_native_method bool

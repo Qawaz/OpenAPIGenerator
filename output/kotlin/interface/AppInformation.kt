@@ -1,3 +1,4 @@
+package main
 
 interface AppInformation {
 	val package_name : String

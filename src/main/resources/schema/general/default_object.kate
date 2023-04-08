@@ -1,0 +1,48 @@
+@partial_raw
+
+    @define_placeholder(__object_declaration__)
+        @default_no_raw
+            @var(object.getName()) {
+            @var(printMembers())
+            }
+        @end_default_no_raw
+    @end_define_placeholder
+
+    @define_placeholder(__object_member__)
+        @runtime.print_char('\t')
+        @default_no_raw
+            val @var(keys[i].decapitalize()) : @var(object[keys[i]].getType())
+        @end_default_no_raw
+    @end_define_placeholder
+
+    @function __write_object__(object)
+        @var keys = object.getKeys()
+        @function printMembers()
+            @for(@var i=0;i<keys.size();i++)
+                @placeholder(__object_member__)
+                @if(i < keys.size() - 1) @runtime.print_string("\n") @endif
+            @endfor
+        @end_function
+        @placeholder(__object_declaration__)
+    @end_function
+
+    @function __write_object_and_its_nested_objects__(object)
+
+		@var keys = object.getKeys()
+
+		@for(@var i=0;i<keys.size();i++)
+            @if(object[keys[i]].getType() == "object")
+                @var(__write_object_and_its_nested_objects__(object[keys[i]]))
+                @runtime.print_string("\n\n")
+            @endif
+        @endfor
+
+        @var(__write_object__(object))
+
+    @end_function
+
+	@define_placeholder(object,default_object,object)
+        __write_object_and_its_nested_objects__(object)
+	@end_define_placeholder
+
+@end_partial_raw
