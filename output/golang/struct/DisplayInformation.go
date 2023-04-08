@@ -6,5 +6,5 @@ type DisplayInformation struct {
 	Left int `json:"left" bson:"left"`
 	Bottom int `json:"bottom" bson:"bottom"`
 	Right int `json:"right" bson:"right"`
-	Display_name string `json:"display_name" bson:"display_name"`
+	DisplayName string `json:"display_name" bson:"display_name"`
 }

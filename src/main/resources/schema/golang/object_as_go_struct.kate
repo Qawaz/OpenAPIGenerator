@@ -12,8 +12,12 @@
         @end_default_no_raw
     @end_define_placeholder
 
-    @function getKey(param)
+    @function capitalizer(param)
         @return param.capitalize()
+    @end_function
+
+    @function getKey(param)
+        @return param.capitalize().split("_").joinToString("",capitalizer)
     @end_function
 
     @define_placeholder(__object_member__,go_struct_member)
