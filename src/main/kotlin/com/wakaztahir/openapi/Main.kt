@@ -13,7 +13,10 @@ fun Schema.generateUsingTemplate(outputDir: String, template: String, extension:
     val output = File("output/$outputDir/${name}$extension")
     val source = TextSourceStream(
         sourceCode = """@partial_raw @embed_once ./schema/$template${"\n"}@default_no_raw $prefix@var(${name}) @end_default_no_raw @end_partial_raw""",
-        model = MutableKATEObject { putValue(name, toKATEValue(skipReferences = false)) },
+        model = MutableKATEObject { putValue(name, toKATEValue()) }.also {
+//            println("Object $name , Template $template , Extension $extension")
+//            println(it)
+        },
         embeddingManager = RelativeResourceEmbeddingManager(basePath = "/", classLoader = object {}.javaClass)
     )
     val stream = output.outputStream()
