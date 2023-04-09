@@ -1,0 +1,64 @@
+@partial_raw
+
+    @embed_once ./../general/default_object.kate
+
+    @function defaultObjStyles()
+        @default_no_raw
+            pre {
+                background-color: #2d2d2d; /* Dark gray */
+                color: #e6e6e6;
+                border-radius: 5px;
+                font-size: 14px;
+                font-family: monospace;
+            }
+
+            .obj_dev {
+                color: #e6e6e6;
+            }
+
+            .obj_dec > .obj_name {
+                color: #8bc34a; /* Light green */
+            }
+
+            .obj_dec .mem_key {
+                color: #ef5350; /* Red */
+            }
+
+            .obj_dec .mem_type {
+                color: #42a5f5; /* Blue */
+            }
+        @end_default_no_raw
+    @end_function
+
+    @define_placeholder(__html_object_styles__)
+        @default_no_raw <style> @end_default_no_raw
+        @runtime.print_char('\n')
+        defaultObjStyles()
+        @runtime.print_char('\n')
+        @default_no_raw </style> @end_default_no_raw
+    @end_define_placeholder
+
+    @define_placeholder(__object_member__,html_member)
+        @runtime.print_char('\t')
+        @default_no_raw
+            <span class="mem_key">@var(keys[i].decapitalize())</span> : <span class="mem_type">@var(object[keys[i]].getType())</span>
+        @end_default_no_raw
+    @end_define_placeholder
+
+    @define_placeholder(__object_declaration__,html_object)
+        @default_no_raw
+            <div class="obj_dec">
+            <pre>
+            <code>
+                <span class="obj_name">@var(object.getName())</span> {
+            @var(printMembers())
+                }
+            </code>
+            </pre>
+            </div>
+        @end_default_no_raw
+        @runtime.print_char('\n')
+        @placeholder(__html_object_styles__)
+    @end_define_placeholder
+
+@end_partial_raw

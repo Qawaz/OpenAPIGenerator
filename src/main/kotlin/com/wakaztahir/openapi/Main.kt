@@ -8,6 +8,28 @@ import com.wakaztahir.kate.model.model.MutableKATEObject
 import com.wakaztahir.kate.parser.stream.TextSourceStream
 import java.io.File
 
+fun Collection<Schema>.generateIntoSingleTemplate(outputFile : String,template: String,allowNested: Boolean = false){
+    val output = File("output/$outputFile")
+    val model = MutableKATEObject {
+        for(schema in this@generateIntoSingleTemplate){
+            putValue(schema.getName()!!,schema.toKATEValue(allowNested = allowNested))
+        }
+    }
+    var sourceCode = "@partial_raw @embed_once ./$template\n"
+    for(schema in this){
+        sourceCode += "@default_no_raw @var(${schema.getName()!!}) @end_default_no_raw"
+    }
+    sourceCode += "@end_partial_raw"
+    val source = TextSourceStream(
+        sourceCode = sourceCode,
+        model = model,
+        embeddingManager = RelativeResourceEmbeddingManager(basePath = "/", classLoader = object {}.javaClass)
+    )
+    val stream = output.outputStream()
+    source.generateTo(OutputDestinationStream(stream))
+    stream.close()
+}
+
 fun Schema.generateUsingTemplate(outputDir: String, template: String, extension: String, prefix: String?,allowNested : Boolean = false) {
     val name = getName()!!
     val output = File("output/$outputDir/${name}$extension")
@@ -52,6 +74,10 @@ fun Schema.generateAsJson() {
     generateUsingTemplate("json/simple", "json/object_as_json.kate", ".json", "", allowNested = true)
 }
 
+fun Schema.generateAsHtml() {
+    generateUsingTemplate("html/models", "html/object_as_html.kate", ".html", "")
+}
+
 fun testCustomTemplate() {
     val input = object {}.javaClass.getResource("/custom/openapi3.json")!!
 
@@ -66,7 +92,10 @@ fun testCustomTemplate() {
         schema.value.generateAsOverridableSerializableInterface()
         schema.value.generateAsGolangStructs()
         schema.value.generateAsJson()
+        schema.value.generateAsHtml()
     }
+
+    parsed.getSchemas().values.generateIntoSingleTemplate(outputFile = "html/single.html",template = "./schema/html/object_as_html.kate")
 
 }
 

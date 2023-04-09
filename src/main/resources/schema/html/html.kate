@@ -1,0 +1,13 @@
+@function startBody(obj)
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>@var(obj.getName())</title>
+        </head>
+    <body>
+@end_function
+
+@function endBody(obj)
+    </body>
+    </html>
+@end_function
