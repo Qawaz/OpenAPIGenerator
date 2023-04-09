@@ -25,27 +25,27 @@ fun Schema.generateUsingTemplate(outputDir: String, template: String, extension:
 }
 
 fun Schema.generateAsKotlinInterface() {
-    generateUsingTemplate("kotlin/interface", "kotlin/object_as_interface.kate", ".kt", "package `interface`\n\n")
+    generateUsingTemplate("kotlin/models/interface", "kotlin/object_as_interface.kate", ".kt", "package `interface`\n\n")
 }
 
 fun Schema.generateAsKotlinDataClass() {
-    generateUsingTemplate("kotlin/data_class", "kotlin/object_as_data_class.kate", ".kt", "package data_class\n\n")
+    generateUsingTemplate("kotlin/models/data_class", "kotlin/object_as_data_class.kate", ".kt", "package data_class\n\n")
 }
 
 fun Schema.generateAsSerializableKotlinDataClass() {
-    generateUsingTemplate("kotlin/serializable_data_class", "kotlin/object_as_serializable_data_class.kate", ".kt", "package data_class\n\n")
+    generateUsingTemplate("kotlin/models/serializable_data_class", "kotlin/object_as_serializable_data_class.kate", ".kt", "package data_class\n\n")
 }
 
 fun Schema.generateAsOverridableInterface() {
-    generateUsingTemplate("kotlin/overridden", "kotlin/object_as_data_class_overriding_interface.kate", ".kt", "package overridden\n\n")
+    generateUsingTemplate("kotlin/models/overridden", "kotlin/object_as_data_class_overriding_interface.kate", ".kt", "package overridden\n\n")
 }
 
 fun Schema.generateAsOverridableSerializableInterface() {
-    generateUsingTemplate("kotlin/overridden_serializable", "kotlin/object_as_serializable_data_class_overriding_interface.kate", ".kt", "package overridden_serializable\n\n")
+    generateUsingTemplate("kotlin/models/overridden_serializable", "kotlin/object_as_serializable_data_class_overriding_interface.kate", ".kt", "package overridden_serializable\n\n")
 }
 
 fun Schema.generateAsGolangStructs() {
-    generateUsingTemplate("golang/struct", "golang/object_as_go_struct.kate", ".go", "package main\n\n")
+    generateUsingTemplate("golang/models/struct", "golang/object_as_go_struct.kate", ".go", "package main\n\n")
 }
 
 fun Schema.generateAsJson() {
