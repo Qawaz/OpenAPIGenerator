@@ -1,11 +1,54 @@
 @partial_raw
 
+    @embed_once ./object_as_html.kate
+
+    @function printMediaType(key,type)
+        @if(type.contains("schema"))
+            @default_no_raw @var(type.schema) @end_default_no_raw
+        @endif
+    @end_function
+
+    @function printMediaTypes(types)
+        @var keys = types.getKeys()
+        @for(@var key : keys)
+            printMediaType(key,types.get(key))
+        @endfor
+    @end_function
+
     @define_placeholder(route,,route)
         @default_no_raw
             <div class="route">
                 <div class="header">
                     <span class="method">@var(route.method)</span>
                     <span class="path">@var(route.path)</span>
+                </div>
+                <div class="info">
+                    <div class="description">@var(route.description)</div>
+                    <div class="summary">@var(route.summary)</div>
+                    <div class="operationId">@var(route.operationId)</div>
+                </div>
+                <div class="responses">
+                    <h3>Responses:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Status Code</th>
+                                <th>Description</th>
+                                <th>Example Response</th>
+                                <th>Media Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @for(@var response : route.responses)
+                            <tr>
+                                <td>@var(response.statusCode)</td>
+                                <td>@var(response.description)</td>
+                                <td><pre><code>@var(response.example)</code></pre></td>
+                                <td>@var(printMediaTypes(response.mediaTypes))</td>
+                            </tr>
+                        @endfor
+                        </tbody>
+                    </table>
                 </div>
             </div>
         @end_default_no_raw

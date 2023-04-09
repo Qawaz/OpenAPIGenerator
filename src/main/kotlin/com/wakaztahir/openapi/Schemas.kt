@@ -32,11 +32,11 @@ fun Schema.toKATEValue(allowNested: Boolean): KATEValue {
         "object" -> {
             val references = mutableListOf<String>()
             getNode()?.getReferencesInto(references)
-            toMutableKATEObject(avoidObjects = references,allowNested = allowNested)
+            toMutableKATEObject(avoidObjects = references, allowNested = allowNested)
         }
 
         else -> {
-            throw IllegalArgumentException("unknown openapi type ${this.getType()}")
+            throw IllegalArgumentException("unknown openapi type ${this.getType()} for key ${this.getName()}")
         }
     }
 }
@@ -70,7 +70,7 @@ private fun JsonNode.getReferencesInto(list: MutableList<String>) {
 
 private fun Schema.getNode() = (this as? PropertiesOverlay<*>)?.json
 
-fun Schema.toMutableKATEObject(avoidObjects: List<String>,allowNested : Boolean): MutableKATEObject {
+fun Schema.toMutableKATEObject(avoidObjects: List<String>, allowNested: Boolean): MutableKATEObject {
 
     require(this.getType() == "object")
 
@@ -86,12 +86,14 @@ fun Schema.toMutableKATEObject(avoidObjects: List<String>,allowNested : Boolean)
                     property.value.getMapOf()?.let { obj.addMapOf(it) }
                 })
                 continue
-            }else {
+            } else {
                 val mapOf = property.value.getMapOf()
-                if(mapOf != null){
-                    kateObj.putValue(property.key, ModelObjectImpl(property.value.getName()!!).addNoNested().also { obj ->
-                        property.value.getMapOf()?.let { obj.addMapOf(it) }
-                    })
+                if (mapOf != null) {
+                    kateObj.putValue(
+                        property.key,
+                        ModelObjectImpl(property.value.getName()!!).addNoNested().also { obj ->
+                            property.value.getMapOf()?.let { obj.addMapOf(it) }
+                        })
                     continue
                 }
             }
