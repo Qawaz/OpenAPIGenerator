@@ -1,0 +1,18 @@
+@partial_raw
+
+    @define_placeholder(route,,route)
+        @default_no_raw
+            <div class="route">
+                <div class="header">
+                    <span class="method">@var(route.method)</span>
+                    <span class="path">@var(route.path)</span>
+                </div>
+            </div>
+        @end_default_no_raw
+    @end_define_placeholder
+
+    @define_placeholder(object,object_as_path,route)
+        @placeholder(route,@var(route))
+    @end_define_placeholder
+
+@end_partial_raw

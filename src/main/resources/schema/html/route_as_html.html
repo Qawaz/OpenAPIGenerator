@@ -1,0 +1,61 @@
+<div class="route">
+    <div class="routeHeader">
+        <span class="routeMethod">@var(method)</span>
+        <span class="routePath">@var(path)</span>
+    </div>
+    <div class="routeInfo">
+        <div class="routeDescription">@var(routeDescription)</div>
+        <div class="routeParameters">
+            <h3>Parameters:</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                </tr>
+                </thead>
+                <tbody>
+                @for(param in routeParameters)
+                <tr>
+                    <td>@var(param.name)</td>
+                    <td>@var(param.description)</td>
+                    <td>@var(param.type)</td>
+                    <td>@var(param.required)</td>
+                    <td>@var(param.default)</td>
+                </tr>
+                @endfor
+                </tbody>
+            </table>
+        </div>
+        <div class="routeRequest">
+            <h3>Request:</h3>
+            <div class="routeRequestExample">
+                <pre><code>@var(routeRequestExample)</code></pre>
+            </div>
+        </div>
+        <div class="routeResponse">
+            <h3>Responses:</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Status Code</th>
+                    <th>Description</th>
+                    <th>Example Response</th>
+                </tr>
+                </thead>
+                <tbody>
+                @for(response in routeResponses)
+                <tr>
+                    <td>@var(response.statusCode)</td>
+                    <td>@var(response.description)</td>
+                    <td><pre><code>@var(response.example)</code></pre></td>
+                </tr>
+                @endfor
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
