@@ -56,7 +56,7 @@ fun Map<String, Operation>.generateIntoSingleTemplate(
     )
 }
 
-fun KATEValue.generateFromTemplate(name: String, template: String, prefix: String?, output: File) {
+fun KATEValue.generateFromTemplate(name: String, template: String, prefix: String, output: File) {
     val source = TextSourceStream(
         sourceCode = """@partial_raw @embed_once ./$template${"\n"}@default_no_raw $prefix@var(${name}) @end_default_no_raw @end_partial_raw""",
         model = MutableKATEObject { putValue(name, this@generateFromTemplate) }.also {
@@ -74,13 +74,13 @@ fun Schema.generateUsingTemplate(
     outputDir: String,
     template: String,
     extension: String,
-    prefix: String?,
+    prefix: String,
     allowNested: Boolean = false
 ) {
     val name = getName()!!
     toKATEValue(allowNested = allowNested).generateFromTemplate(
         name = name,
-        template = "./schema/$template",
+        template = template,
         prefix = prefix,
         output = File("output/$outputDir/${name}$extension")
     )
@@ -89,7 +89,7 @@ fun Schema.generateUsingTemplate(
 fun Schema.generateAsKotlinInterface() {
     generateUsingTemplate(
         "kotlin/models/interface",
-        "kotlin/object_as_interface.kate",
+        "schema/kotlin/object_as_interface.kate",
         ".kt",
         "package `interface`\n\n"
     )
@@ -98,7 +98,7 @@ fun Schema.generateAsKotlinInterface() {
 fun Schema.generateAsKotlinDataClass() {
     generateUsingTemplate(
         "kotlin/models/data_class",
-        "kotlin/object_as_data_class.kate",
+        "schema/kotlin/object_as_data_class.kate",
         ".kt",
         "package data_class\n\n"
     )
@@ -107,7 +107,7 @@ fun Schema.generateAsKotlinDataClass() {
 fun Schema.generateAsSerializableKotlinDataClass() {
     generateUsingTemplate(
         "kotlin/models/serializable_data_class",
-        "kotlin/object_as_serializable_data_class.kate",
+        "schema/kotlin/object_as_serializable_data_class.kate",
         ".kt",
         "package data_class\n\n"
     )
@@ -116,7 +116,7 @@ fun Schema.generateAsSerializableKotlinDataClass() {
 fun Schema.generateAsOverridableInterface() {
     generateUsingTemplate(
         "kotlin/models/overridden",
-        "kotlin/object_as_data_class_overriding_interface.kate",
+        "schema/kotlin/object_as_data_class_overriding_interface.kate",
         ".kt",
         "package overridden\n\n"
     )
@@ -125,22 +125,31 @@ fun Schema.generateAsOverridableInterface() {
 fun Schema.generateAsOverridableSerializableInterface() {
     generateUsingTemplate(
         "kotlin/models/overridden_serializable",
-        "kotlin/object_as_serializable_data_class_overriding_interface.kate",
+        "schema/kotlin/object_as_serializable_data_class_overriding_interface.kate",
         ".kt",
         "package overridden_serializable\n\n"
     )
 }
 
 fun Schema.generateAsGolangStructs() {
-    generateUsingTemplate("golang/models/struct", "golang/object_as_go_struct.kate", ".go", "package main\n\n")
+    generateUsingTemplate("golang/models/struct", "schema/golang/object_as_go_struct.kate", ".go", "package main\n\n")
 }
 
 fun Schema.generateAsJson() {
-    generateUsingTemplate("json/simple", "json/object_as_json.kate", ".json", "", allowNested = true)
+    generateUsingTemplate("json/simple", "schema/json/object_as_json.kate", ".json", "", allowNested = true)
 }
 
 fun Schema.generateAsHtml() {
-    generateUsingTemplate("html/models", "html/object_as_html.kate", ".html", "")
+    generateUsingTemplate("html/models", "schema/html/object_as_html.kate", ".html", "")
+}
+
+fun Operation.generateAsHtml(method: String, path: String) {
+    toMutableKATEObject(method = method, path = path).generateFromTemplate(
+        name = method,
+        template = "./schema/html/route_as_html.kate",
+        prefix = "",
+        output = File("output/html/routes/${path.removePrefix("/").replace('/', '_')}/${method}.html")
+    )
 }
 
 fun testCustomTemplate() {
@@ -169,12 +178,19 @@ fun testCustomTemplate() {
     )
 
     for (path in parsed.getPaths()) {
+
+        for (operation in path.value.getOperations()) {
+            operation.value.generateAsHtml(method = operation.key, path = path.value.getPathString()!!)
+        }
+
         path.value.getOperations().generateIntoSingleTemplate(
-            outputFile = "html/routes/${path.value.getPathString()!!.removePrefix("/").replace('/','_')}/routes.html",
+            outputFile = "html/routes/${path.value.getPathString()!!.removePrefix("/").replace('/', '_')}/routes.html",
             template = "./schema/html/route_as_html.kate",
             path = path.value.getPathString()!!
         )
     }
+
+    parsed.getPaths().values
 
 
 }
