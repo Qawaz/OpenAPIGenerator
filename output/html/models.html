@@ -109,7 +109,7 @@ pre {
 	<span class="mem_key">platform_type</span> : <span class="mem_type">string</span>
 	<span class="mem_key">os_version</span> : <span class="mem_type">string</span>
 	<span class="mem_key">os_name</span> : <span class="mem_type">string</span>
-	<span class="mem_key">info_map</span> : <span class="mem_type">object</span>
+	<span class="mem_key">info_map</span> : <span class="mem_type">map&lt;string, string&gt;</span>
     }
 </code>
 </pre>
@@ -256,7 +256,7 @@ pre {
 	<span class="mem_key">is_interrupted</span> : <span class="mem_type">boolean</span>
 	<span class="mem_key">thread_name</span> : <span class="mem_type">string</span>
 	<span class="mem_key">is_alive</span> : <span class="mem_type">boolean</span>
-	<span class="mem_key">thread_traces</span> : <span class="mem_type">list</span>
+	<span class="mem_key">thread_traces</span> : <span class="mem_type">list&lt;StackTraceElem&gt;</span>
 	<span class="mem_key">thread_state</span> : <span class="mem_type">string</span>
 	<span class="mem_key">is_daemon</span> : <span class="mem_type">boolean</span>
 	<span class="mem_key">priority</span> : <span class="mem_type">int</span>
@@ -292,12 +292,12 @@ pre {
 <pre>
 <code>
     <span class="obj_name">DeviceState</span> {
-	<span class="mem_key">other_threads</span> : <span class="mem_type">list</span>
-	<span class="mem_key">current_thread</span> : <span class="mem_type">object</span>
-	<span class="mem_key">info_map</span> : <span class="mem_type">object</span>
+	<span class="mem_key">other_threads</span> : <span class="mem_type">list&lt;ThreadInformation&gt;</span>
+	<span class="mem_key">current_thread</span> : <span class="mem_type">ThreadInformation</span>
+	<span class="mem_key">info_map</span> : <span class="mem_type">map&lt;string, string&gt;</span>
 	<span class="mem_key">is_connected_to_internet</span> : <span class="mem_type">boolean</span>
 	<span class="mem_key">time_zone</span> : <span class="mem_type">string</span>
-	<span class="mem_key">storage_information</span> : <span class="mem_type">list</span>
+	<span class="mem_key">storage_information</span> : <span class="mem_type">list&lt;DeviceStorageInformation&gt;</span>
     }
 </code>
 </pre>
@@ -330,9 +330,9 @@ pre {
 <pre>
 <code>
     <span class="obj_name">LogEntry</span> {
-	<span class="mem_key">device_state</span> : <span class="mem_type">object</span>
+	<span class="mem_key">device_state</span> : <span class="mem_type">DeviceState</span>
 	<span class="mem_key">time_fired</span> : <span class="mem_type">int</span>
-	<span class="mem_key">values</span> : <span class="mem_type">object</span>
+	<span class="mem_key">values</span> : <span class="mem_type">map&lt;string, string&gt;</span>
 	<span class="mem_key">tag</span> : <span class="mem_type">string</span>
 	<span class="mem_key">stack_trace</span> : <span class="mem_type">string</span>
 	<span class="mem_key">type</span> : <span class="mem_type">string</span>
@@ -369,14 +369,14 @@ pre {
 <pre>
 <code>
     <span class="obj_name">DatabaseLogEntry</span> {
-	<span class="mem_key">notes</span> : <span class="mem_type">list</span>
-	<span class="mem_key">log</span> : <span class="mem_type">list</span>
+	<span class="mem_key">notes</span> : <span class="mem_type">list&lt;string&gt;</span>
+	<span class="mem_key">log</span> : <span class="mem_type">list&lt;LogEntry&gt;</span>
 	<span class="mem_key">created_at</span> : <span class="mem_type">int</span>
 	<span class="mem_key">id</span> : <span class="mem_type">string</span>
 	<span class="mem_key">state</span> : <span class="mem_type">string</span>
-	<span class="mem_key">device</span> : <span class="mem_type">object</span>
-	<span class="mem_key">app_information</span> : <span class="mem_type">object</span>
-	<span class="mem_key">user_information</span> : <span class="mem_type">object</span>
+	<span class="mem_key">device</span> : <span class="mem_type">DeviceInformation</span>
+	<span class="mem_key">app_information</span> : <span class="mem_type">AppInformation</span>
+	<span class="mem_key">user_information</span> : <span class="mem_type">UserInformation</span>
     }
 </code>
 </pre>

@@ -95,7 +95,7 @@ fun testCustomTemplate() {
         schema.value.generateAsHtml()
     }
 
-    parsed.getSchemas().values.generateIntoSingleTemplate(outputFile = "html/single.html",template = "./schema/html/object_as_html.kate")
+    parsed.getSchemas().values.generateIntoSingleTemplate(outputFile = "html/models.html",template = "./schema/html/object_as_html.kate")
 
 }
 
