@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation("com.wakaztahir:kate:1.0.6")
+    implementation("com.wakaztahir:kate:1.0.7")
     implementation("com.wakaztahir.openapi:json-overlay:1.0.5")
     implementation("com.wakaztahir.openapi:parser:1.0.5")
     implementation("com.wakaztahir.openapi:validator:1.0.5")

@@ -4,7 +4,7 @@
 
     @embed_once ./../general/default_object.kate
 
-    @define_placeholder(__object_declaration__,kotlin_interface)
+    @define_placeholder(__object_declaration__,interface)
         @default_no_raw
             interface @var(object.getName()) {
             @var(printMembers())
@@ -12,7 +12,7 @@
         @end_default_no_raw
     @end_define_placeholder
 
-    @define_placeholder(__object_member__,kotlin_interface)
+    @define_placeholder(__object_member__,interface)
         @runtime.print_string("    ")
         @default_no_raw
             val @var(getKey(keys[i])): @var(getKotlinType(object[keys[i]]))

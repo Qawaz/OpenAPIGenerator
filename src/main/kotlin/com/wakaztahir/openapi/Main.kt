@@ -36,6 +36,14 @@ fun Schema.generateAsSerializableKotlinDataClass() {
     generateUsingTemplate("kotlin/serializable_data_class", "kotlin/object_as_serializable_data_class.kate", ".kt", "package data_class\n\n")
 }
 
+fun Schema.generateAsOverridableInterface() {
+    generateUsingTemplate("kotlin/overridden", "kotlin/object_as_data_class_overriding_interface.kate", ".kt", "package overridden\n\n")
+}
+
+fun Schema.generateAsOverridableSerializableInterface() {
+    generateUsingTemplate("kotlin/overridden_serializable", "kotlin/object_as_serializable_data_class_overriding_interface.kate", ".kt", "package overridden_serializable\n\n")
+}
+
 fun Schema.generateAsGolangStructs() {
     generateUsingTemplate("golang/struct", "golang/object_as_go_struct.kate", ".go", "package main\n\n")
 }
@@ -54,6 +62,8 @@ fun testCustomTemplate() {
         schema.value.generateAsKotlinInterface()
         schema.value.generateAsKotlinDataClass()
         schema.value.generateAsSerializableKotlinDataClass()
+        schema.value.generateAsOverridableInterface()
+        schema.value.generateAsOverridableSerializableInterface()
         schema.value.generateAsGolangStructs()
         schema.value.generateAsJson()
     }

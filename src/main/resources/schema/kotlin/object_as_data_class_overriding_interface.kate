@@ -1,0 +1,46 @@
+@partial_raw
+
+    @embed_once ./object_as_interface.kate
+
+    @define_placeholder(__object_declaration__,overridable_interface_data_class)
+        @default_no_raw
+            data class @var(object.getName())(
+            @var(printMembers())
+            ) : I@var(object.getName())
+        @end_default_no_raw
+    @end_define_placeholder
+
+   @define_placeholder(__object_member__,override_data_class)
+        @runtime.print_string("    ")
+        @default_no_raw
+            override val @var(getKey(keys[i])): @var(getKotlinType(object[keys[i]])),
+        @end_default_no_raw
+    @end_define_placeholder
+
+    @define_placeholder(__object_declaration__,overridable_interface)
+        @default_no_raw
+            interface I@var(object.getName()) {
+            @var(printMembers())
+            }
+        @end_default_no_raw
+    @end_define_placeholder
+
+    @define_placeholder(object,interface_and_data_class,currObj)
+
+        @use_placeholder(object,default)
+
+        @use_placeholder(__object_member__,interface)
+
+        @default_no_raw @var(currObj) @end_default_no_raw
+
+        @runtime.print_string("\n\n")
+
+        @use_placeholder(__object_declaration__,overridable_interface_data_class)
+
+        @use_placeholder(__object_member__,override_data_class)
+
+        @default_no_raw @var(currObj) @end_default_no_raw
+
+    @end_define_placeholder
+
+@end_partial_raw

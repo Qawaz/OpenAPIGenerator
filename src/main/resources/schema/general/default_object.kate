@@ -43,7 +43,7 @@
 
     @end_function
 
-	@define_placeholder(object,default_object,object)
+	@define_placeholder(object,default,object)
         __write_object_and_its_nested_objects__(object)
 	@end_define_placeholder
 
