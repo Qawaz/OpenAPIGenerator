@@ -1,11 +1,16 @@
 package com.wakaztahir.openapi
 
-import com.fasterxml.jackson.databind.JsonNode
-import com.reprezen.jsonoverlay.PropertiesOverlay
+import com.reprezen.jsonoverlay.JsonOverlay
+import com.reprezen.jsonoverlay.Overlay
 import com.reprezen.kaizen.oasparser.model3.Schema
 import com.wakaztahir.kate.dsl.ModelObjectImpl
-import com.wakaztahir.kate.model.*
-import com.wakaztahir.kate.model.model.*
+import com.wakaztahir.kate.model.BooleanValue
+import com.wakaztahir.kate.model.DoubleValue
+import com.wakaztahir.kate.model.IntValue
+import com.wakaztahir.kate.model.StringValue
+import com.wakaztahir.kate.model.model.KATEListImpl
+import com.wakaztahir.kate.model.model.KATEValue
+import com.wakaztahir.kate.model.model.MutableKATEObject
 
 fun Schema.toKATEValue(allowNested: Boolean): KATEValue {
     return when (this.getType()) {
@@ -30,12 +35,11 @@ fun Schema.toKATEValue(allowNested: Boolean): KATEValue {
         }
 
         "object" -> {
-            val references = mutableListOf<String>()
-            getNode()?.getReferencesInto(references)
-            toMutableKATEObject(avoidObjects = references, allowNested = allowNested)
+            toMutableKATEObject(allowNested = allowNested)
         }
 
         else -> {
+            println((this as JsonOverlay<*>)._getPathFromRoot())
             throw IllegalArgumentException("unknown openapi type ${this.getType()} for key ${this.getName()}")
         }
     }
@@ -58,19 +62,7 @@ fun Schema.getMapOf(): String? {
     return null
 }
 
-private fun JsonNode.getReferencesInto(list: MutableList<String>) {
-    fields().forEach {
-        if (it.key == "\$ref") {
-            list.add(it.value.asText().let { t -> t.substring(t.lastIndexOf('/') + 1) })
-        } else {
-            it.value.getReferencesInto(list)
-        }
-    }
-}
-
-private fun Schema.getNode() = (this as? PropertiesOverlay<*>)?.json
-
-fun Schema.toMutableKATEObject(avoidObjects: List<String>, allowNested: Boolean): MutableKATEObject {
+fun Schema.toMutableKATEObject(allowNested: Boolean): MutableKATEObject {
 
     require(this.getType() == "object")
 
@@ -79,9 +71,10 @@ fun Schema.toMutableKATEObject(avoidObjects: List<String>, allowNested: Boolean)
     val kateObj = MutableKATEObject(name = name) { }
 
     val properties = this.getProperties()
+    val propertiesOverlay = Overlay.of(properties)!!
     for (property in properties) {
         if (property.value.getType() == "object" && !allowNested) {
-            if (avoidObjects.contains(property.value.getName())) {
+            if (propertiesOverlay.isReference(property.key)) {
                 kateObj.putValue(property.key, ModelObjectImpl(property.value.getName()!!).addNoNested().also { obj ->
                     property.value.getMapOf()?.let { obj.addMapOf(it) }
                 })

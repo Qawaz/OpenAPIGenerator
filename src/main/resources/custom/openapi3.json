@@ -2,6 +2,14 @@
   "openapi": "3.0.0",
   "components": {
     "schemas": {
+      "Success": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
       "Error": {
         "type": "object",
         "properties": {
@@ -268,7 +276,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "success": true
+                  "$ref": "#/components/schemas/Success"
                 }
               }
             }
@@ -309,11 +317,14 @@
           "content": {
             "application/x-www-form-urlencoded": {
               "schema": {
-                "token": {
-                  "type": "string"
-                },
-                "is_encrypted": {
-                  "type": "string"
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  },
+                  "is_encrypted": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -334,10 +345,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "logs": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/DatabaseLogEntry"
+                  "type": "object",
+                  "properties": {
+                    "logs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DatabaseLogEntry"
+                      }
                     }
                   }
                 }
