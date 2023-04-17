@@ -147,7 +147,7 @@ fun Schema.generateAsHtml() {
 fun Operation.generateAsHtml(method: String, path: String) {
     toMutableKATEObject(method = method, path = path).generateFromTemplate(
         name = method,
-        template = "./schema/html/route_as_html.kate",
+        template = "./schema/html/route_as_html.kate.html",
         prefix = "",
         output = File("output/html/routes/${path.removePrefix("/").replace('/', '_')}/${method}.html")
     )
@@ -192,7 +192,7 @@ fun testCustomTemplate() {
 
         path.value.getOperations().generateIntoSingleTemplate(
             outputFile = "html/routes/${path.value.getPathString()!!.removePrefix("/").replace('/', '_')}/routes.html",
-            template = "./schema/html/route_as_html.kate",
+            template = "./schema/html/route_as_html.kate.html",
             path = path.value.getPathString()!!
         )
     }

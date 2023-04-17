@@ -5,39 +5,11 @@
     @embed_once ./type.kate
 
     @function defaultObjStyles()
-        @default_no_raw
-            pre {
-                background-color: #2d2d2d; /* Dark gray */
-                color: #e6e6e6;
-                border-radius: 5px;
-                font-size: 14px;
-                font-family: monospace;
-            }
-
-            .obj_dev {
-                color: #e6e6e6;
-            }
-
-            .obj_dec > .obj_name {
-                color: #8bc34a; /* Light green */
-            }
-
-            .obj_dec .mem_key {
-                color: #ef5350; /* Red */
-            }
-
-            .obj_dec .mem_type {
-                color: #42a5f5; /* Blue */
-            }
-        @end_default_no_raw
+        @embed_once ./default_object_styles.kate.html
     @end_function
 
     @define_placeholder(__html_object_styles__)
-        @default_no_raw <style> @end_default_no_raw
-        @runtime.print_char('\n')
         defaultObjStyles()
-        @runtime.print_char('\n')
-        @default_no_raw </style> @end_default_no_raw
     @end_define_placeholder
 
     @define_placeholder(__object_member__,html_member)
