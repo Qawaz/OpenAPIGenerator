@@ -24,24 +24,135 @@
                 <td>200</td>
                 <td>Logs are returned</td>
                 <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
-                <td></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+    <span class="obj_name">UNKNOWN</span> {
+	<span class="mem_key">logs</span> : <span class="mem_type">list&lt;DatabaseLogEntry&gt;</span>
+    }
+</code>
+</pre>
+</div>
+<style>
+pre {
+    background-color: #2d2d2d; /* Dark gray */
+    color: #e6e6e6;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: monospace;
+}
+
+.obj_dev {
+    color: #e6e6e6;
+}
+
+.obj_dec > .obj_name {
+    color: #8bc34a; /* Light green */
+}
+
+.obj_dec .mem_key {
+    color: #ef5350; /* Red */
+}
+
+.obj_dec .mem_type {
+    color: #42a5f5; /* Blue */
+}
+</style></td>
             </tr>            <tr>
                 <td>400</td>
                 <td>Error because of bad request</td>
                 <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
-                <td></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+    <span class="obj_name">Error</span> {
+	<span class="mem_key">error</span> : <span class="mem_type">string</span>
+	<span class="mem_key">message</span> : <span class="mem_type">string</span>
+    }
+</code>
+</pre>
+</div>
+</td>
             </tr>            <tr>
                 <td>401</td>
                 <td>Error , request token couldn't be authorized</td>
                 <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
-                <td></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+    <span class="obj_name">Error</span> {
+	<span class="mem_key">error</span> : <span class="mem_type">string</span>
+	<span class="mem_key">message</span> : <span class="mem_type">string</span>
+    }
+</code>
+</pre>
+</div>
+</td>
             </tr>            <tr>
                 <td>500</td>
                 <td>There was a server error listing the logs</td>
                 <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
-                <td></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+    <span class="obj_name">Error</span> {
+	<span class="mem_key">error</span> : <span class="mem_type">string</span>
+	<span class="mem_key">message</span> : <span class="mem_type">string</span>
+    }
+</code>
+</pre>
+</div>
+</td>
             </tr>
             </tbody>
         </table>
     </div>
-</div>
+</div><style>
+    table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        border-radius : 8px;
+        overflow:hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+    table th,
+    table td {
+        padding: 12px 15px;
+    }
+    table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    table tbody tr:last-of-type {
+        border-bottom: 2px solid #9879;
+    }
+    table tbody tr.active-row {
+        font-weight: bold;
+        color: #9879;
+    }
+</style>
+<style>
+    .route {
+        background : rgba(0,0,0,0.2);
+        padding : 16px;
+        border-radius : 2em;
+    }
+    .route header {
+        display : inline-block;
+    }
+    .method {
+        text-transform:uppercase;
+    }
+</style>

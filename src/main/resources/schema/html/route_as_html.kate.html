@@ -4,14 +4,16 @@
 
     @function printMediaType(key,type)
         @if(type.contains("schema"))
+            @use_placeholder(object,default)
             @default_no_raw @var(type.schema) @end_default_no_raw
+            @use_placeholder(object,object_as_path)
         @endif
     @end_function
 
     @function printMediaTypes(types)
         @var keys = types.getKeys()
         @for(@var key : keys)
-            printMediaType(key,types.get(key))
+            @var(printMediaType(key,types.get(key)))
         @endfor
     @end_function
 
@@ -56,6 +58,9 @@
 
     @define_placeholder(object,object_as_path,route)
         @placeholder(route,@var(route))
+        @embed_once ./default_table_styles.kate.html
+        @runtime.print_char('\n')
+        @embed_once ./default_route_styles.kate.html
     @end_define_placeholder
 
 @end_partial_raw
