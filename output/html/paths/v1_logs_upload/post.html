@@ -3,31 +3,24 @@
         <span class="method">post</span>
     </div>
     <div class="info">
-        <div class="description"></div>
-        <div class="summary"></div>
-        <div class="operationId">uploadLogFile</div>
+        Description <div class="description code-box"></div>
+        Summary <div class="summary code-box"></div>
+        OperationId <div class="operationId code-box">uploadLogFile</div>
     </div>
-    <div class="responses">
-        <h3>Responses:</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Status Code</th>
-                    <th>Description</th>
-                    <th>Example Response</th>
-                    <th>Media Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                        <tr>
-                <td>200</td>
-                <td>The file has been uploaded</td>
-                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
-                <td><div class="obj_dec">
+    
+<div class="request-body">
+    <h3>Request Body</h3>
+    <div class="info">
+        
+        Description <div class="description code-box">Request body for the log file upload request , containing token and is_encrypted</div>
+        Required <div class="required code-box">true</div>
+    </div>
+    <div class="obj_dec">
 <pre>
 <code>
-   <span class="obj_name">Success</span>  {
-	<span class="mem_key">success</span> : <span class="mem_type">boolean</span>
+    {
+	<span class="mem_key">is_encrypted</span> : <span class="mem_type">string</span>
+	<span class="mem_key">token</span> : <span class="mem_type">string</span>
     }
 </code>
 </pre>
@@ -56,7 +49,34 @@ pre {
 .obj_dec .mem_type {
     color: #42a5f5; /* Blue */
 }
-</style></td>
+</style>
+</div>
+    <div class="responses">
+        <h3>Responses:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Status Code</th>
+                    <th>Description</th>
+                    <th>Example Response</th>
+                    <th>Media Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                        <tr>
+                <td>200</td>
+                <td>The file has been uploaded</td>
+                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+   <span class="obj_name">Success</span>  {
+	<span class="mem_key">success</span> : <span class="mem_type">boolean</span>
+    }
+</code>
+</pre>
+</div>
+</td>
             </tr>            <tr>
                 <td>400</td>
                 <td>Bad request parameters</td>
@@ -154,14 +174,19 @@ pre {
         padding:0.6em;
         border-radius:12px;
     }
-    .operation .info {
-        margin-top : 16px;
-        display:inline-block;
+    .code-box {
         padding:0.6em;
         font-family:monospace;
         color:white;
         border-radius:12px;
         background : rgba(16,16,16,0.6)
+    }
+    .operation > .info {
+        display:inline-block;
+        margin-top : 16px;
+    }
+    .operation > .request-body > .info {
+        display:inline-block;
     }
     .header .path {
         color : white;

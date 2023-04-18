@@ -3,31 +3,25 @@
         <span class="method">post</span>
     </div>
     <div class="info">
-        <div class="description">lists the logs for a package</div>
-        <div class="summary">List logs for a package</div>
-        <div class="operationId">listLogs</div>
+        Description <div class="description code-box">lists the logs for a package</div>
+        Summary <div class="summary code-box">List logs for a package</div>
+        OperationId <div class="operationId code-box">listLogs</div>
     </div>
-    <div class="responses">
-        <h3>Responses:</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Status Code</th>
-                    <th>Description</th>
-                    <th>Example Response</th>
-                    <th>Media Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                        <tr>
-                <td>200</td>
-                <td>Logs are returned</td>
-                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
-                <td><div class="obj_dec">
+    
+<div class="request-body">
+    <h3>Request Body</h3>
+    <div class="info">
+        
+        Description <div class="description code-box">Lists the logs for the given package and page</div>
+        Required <div class="required code-box">false</div>
+    </div>
+    <div class="obj_dec">
 <pre>
 <code>
     {
-	<span class="mem_key">logs</span> : <span class="mem_type">list&lt;DatabaseLogEntry&gt;</span>
+	<span class="mem_key">package_name</span> : <span class="mem_type">string</span>
+	<span class="mem_key">page</span> : <span class="mem_type">int</span>
+	<span class="mem_key">token</span> : <span class="mem_type">string</span>
     }
 </code>
 </pre>
@@ -56,7 +50,34 @@ pre {
 .obj_dec .mem_type {
     color: #42a5f5; /* Blue */
 }
-</style></td>
+</style>
+</div>
+    <div class="responses">
+        <h3>Responses:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Status Code</th>
+                    <th>Description</th>
+                    <th>Example Response</th>
+                    <th>Media Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                        <tr>
+                <td>200</td>
+                <td>Logs are returned</td>
+                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+    {
+	<span class="mem_key">logs</span> : <span class="mem_type">list&lt;DatabaseLogEntry&gt;</span>
+    }
+</code>
+</pre>
+</div>
+</td>
             </tr>            <tr>
                 <td>400</td>
                 <td>Error because of bad request</td>
@@ -154,14 +175,19 @@ pre {
         padding:0.6em;
         border-radius:12px;
     }
-    .operation .info {
-        margin-top : 16px;
-        display:inline-block;
+    .code-box {
         padding:0.6em;
         font-family:monospace;
         color:white;
         border-radius:12px;
         background : rgba(16,16,16,0.6)
+    }
+    .operation > .info {
+        display:inline-block;
+        margin-top : 16px;
+    }
+    .operation > .request-body > .info {
+        display:inline-block;
     }
     .header .path {
         color : white;
