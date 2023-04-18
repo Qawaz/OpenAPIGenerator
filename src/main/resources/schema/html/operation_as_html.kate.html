@@ -22,9 +22,9 @@
                     <span class="method">@var(op.method)</span>
                 </div>
                 <div class="info">
-                    Description <div class="description code-box">@var(op.description)</div>
-                    Summary <div class="summary code-box">@var(op.summary)</div>
-                    OperationId <div class="operationId code-box">@var(op.operationId)</div>
+                    @if(op.contains("description")) Description <div class="description code-box">@var(op.description)</div> @endif
+                    @if(op.contains("summary")) Summary <div class="summary code-box">@var(op.summary)</div> @endif
+                    @if(op.contains("operationId")) OperationId <div class="operationId code-box">@var(op.operationId)</div> @endif
                 </div>
                 @if(op.contains("requestBody"))
                 @var body = op.requestBody

@@ -39,9 +39,9 @@ fun RequestBody.toMutableKATEObject(): MutableKATEObject {
 fun Operation.toMutableKATEObject(method: String): MutableKATEObject {
     return MutableKATEObject {
         putValue("method", method)
-        putValue("description", getDescription() ?: "")
-        putValue("summary", getSummary() ?: "")
-        putValue("operationId", getOperationId() ?: "")
+        getDescription()?.let { putValue("description", it) }
+        getSummary()?.let { putValue("summary", it) }
+        getOperationId()?.let { putValue("operationId", it) }
         getRequestBody()?.toMutableKATEObject()?.let { putValue("requestBody", it) }
         putValue("responses", KATEListImpl(getResponses().map { it.value.toMutableKATEObject(statusCode = it.key) }))
     }

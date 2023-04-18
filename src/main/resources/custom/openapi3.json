@@ -266,8 +266,6 @@
       "summary": "Upload a logs file",
       "description": "Takes log file and saves it",
       "post": {
-        "summary": "",
-        "description": "",
         "parameters": [],
         "operationId": "uploadLogFile",
         "responses": {
