@@ -1,5 +1,6 @@
 package com.wakaztahir.openapi
 
+import com.reprezen.jsonoverlay.JsonOverlay
 import com.reprezen.kaizen.oasparser.model3.*
 import com.wakaztahir.kate.model.model.KATEList
 import com.wakaztahir.kate.model.model.KATEListImpl
@@ -48,12 +49,12 @@ fun Operation.toMutableKATEObject(method: String): MutableKATEObject {
     }
 }
 
-fun Map<String, Operation>.toMutableKATEObject(path: String): MutableKATEObject {
+fun Collection<Operation>.toMutableKATEObject(path: String): MutableKATEObject {
     return MutableKATEObject {
         putValue("path", path)
         putValue("operations", KATEListImpl(map { op ->
-            op.value.toMutableKATEObject(
-                method = op.key
+            op.toMutableKATEObject(
+                method = (op as JsonOverlay<*>)._getPathInParent()
             )
         }))
     }
@@ -98,6 +99,6 @@ fun Path.toMutableKATEObject(): MutableKATEObject {
         getDescription()?.let { putValue("description", it) }
         getSummary()?.let { putValue("summary", it) }
         putValue("parameters", KATEListImpl(getParameters().map { it.toMutableKATEObject() }))
-        putValue("operations", getOperations().toMutableKATEObject(path = getPathString()!!))
+        putValue("operations", getOperations().values.toMutableKATEObject(path = getPathString()!!))
     }
 }
