@@ -1,0 +1,27 @@
+@partial_raw
+
+    @embed_once ./object_as_html.kate
+
+    @define_placeholder(parameter,,param)
+        @default_no_raw
+            <div>
+                @if(param.contains("name")) <div>Name <span>@var(param.name)</span></div> @endif
+                @if(param.contains("description")) <div>Description <span>@var(param.description)</span></div> @endif
+                @if(param.contains("required")) <div>Required <span>@var(param.required)</span></div> @endif
+                @if(param.contains("in")) <div>In <span>@var(param.in)</span></div> @endif
+                @if(param.contains("allowEmptyValue")) <div>Allow Empty Value <span>@var(param.allowEmptyValue)</span></div> @endif
+                @if(param.contains("allowReserved")) <div>Allow Reserved <span>@var(param.allowReserved)</span></div> @endif
+                @if(param.contains("explode")) <div>Explode <span>@var(param.explode)</span></div> @endif
+                @if(param.contains("key")) <div>Key <span>@var(param.key)</span></div> @endif
+                @if(param.contains("style")) <div>Style <span>@var(param.style)</span></div> @endif
+                @if(param.contains("schema"))
+                    <div>
+                        <h3>Schema</h3>
+                        @placeholder(object,default,param.schema)
+                    </div>
+                @endif
+            </div>
+        @end_default_no_raw
+    @end_define_placeholder
+
+@end_partial_raw

@@ -2,6 +2,8 @@
 
     @embed_once ./operation_as_html.kate.html
 
+    @embed_once ./parameter_as_html.kate.html
+
     @define_placeholder(object,multiple_routes,path)
 
         @default_no_raw
@@ -17,7 +19,7 @@
         @end_default_no_raw
 
         @for(@var parameter : path.parameters)
-            __PARAMETER__VALUE__
+            @placeholder(parameter,,parameter)
         @endfor
 
         @for(@var operation : path.operations)
