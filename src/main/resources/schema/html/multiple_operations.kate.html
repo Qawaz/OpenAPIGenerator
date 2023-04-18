@@ -4,10 +4,19 @@
 
     @define_placeholder(object,multiple_routes,path)
 
+        @default_no_raw
+            <div class="path">
+                <h1 class="title">
+                    @var(path.path)
+                </h1>
+            </div>
+        @end_default_no_raw
+
         @for(@var operation : path.operations)
             @placeholder(operation,operation,operation)
         @endfor
 
+        @embed_once ./default_path_styling.kate.html
         @embed_once ./default_table_styles.kate.html
         @runtime.print_char('\n')
         @embed_once ./default_operation_styles.kate.html

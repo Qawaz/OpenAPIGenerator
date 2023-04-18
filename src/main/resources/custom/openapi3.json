@@ -394,9 +394,18 @@
           "content": {
             "application/json": {
               "schema": {
-                "token": "",
-                "package_name": "",
-                "page": 0
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  },
+                  "package_name": {
+                    "type": "string"
+                  },
+                  "page":  {
+                    "type": "integer"
+                  }
+                }
               }
             }
           },

@@ -2,7 +2,6 @@ package com.wakaztahir.openapi
 
 import com.reprezen.kaizen.oasparser.OpenApiParser
 import com.reprezen.kaizen.oasparser.model3.Operation
-import com.reprezen.kaizen.oasparser.model3.Path
 import com.reprezen.kaizen.oasparser.model3.Schema
 import com.reprezen.kaizen.oasparser.validate
 import com.wakaztahir.kate.OutputDestinationStream
@@ -48,15 +47,19 @@ fun List<KATEObject>.generateMultipleFromTemplate(output: File, template: String
     stream.close()
 }
 
-fun Collection<Schema>.generateMultipleFromTemplate(outputFile: String, template: String, allowNested: Boolean = false) {
+fun Collection<Schema>.generateMultipleFromTemplate(
+    outputFile: String,
+    template: String,
+    allowNested: Boolean = false
+) {
     map { it.toKATEValue(allowNested = allowNested) as MutableKATEObject }.generateMultipleFromTemplate(
         output = File("output/$outputFile"),
         template = template
     )
 }
 
-fun Map<String, Operation>.generateMultipleRoutes(outputFile: String) {
-    toMutableKATEObject().generateFromTemplate(
+fun Map<String, Operation>.generateMultipleOperations(path: String, outputFile: String) {
+    toMutableKATEObject(path = path).generateFromTemplate(
         output = File("output/$outputFile").also { it.parentFile.mkdirs() },
         template = "./schema/html/multiple_operations.kate.html",
         name = "routesList",
@@ -198,8 +201,11 @@ fun testCustomTemplate() {
         }
 
         // all operations of path into a single file
-        path.value.getOperations().generateMultipleRoutes(
-            outputFile = "html/paths/${path.value.getPathString()!!.removePrefix("/").replace('/', '_')}/operations.html"
+        path.value.getOperations().generateMultipleOperations(
+            path = path.value.getPathString()!!,
+            outputFile = "html/paths/${
+                path.value.getPathString()!!.removePrefix("/").replace('/', '_')
+            }/operations.html"
         )
 
     }

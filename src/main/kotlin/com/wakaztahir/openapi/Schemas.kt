@@ -66,7 +66,7 @@ fun Schema.toMutableKATEObject(allowNested: Boolean): MutableKATEObject {
 
     require(this.getType() == "object")
 
-    val name = this.getName() ?: "UNKNOWN"
+    val name = this.getName() ?: ""
 
     val kateObj = MutableKATEObject(name = name) { }
 

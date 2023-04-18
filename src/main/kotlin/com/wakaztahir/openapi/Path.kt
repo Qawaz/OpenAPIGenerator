@@ -27,18 +27,29 @@ fun Response.toMutableKATEObject(statusCode: String): MutableKATEObject {
     }
 }
 
+fun RequestBody.toMutableKATEObject(): MutableKATEObject {
+    return MutableKATEObject {
+        getName()?.let { putValue("name", it) }
+        getDescription()?.let { putValue("description", it) }
+        putValue("mediaTypes", getContentMediaTypes().mediaTypesObject())
+        getRequired()?.let { putValue("required", it) }
+    }
+}
+
 fun Operation.toMutableKATEObject(method: String): MutableKATEObject {
     return MutableKATEObject {
         putValue("method", method)
         putValue("description", getDescription() ?: "")
         putValue("summary", getSummary() ?: "")
         putValue("operationId", getOperationId() ?: "")
+        getRequestBody()?.toMutableKATEObject()?.let { putValue("requestBody", it) }
         putValue("responses", KATEListImpl(getResponses().map { it.value.toMutableKATEObject(statusCode = it.key) }))
     }
 }
 
-fun Map<String, Operation>.toMutableKATEObject(): MutableKATEObject {
+fun Map<String, Operation>.toMutableKATEObject(path: String): MutableKATEObject {
     return MutableKATEObject {
+        putValue("path", path)
         putValue("operations", KATEListImpl(map { op ->
             op.value.toMutableKATEObject(
                 method = op.key

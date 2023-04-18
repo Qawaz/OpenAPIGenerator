@@ -20,11 +20,18 @@
     @end_define_placeholder
 
     @define_placeholder(__object_declaration__,html_object)
+
+        @function objName()
+            @if(object.getName() != "")
+                @default_no_raw <span class="obj_name">@var(object.getName())</span>  @end_default_no_raw
+            @endif
+        @end_function
+
         @default_no_raw
             <div class="obj_dec">
             <pre>
             <code>
-                <span class="obj_name">@var(object.getName())</span> {
+               @var(objName()) {
             @var(printMembers())
                 }
             </code>

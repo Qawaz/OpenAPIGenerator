@@ -1,7 +1,7 @@
 <div class="obj_dec">
 <pre>
 <code>
-    <span class="obj_name">Success</span> {
+   <span class="obj_name">Success</span>  {
 	<span class="mem_key">success</span> : <span class="mem_type">boolean</span>
     }
 </code>
@@ -34,7 +34,7 @@ pre {
 </style><div class="obj_dec">
 <pre>
 <code>
-    <span class="obj_name">Error</span> {
+   <span class="obj_name">Error</span>  {
 	<span class="mem_key">error</span> : <span class="mem_type">string</span>
 	<span class="mem_key">message</span> : <span class="mem_type">string</span>
     }
@@ -44,7 +44,7 @@ pre {
 <div class="obj_dec">
 <pre>
 <code>
-    <span class="obj_name">AppInformation</span> {
+   <span class="obj_name">AppInformation</span>  {
 	<span class="mem_key">package_name</span> : <span class="mem_type">string</span>
 	<span class="mem_key">version_number</span> : <span class="mem_type">int</span>
 	<span class="mem_key">version</span> : <span class="mem_type">string</span>
@@ -55,7 +55,7 @@ pre {
 <div class="obj_dec">
 <pre>
 <code>
-    <span class="obj_name">UserInformation</span> {
+   <span class="obj_name">UserInformation</span>  {
 	<span class="mem_key">user_email</span> : <span class="mem_type">string</span>
 	<span class="mem_key">user_id</span> : <span class="mem_type">string</span>
 	<span class="mem_key">user_name</span> : <span class="mem_type">string</span>
@@ -66,7 +66,7 @@ pre {
 <div class="obj_dec">
 <pre>
 <code>
-    <span class="obj_name">DeviceInformation</span> {
+   <span class="obj_name">DeviceInformation</span>  {
 	<span class="mem_key">platform_type</span> : <span class="mem_type">string</span>
 	<span class="mem_key">os_version</span> : <span class="mem_type">string</span>
 	<span class="mem_key">os_name</span> : <span class="mem_type">string</span>
@@ -78,7 +78,7 @@ pre {
 <div class="obj_dec">
 <pre>
 <code>
-    <span class="obj_name">DisplayInformation</span> {
+   <span class="obj_name">DisplayInformation</span>  {
 	<span class="mem_key">orientation</span> : <span class="mem_type">string</span>
 	<span class="mem_key">top</span> : <span class="mem_type">int</span>
 	<span class="mem_key">left</span> : <span class="mem_type">int</span>
@@ -92,7 +92,7 @@ pre {
 <div class="obj_dec">
 <pre>
 <code>
-    <span class="obj_name">DeviceStorageInformation</span> {
+   <span class="obj_name">DeviceStorageInformation</span>  {
 	<span class="mem_key">storage_name</span> : <span class="mem_type">string</span>
 	<span class="mem_key">total_space</span> : <span class="mem_type">int</span>
 	<span class="mem_key">free_space</span> : <span class="mem_type">int</span>
@@ -103,7 +103,7 @@ pre {
 <div class="obj_dec">
 <pre>
 <code>
-    <span class="obj_name">StackTraceElem</span> {
+   <span class="obj_name">StackTraceElem</span>  {
 	<span class="mem_key">is_native_method</span> : <span class="mem_type">boolean</span>
 	<span class="mem_key">method_name</span> : <span class="mem_type">string</span>
 	<span class="mem_key">file_name</span> : <span class="mem_type">string</span>
@@ -116,7 +116,7 @@ pre {
 <div class="obj_dec">
 <pre>
 <code>
-    <span class="obj_name">ThreadInformation</span> {
+   <span class="obj_name">ThreadInformation</span>  {
 	<span class="mem_key">thread_id</span> : <span class="mem_type">int</span>
 	<span class="mem_key">is_interrupted</span> : <span class="mem_type">boolean</span>
 	<span class="mem_key">thread_name</span> : <span class="mem_type">string</span>
@@ -132,7 +132,7 @@ pre {
 <div class="obj_dec">
 <pre>
 <code>
-    <span class="obj_name">DeviceState</span> {
+   <span class="obj_name">DeviceState</span>  {
 	<span class="mem_key">other_threads</span> : <span class="mem_type">list&lt;ThreadInformation&gt;</span>
 	<span class="mem_key">current_thread</span> : <span class="mem_type">ThreadInformation</span>
 	<span class="mem_key">info_map</span> : <span class="mem_type">map&lt;string, string&gt;</span>
@@ -146,7 +146,7 @@ pre {
 <div class="obj_dec">
 <pre>
 <code>
-    <span class="obj_name">LogEntry</span> {
+   <span class="obj_name">LogEntry</span>  {
 	<span class="mem_key">device_state</span> : <span class="mem_type">DeviceState</span>
 	<span class="mem_key">time_fired</span> : <span class="mem_type">int</span>
 	<span class="mem_key">values</span> : <span class="mem_type">map&lt;string, string&gt;</span>
@@ -161,7 +161,7 @@ pre {
 <div class="obj_dec">
 <pre>
 <code>
-    <span class="obj_name">DatabaseLogEntry</span> {
+   <span class="obj_name">DatabaseLogEntry</span>  {
 	<span class="mem_key">notes</span> : <span class="mem_type">list&lt;string&gt;</span>
 	<span class="mem_key">log</span> : <span class="mem_type">list&lt;LogEntry&gt;</span>
 	<span class="mem_key">created_at</span> : <span class="mem_type">int</span>
