@@ -16,14 +16,14 @@ fun Path.generateUsingTemplate(
         name = "Path",
         template = template,
         prefix = prefix,
-        output = File("output/$outputDir/${getPathString()}$extension")
+        output = File("output/$outputDir/${getPathString()!!.removePrefix("/").replace('/', '_')}$extension")
     )
 }
 
 fun Collection<Path>.generateMultipleFromTemplate(
     outputFile: String,
     template: String,
-    separator: String
+    separator: String?
 ) {
     map { it.toMutableKATEObject() }.generateMultipleFromTemplate(
         output = File("output/$outputFile"),

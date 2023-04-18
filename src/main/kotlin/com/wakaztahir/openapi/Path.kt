@@ -4,6 +4,7 @@ import com.reprezen.jsonoverlay.JsonOverlay
 import com.reprezen.kaizen.oasparser.model3.*
 import com.wakaztahir.kate.model.model.KATEList
 import com.wakaztahir.kate.model.model.KATEListImpl
+import com.wakaztahir.kate.model.model.KATEValue
 import com.wakaztahir.kate.model.model.MutableKATEObject
 
 fun MediaType.toMutableKATEObject(): MutableKATEObject {
@@ -49,14 +50,15 @@ fun Operation.toMutableKATEObject(method: String): MutableKATEObject {
     }
 }
 
+fun Collection<Operation>.toKATEList(): KATEListImpl<*> {
+    return KATEListImpl(map { op -> op.toMutableKATEObject(method = (op as JsonOverlay<*>)._getPathInParent()) })
+}
+
 fun Collection<Operation>.toMutableKATEObject(path: String): MutableKATEObject {
     return MutableKATEObject {
         putValue("path", path)
-        putValue("operations", KATEListImpl(map { op ->
-            op.toMutableKATEObject(
-                method = (op as JsonOverlay<*>)._getPathInParent()
-            )
-        }))
+        putValue("parameters", KATEListImpl(emptyList()))
+        putValue("operations", toKATEList())
     }
 }
 
@@ -93,12 +95,11 @@ fun Parameter.toMutableKATEObject(): MutableKATEObject {
 }
 
 fun Path.toMutableKATEObject(): MutableKATEObject {
-    this.getParameters()
     return MutableKATEObject {
         putValue("path", getPathString()!!)
         getDescription()?.let { putValue("description", it) }
         getSummary()?.let { putValue("summary", it) }
         putValue("parameters", KATEListImpl(getParameters().map { it.toMutableKATEObject() }))
-        putValue("operations", getOperations().values.toMutableKATEObject(path = getPathString()!!))
+        putValue("operations", getOperations().values.toKATEList())
     }
 }

@@ -4,6 +4,8 @@ import com.reprezen.kaizen.oasparser.OpenApiParser
 import com.reprezen.kaizen.oasparser.model3.Operation
 import com.reprezen.kaizen.oasparser.validate
 import com.wakaztahir.openapi.template.generateFromTemplate
+import com.wakaztahir.openapi.template.path.generateAsHtml
+import com.wakaztahir.openapi.template.path.generateMultipleFromTemplate
 import com.wakaztahir.openapi.template.path.operation.generateAsHtml
 import com.wakaztahir.openapi.template.schema.*
 import java.io.File
@@ -49,10 +51,15 @@ fun testCustomTemplate() {
             operation.value.generateAsHtml(path = path.value.getPathString()!!)
         }
 
+        // all operations of path into a single file
         path.value.getOperations().values.generateAsHtml(path = path.value.getPathString()!!)
+
+        // each path into its own file
+        path.value.generateAsHtml()
 
     }
 
+    parsed.getPaths().values.generateAsHtml()
 
 }
 

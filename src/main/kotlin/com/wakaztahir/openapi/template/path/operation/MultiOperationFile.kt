@@ -6,7 +6,7 @@ fun Collection<Operation>.generateAsHtml(path: String) {
     generateUsingTemplate(
         path = path,
         outputDir = "html",
-        template = "./schema/html/multiple_operations.kate.html",
+        template = "./schema/html/path_as_html.kate.html",
         prefix = ""
     )
 }
