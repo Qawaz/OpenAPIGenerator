@@ -53,10 +53,14 @@ fun testCustomTemplate() {
     }
 
     // all schemas into a single file
-    parsed.getSchemas().values.generateMultipleFromTemplate(
-        outputFile = "html/models.html",
-        template = "./schema/html/object_as_html.kate"
-    )
+    parsed.getSchemas().values.generateAsKotlinInterface()
+    parsed.getSchemas().values.generateAsKotlinDataClass()
+    parsed.getSchemas().values.generateAsSerializableKotlinDataClass()
+    parsed.getSchemas().values.generateAsOverridableInterface()
+    parsed.getSchemas().values.generateAsOverridableSerializableInterface()
+    parsed.getSchemas().values.generateAsGolangStructs()
+    parsed.getSchemas().values.generateAsJson()
+    parsed.getSchemas().values.generateAsHtml()
 
     for (path in parsed.getPaths()) {
 

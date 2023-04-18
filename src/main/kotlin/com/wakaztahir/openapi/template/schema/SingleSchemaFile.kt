@@ -7,7 +7,8 @@ fun Schema.generateAsKotlinInterface() {
         outputDir = "kotlin/models/interface",
         template = "schema/kotlin/object_as_interface.kate",
         extension = ".kt",
-        prefix = "package `interface`\n\n"
+        prefix = "package `interface`\n\n",
+        allowNested = false
     )
 }
 
@@ -16,7 +17,8 @@ fun Schema.generateAsKotlinDataClass() {
         outputDir = "kotlin/models/data_class",
         template = "schema/kotlin/object_as_data_class.kate",
         extension = ".kt",
-        prefix = "package data_class\n\n"
+        prefix = "package data_class\n\n",
+        allowNested = false
     )
 }
 
@@ -25,7 +27,8 @@ fun Schema.generateAsSerializableKotlinDataClass() {
         outputDir = "kotlin/models/serializable_data_class",
         template = "schema/kotlin/object_as_serializable_data_class.kate",
         extension = ".kt",
-        prefix = "package data_class\n\n"
+        prefix = "package data_class\n\n",
+        allowNested = false
     )
 }
 
@@ -34,7 +37,8 @@ fun Schema.generateAsOverridableInterface() {
         outputDir = "kotlin/models/overridden",
         template = "schema/kotlin/object_as_data_class_overriding_interface.kate",
         extension = ".kt",
-        prefix = "package overridden\n\n"
+        prefix = "package overridden\n\n",
+        allowNested = false
     )
 }
 
@@ -43,7 +47,8 @@ fun Schema.generateAsOverridableSerializableInterface() {
         outputDir = "kotlin/models/overridden_serializable",
         template = "schema/kotlin/object_as_serializable_data_class_overriding_interface.kate",
         extension = ".kt",
-        prefix = "package overridden_serializable\n\n"
+        prefix = "package overridden_serializable\n\n",
+        allowNested = false
     )
 }
 
@@ -52,7 +57,8 @@ fun Schema.generateAsGolangStructs() {
         outputDir = "golang/models/struct",
         template = "schema/golang/object_as_go_struct.kate",
         extension = ".go",
-        prefix = "package main\n\n"
+        prefix = "package main\n\n",
+        allowNested = false
     )
 }
 
@@ -71,6 +77,7 @@ fun Schema.generateAsHtml() {
         outputDir = "html/models",
         template = "schema/html/object_as_html.kate",
         extension = ".html",
-        prefix = ""
+        prefix = "",
+        allowNested = false
     )
 }

@@ -12,7 +12,7 @@ fun Schema.generateUsingTemplate(
     template: String,
     extension: String,
     prefix: String,
-    allowNested: Boolean = false
+    allowNested: Boolean
 ) {
     val name = getName()!!
     toKATEValue(allowNested = allowNested).generateFromTemplate(
@@ -26,10 +26,16 @@ fun Schema.generateUsingTemplate(
 fun Collection<Schema>.generateMultipleFromTemplate(
     outputFile: String,
     template: String,
-    allowNested: Boolean = false
+    separator : String?,
+    allowNested: Boolean,
+    prefix : String = "",
+    suffix : String = ""
 ) {
     map { it.toKATEValue(allowNested = allowNested) as MutableKATEObject }.generateMultipleFromTemplate(
         output = File("output/$outputFile"),
-        template = template
+        template = template,
+        separator = separator,
+        prefix = prefix,
+        suffix = suffix,
     )
 }
