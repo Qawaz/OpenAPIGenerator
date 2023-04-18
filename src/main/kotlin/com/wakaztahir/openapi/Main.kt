@@ -154,7 +154,7 @@ fun Operation.generateAsHtml(method: String, path: String) {
         name = method,
         template = "./schema/html/operation_as_html.kate.html",
         prefix = "",
-        output = File("output/html/routes/${path.removePrefix("/").replace('/', '_')}/${method}.html")
+        output = File("output/html/paths/${path.removePrefix("/").replace('/', '_')}/${method}.html")
     )
 }
 
@@ -199,7 +199,7 @@ fun testCustomTemplate() {
 
         // all operations of path into a single file
         path.value.getOperations().generateMultipleRoutes(
-            outputFile = "html/routes/${path.value.getPathString()!!.removePrefix("/").replace('/', '_')}/operations.html"
+            outputFile = "html/paths/${path.value.getPathString()!!.removePrefix("/").replace('/', '_')}/operations.html"
         )
 
     }
