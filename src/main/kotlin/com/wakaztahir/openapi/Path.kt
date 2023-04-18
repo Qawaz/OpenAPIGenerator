@@ -1,6 +1,7 @@
 package com.wakaztahir.openapi
 
 import com.reprezen.kaizen.oasparser.model3.*
+import com.wakaztahir.kate.model.model.KATEList
 import com.wakaztahir.kate.model.model.KATEListImpl
 import com.wakaztahir.kate.model.model.MutableKATEObject
 
@@ -55,5 +56,48 @@ fun Map<String, Operation>.toMutableKATEObject(path: String): MutableKATEObject 
                 method = op.key
             )
         }))
+    }
+}
+
+fun Example.toMutableKATEObject(key: String): MutableKATEObject {
+    return MutableKATEObject {
+        putValue("key", key)
+        getName()?.let { putValue("name", it) }
+        getDescription()?.let { putValue("description", it) }
+        getSummary()?.let { putValue("summary", it) }
+        getExternalValue()?.let { putValue("externalValue", it) }
+    }
+}
+
+fun Map<String, Example>.toKATEList(): KATEListImpl<MutableKATEObject> {
+    return KATEListImpl(map { it.value.toMutableKATEObject(key = it.key) })
+}
+
+fun Parameter.toMutableKATEObject(): MutableKATEObject {
+    return MutableKATEObject {
+        getName()?.let { putValue("name", it) }
+        getDescription()?.let { putValue("description", it) }
+        getRequired()?.let { putValue("required", it) }
+        getIn()?.let { putValue("in", it) }
+        getAllowEmptyValue()?.let { putValue("allowEmptyValue", it) }
+        getAllowReserved()?.let { putValue("allowReserved", it) }
+        getDeprecated()?.let { putValue("deprecated", it) }
+        putValue("mediaTypes", getContentMediaTypes().mediaTypesObject())
+        getExplode()?.let { putValue("explode", it) }
+        getKey()?.let { putValue("key", it) }
+        getStyle()?.let { putValue("style", it) }
+        getSchema()?.let { putValue("schema", it.toKATEValue(allowNested = true)) }
+        putValue("examples", getExamples().toKATEList())
+    }
+}
+
+fun Path.toMutableKATEObject(): MutableKATEObject {
+    this.getParameters()
+    return MutableKATEObject {
+        putValue("path", getPathString()!!)
+        getDescription()?.let { putValue("description", it) }
+        getSummary()?.let { putValue("summary", it) }
+        putValue("parameters", KATEListImpl(getParameters().map { it.toMutableKATEObject() }))
+        putValue("operations", getOperations().toMutableKATEObject(path = getPathString()!!))
     }
 }
