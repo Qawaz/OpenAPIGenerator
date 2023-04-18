@@ -13,6 +13,20 @@ import com.wakaztahir.kate.model.model.MutableKATEObject
 import com.wakaztahir.kate.parser.stream.TextSourceStream
 import java.io.File
 
+fun KATEValue.generateFromTemplate(name: String, template: String, prefix: String, output: File) {
+    val source = TextSourceStream(
+        sourceCode = """@partial_raw @embed_once ./$template${"\n"}@default_no_raw $prefix@var(${name}) @end_default_no_raw @end_partial_raw""",
+        model = MutableKATEObject { putValue(name, this@generateFromTemplate) }.also {
+//            println("Object $name , Template $template , Extension $extension")
+//            println(it)
+        },
+        embeddingManager = RelativeResourceEmbeddingManager(basePath = "/", classLoader = object {}.javaClass)
+    )
+    val stream = output.outputStream()
+    source.generateTo(OutputDestinationStream(stream))
+    stream.close()
+}
+
 fun List<KATEObject>.generateMultipleFromTemplate(output: File, template: String) {
     val model = MutableKATEObject {
         for (obj in this@generateMultipleFromTemplate) {
@@ -34,42 +48,33 @@ fun List<KATEObject>.generateMultipleFromTemplate(output: File, template: String
     stream.close()
 }
 
-fun Collection<Schema>.generateIntoSingleTemplate(outputFile: String, template: String, allowNested: Boolean = false) {
+fun Collection<Schema>.generateMultipleFromTemplate(outputFile: String, template: String, allowNested: Boolean = false) {
     map { it.toKATEValue(allowNested = allowNested) as MutableKATEObject }.generateMultipleFromTemplate(
         output = File("output/$outputFile"),
         template = template
     )
 }
 
-fun Map<String, Operation>.generateIntoSingleTemplate(
-    outputFile: String,
-    template: String,
-    path: String
-) {
-    map { op ->
-        op.value.toMutableKATEObject(
-            method = op.key,
-            path = path
-        )
-    }.generateMultipleFromTemplate(
+fun Map<String, Operation>.generateMultipleRoutes(outputFile: String) {
+    toMutableKATEObject().generateFromTemplate(
         output = File("output/$outputFile").also { it.parentFile.mkdirs() },
-        template = template
+        template = "./schema/html/multiple_operations.kate.html",
+        name = "routesList",
+        prefix = ""
     )
 }
 
-fun KATEValue.generateFromTemplate(name: String, template: String, prefix: String, output: File) {
-    val source = TextSourceStream(
-        sourceCode = """@partial_raw @embed_once ./$template${"\n"}@default_no_raw $prefix@var(${name}) @end_default_no_raw @end_partial_raw""",
-        model = MutableKATEObject { putValue(name, this@generateFromTemplate) }.also {
-//            println("Object $name , Template $template , Extension $extension")
-//            println(it)
-        },
-        embeddingManager = RelativeResourceEmbeddingManager(basePath = "/", classLoader = object {}.javaClass)
-    )
-    val stream = output.outputStream()
-    source.generateTo(OutputDestinationStream(stream))
-    stream.close()
-}
+//fun Map<String, Path>.generateIntoSingleTemplate(
+//    outputFile: String,
+//    template: String,
+//) {
+//    map { path ->
+//        path.value.getOperations().toListMutableKATEObject(path = path.value.getPathString()!!)
+//    }.generateMultipleFromTemplate(
+//        output = File("output/$outputFile").also { it.parentFile.mkdirs() },
+//        template = template
+//    )
+//}
 
 fun Schema.generateUsingTemplate(
     outputDir: String,
@@ -145,9 +150,9 @@ fun Schema.generateAsHtml() {
 }
 
 fun Operation.generateAsHtml(method: String, path: String) {
-    toMutableKATEObject(method = method, path = path).generateFromTemplate(
+    toMutableKATEObject(method = method).generateFromTemplate(
         name = method,
-        template = "./schema/html/route_as_html.kate.html",
+        template = "./schema/html/operation_as_html.kate.html",
         prefix = "",
         output = File("output/html/routes/${path.removePrefix("/").replace('/', '_')}/${method}.html")
     )
@@ -160,13 +165,14 @@ fun testCustomTemplate() {
     val parsed = parser.parse(input)
 
     val results = parsed.validate().getItems()
-    if(results.isNotEmpty()){
-        for(result in results) println(result)
+    if (results.isNotEmpty()) {
+        for (result in results) println(result)
         throw IllegalStateException("Schema isn't valid")
     }
 
     parsed.getPaths().values.first().getPathString()
 
+    // each schema into its own file for its language
     for (schema in parsed.getSchemas()) {
         schema.value.generateAsKotlinInterface()
         schema.value.generateAsKotlinDataClass()
@@ -178,23 +184,24 @@ fun testCustomTemplate() {
         schema.value.generateAsHtml()
     }
 
-    // Single templates
-    parsed.getSchemas().values.generateIntoSingleTemplate(
+    // all schemas into a single file
+    parsed.getSchemas().values.generateMultipleFromTemplate(
         outputFile = "html/models.html",
         template = "./schema/html/object_as_html.kate"
     )
 
     for (path in parsed.getPaths()) {
 
+        // each operation of path into its own file
         for (operation in path.value.getOperations()) {
             operation.value.generateAsHtml(method = operation.key, path = path.value.getPathString()!!)
         }
 
-        path.value.getOperations().generateIntoSingleTemplate(
-            outputFile = "html/routes/${path.value.getPathString()!!.removePrefix("/").replace('/', '_')}/routes.html",
-            template = "./schema/html/route_as_html.kate.html",
-            path = path.value.getPathString()!!
+        // all operations of path into a single file
+        path.value.getOperations().generateMultipleRoutes(
+            outputFile = "html/routes/${path.value.getPathString()!!.removePrefix("/").replace('/', '_')}/operations.html"
         )
+
     }
 
 

@@ -4,9 +4,7 @@
 
     @function printMediaType(key,type)
         @if(type.contains("schema"))
-            @use_placeholder(object,default)
-            @default_no_raw @var(type.schema) @end_default_no_raw
-            @use_placeholder(object,object_as_path)
+            @placeholder(object,default,type.schema)
         @endif
     @end_function
 
@@ -17,17 +15,16 @@
         @endfor
     @end_function
 
-    @define_placeholder(route,,route)
+    @define_placeholder(operation,,op)
         @default_no_raw
-            <div class="route">
+            <div class="operation">
                 <div class="header">
-                    <span class="method">@var(route.method)</span>
-                    <span class="path">@var(route.path)</span>
+                    <span class="method">@var(op.method)</span>
                 </div>
                 <div class="info">
-                    <div class="description">@var(route.description)</div>
-                    <div class="summary">@var(route.summary)</div>
-                    <div class="operationId">@var(route.operationId)</div>
+                    <div class="description">@var(op.description)</div>
+                    <div class="summary">@var(op.summary)</div>
+                    <div class="operationId">@var(op.operationId)</div>
                 </div>
                 <div class="responses">
                     <h3>Responses:</h3>
@@ -41,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @for(@var response : route.responses)
+                        @for(@var response : op.responses)
                             <tr>
                                 <td>@var(response.statusCode)</td>
                                 <td>@var(response.description)</td>
@@ -56,11 +53,11 @@
         @end_default_no_raw
     @end_define_placeholder
 
-    @define_placeholder(object,object_as_path,route)
-        @placeholder(route,@var(route))
+    @define_placeholder(object,object_as_operation,operation)
+        @placeholder(operation,,@var(operation))
         @embed_once ./default_table_styles.kate.html
         @runtime.print_char('\n')
-        @embed_once ./default_route_styles.kate.html
+        @embed_once ./default_operation_styles.kate.html
     @end_define_placeholder
 
 @end_partial_raw

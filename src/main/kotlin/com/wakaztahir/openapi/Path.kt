@@ -10,9 +10,9 @@ fun MediaType.toMutableKATEObject(): MutableKATEObject {
     }
 }
 
-fun Map<String, MediaType>.toMutableKATEObject(): MutableKATEObject {
+fun Map<String, MediaType>.mediaTypesObject(): MutableKATEObject {
     return MutableKATEObject {
-        for (item in this@toMutableKATEObject) {
+        for (item in this@mediaTypesObject) {
             putValue(item.key, item.value.toMutableKATEObject())
         }
     }
@@ -23,14 +23,13 @@ fun Response.toMutableKATEObject(statusCode: String): MutableKATEObject {
         putValue("statusCode", statusCode)
         putValue("description", getDescription() ?: "")
         putValue("example", "NO_EXAMPLE_YET")
-        putValue("mediaTypes", getContentMediaTypes().toMutableKATEObject())
+        putValue("mediaTypes", getContentMediaTypes().mediaTypesObject())
     }
 }
 
-fun Operation.toMutableKATEObject(method: String, path: String): MutableKATEObject {
+fun Operation.toMutableKATEObject(method: String): MutableKATEObject {
     return MutableKATEObject {
         putValue("method", method)
-        putValue("path", path)
         putValue("description", getDescription() ?: "")
         putValue("summary", getSummary() ?: "")
         putValue("operationId", getOperationId() ?: "")
@@ -38,8 +37,12 @@ fun Operation.toMutableKATEObject(method: String, path: String): MutableKATEObje
     }
 }
 
-fun Path.toRouteList(): List<MutableKATEObject> {
-    return getOperations().map { op ->
-        op.value.toMutableKATEObject(method = op.key, path = getPathString()!!)
+fun Map<String, Operation>.toMutableKATEObject(): MutableKATEObject {
+    return MutableKATEObject {
+        putValue("operations", KATEListImpl(map { op ->
+            op.value.toMutableKATEObject(
+                method = op.key
+            )
+        }))
     }
 }
