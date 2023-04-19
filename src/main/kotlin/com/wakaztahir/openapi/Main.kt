@@ -59,7 +59,16 @@ fun testCustomTemplate() {
 
     }
 
+    // all paths into single file
     parsed.getPaths().values.generateAsHtml()
+
+    // whole spec into a single file
+    parsed.toMutableKATEObject().generateFromTemplate(
+        name = "OpenApiObj",
+        template = "./schema/html/spec_as_html.kate.html",
+        prefix = "",
+        output = File("output/html/spec.html")
+    )
 
 }
 

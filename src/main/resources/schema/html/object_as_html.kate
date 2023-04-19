@@ -5,7 +5,7 @@
     @embed_once ./type.kate
 
     @function defaultObjStyles()
-        @embed_once ./default_object_styles.kate.html
+        @embed_once ./styles/default_object_styles.kate.html
     @end_function
 
     @define_placeholder(__html_object_styles__)

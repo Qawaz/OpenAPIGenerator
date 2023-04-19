@@ -4,7 +4,7 @@
 
     @embed_once ./parameter_as_html.kate.html
 
-    @define_placeholder(object,multiple_routes,path)
+    @define_placeholder(object,path,path)
 
         @default_no_raw
         <div class="path">
@@ -26,10 +26,10 @@
             @placeholder(operation,operation,operation)
         @endfor
 
-        @embed_once ./default_path_styling.kate.html
-        @embed_once ./default_table_styles.kate.html
+        @embed_once ./styles/default_path_styles.kate.html
+        @embed_once ./styles/default_table_styles.kate.html
         @runtime.print_char('\n')
-        @embed_once ./default_operation_styles.kate.html
+        @embed_once ./styles/default_operation_styles.kate.html
 
     @end_define_placeholder
 

@@ -1,0 +1,16 @@
+@partial_raw
+
+    @define_placeholder(object,info,info)
+
+    @default_no_raw
+    <div class="info">
+        @if(info.contains("title")) Title <h1 class="title"> @var(info.title)</h1> @endif
+        @if(info.contains("description")) Description <h1 class="description"> @var(info.description)</h1> @endif
+        @if(info.contains("version")) Version <h1 class="version"> @var(info.version)</h1> @endif
+        @if(info.contains("termsOfService")) Terms Of Service <h1 class="termsOfService"> @var(info.termsOfService)</h1> @endif
+    </div>
+    @end_default_no_raw
+
+    @end_define_placeholder
+
+@end_partial_raw

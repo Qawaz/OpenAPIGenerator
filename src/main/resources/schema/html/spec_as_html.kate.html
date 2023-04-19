@@ -1,0 +1,29 @@
+@partial_raw
+
+    @embed_once ./object_as_html.kate
+
+    @embed_once ./path_as_html.kate.html
+
+    @embed_once ./object_as_info.kate.html
+
+    @define_placeholder(object,spec,spec)
+
+        @default_no_raw <h1>Info</h1> @end_default_no_raw
+
+        @placeholder(object,info,spec.info)
+
+        @default_no_raw <h1>Paths</h1> @end_default_no_raw
+
+        @for(@var path : spec.paths)
+            @placeholder(object,path,path)
+        @endfor
+
+        @default_no_raw <h1>Schemas</h1> @end_default_no_raw
+
+        @for(@var schema : spec.schemas)
+            @placeholder(object,default,schema)
+        @endfor
+
+    @end_define_placeholder
+
+@end_partial_raw
