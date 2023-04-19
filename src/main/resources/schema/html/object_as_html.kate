@@ -4,10 +4,6 @@
 
     @embed_once ./type.kate
 
-    @function defaultObjStyles()
-        @embed_once ./styles/default_object_styles.kate.html
-    @end_function
-
     @define_placeholder(__html_object_styles__)
         defaultObjStyles()
     @end_define_placeholder
@@ -39,7 +35,6 @@
             </div>
         @end_default_no_raw
         @runtime.print_char('\n')
-        @placeholder(__html_object_styles__)
     @end_define_placeholder
 
 @end_partial_raw

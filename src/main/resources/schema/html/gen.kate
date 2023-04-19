@@ -1,0 +1,89 @@
+@partial_raw
+
+    @embed_once ./object_as_html.kate
+
+    <%-- Generating each schema into its own file --%>
+    @for(@var schema : schemas)
+        @var fileName = "./models/" + schema.getName() + ".html"
+        @var(console.log("Generating schema in html for " + fileName))
+        @var(set_stream(fileName))
+        @placeholder(object,default,schema)
+        @embed ./styles/default_object_styles.kate.html
+    @endfor
+
+    <%-- Generating all schemas into single file --%>
+    @var(set_stream("./models/All.html"))
+    @var(console.log("Generating single file for schemas All.html"))
+    @for(@var schema : schemas)
+        @placeholder(object,default,schema)
+    @endfor
+    @embed ./styles/default_object_styles.kate.html
+
+    @embed_once ./operation_as_html.kate.html
+    @embed_once ./path_as_html.kate.html
+
+    <%-- Generating paths into single files and its operations into its folders --%>
+    @for(@var path : paths)
+
+        @for(@var operation : path.operations)
+            @var fileName = "./paths/" + path.path.removePrefix("/").replace("/","_") + "/" + operation.method + ".html"
+            @var(console.log("Generating path in html for " + fileName))
+            @var(set_stream(fileName))
+            @placeholder(object,object_as_operation,operation)
+            @embed ./styles/default_table_styles.kate.html
+            @runtime.print_char('\n')
+            @embed ./styles/default_operation_styles.kate.html
+            @embed ./styles/default_object_styles.kate.html
+        @endfor
+
+        @var allFileName = "./paths/" + path.path.removePrefix("/").replace("/","_") + "/All.html"
+
+        @var(console.log("Generating single file for operations All.html"))
+        @var(set_stream(allFileName))
+        @for(@var operation : path.operations)
+            @placeholder(object,object_as_operation,operation)
+        @endfor
+        @embed ./styles/default_table_styles.kate.html
+        @runtime.print_char('\n')
+        @embed ./styles/default_operation_styles.kate.html
+        @embed ./styles/default_object_styles.kate.html
+
+        @var fileName = "./paths/" + path.path.removePrefix("/").replace("/","_") + ".html"
+        @var(console.log("Generating file for path " + fileName))
+        @var(set_stream(fileName))
+        @placeholder(object,path,path)
+        @embed ./styles/default_path_styles.kate.html
+        @embed ./styles/default_table_styles.kate.html
+        @runtime.print_char('\n')
+        @embed ./styles/default_operation_styles.kate.html
+        @embed ./styles/default_object_styles.kate.html
+
+    @endfor
+
+     <%-- Generating all paths into a single file --%>
+    @var fileName = "./paths/All.html"
+    @var(console.log("Generating single file for all paths All.html"))
+    @var(set_stream(fileName))
+    @for(@var path : paths)
+        @placeholder(object,path,path)
+        @embed ./styles/default_path_styles.kate.html
+        @embed ./styles/default_table_styles.kate.html
+        @runtime.print_char('\n')
+        @embed ./styles/default_operation_styles.kate.html
+        @embed ./styles/default_object_styles.kate.html
+    @endfor
+
+    @embed_once ./spec_as_html.kate.html
+
+    <%-- Generating single file for the whole spec --%>
+    @var(console.log("Generating single file for whole spec spec.html"))
+    @var fileName = "./spec.html"
+    @var(set_stream(fileName))
+    @placeholder(object,spec,this)
+    @embed ./styles/default_path_styles.kate.html
+    @embed ./styles/default_table_styles.kate.html
+    @runtime.print_char('\n')
+    @embed ./styles/default_operation_styles.kate.html
+    @embed ./styles/default_object_styles.kate.html
+
+@end_partial_raw

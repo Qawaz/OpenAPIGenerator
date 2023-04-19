@@ -1,4 +1,220 @@
 <div class="path">
+<h1 class="title"> /v1/logs/upload</h1>
+<div class="description">Takes log file and saves it</div>
+<div class="summary">Upload a logs file</div>
+</div><div class="operation">
+    <div class="header">
+        <span class="method">post</span>
+    </div>
+    <div class="info">
+        
+        
+        OperationId <div class="operationId code-box">uploadLogFile</div>
+    </div>
+    
+<div class="request-body">
+    <h3>Request Body</h3>
+    <div class="info">
+        
+        Description <div class="description code-box">Request body for the log file upload request , containing token and is_encrypted</div>
+        Required <div class="required code-box">true</div>
+    </div>
+    <div class="obj_dec">
+<pre>
+<code>
+    {
+	<span class="mem_key">is_encrypted</span> : <span class="mem_type">string</span>
+	<span class="mem_key">token</span> : <span class="mem_type">string</span>
+    }
+</code>
+</pre>
+</div>
+
+</div>
+    <div class="responses">
+        <h3>Responses:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Status Code</th>
+                    <th>Description</th>
+                    <th>Example Response</th>
+                    <th>Media Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                        <tr>
+                <td>200</td>
+                <td>The file has been uploaded</td>
+                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+   <span class="obj_name">Success</span>  {
+	<span class="mem_key">success</span> : <span class="mem_type">boolean</span>
+    }
+</code>
+</pre>
+</div>
+</td>
+            </tr>            <tr>
+                <td>400</td>
+                <td>Bad request parameters</td>
+                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+   <span class="obj_name">Error</span>  {
+	<span class="mem_key">error</span> : <span class="mem_type">string</span>
+	<span class="mem_key">message</span> : <span class="mem_type">string</span>
+    }
+</code>
+</pre>
+</div>
+</td>
+            </tr>            <tr>
+                <td>401</td>
+                <td>Request Token couldn't be authorized</td>
+                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+   <span class="obj_name">Error</span>  {
+	<span class="mem_key">error</span> : <span class="mem_type">string</span>
+	<span class="mem_key">message</span> : <span class="mem_type">string</span>
+    }
+</code>
+</pre>
+</div>
+</td>
+            </tr>            <tr>
+                <td>500</td>
+                <td>File couldn't be uploaded or processed because of an internal error</td>
+                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+   <span class="obj_name">Error</span>  {
+	<span class="mem_key">error</span> : <span class="mem_type">string</span>
+	<span class="mem_key">message</span> : <span class="mem_type">string</span>
+    }
+</code>
+</pre>
+</div>
+</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div><style>
+    .path .title {
+        background:rgba(60,30,190,0.8);
+        color:white;
+        padding:0.5em;
+        border-radius:12px;
+        display:inline-block;
+        margin:0;
+        margin-bottom:8px;
+    }
+</style><style>
+    table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        border-radius : 8px;
+        overflow:hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+    table th,
+    table td {
+        padding: 12px 15px;
+    }
+    table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    table tbody tr:last-of-type {
+        border-bottom: 2px solid #9879;
+    }
+    table tbody tr.active-row {
+        font-weight: bold;
+        color: #9879;
+    }
+</style>
+<style>
+    .operation {
+        background : rgba(0,0,0,0.2);
+        padding : 16px;
+        border-radius : 2em;
+    }
+    .operation .method {
+        background : green;
+        color : white;
+        padding:0.6em;
+        border-radius:12px;
+    }
+    .code-box {
+        padding:0.6em;
+        font-family:monospace;
+        color:white;
+        border-radius:12px;
+        background : rgba(16,16,16,0.6)
+    }
+    .operation > .info {
+        display:inline-block;
+        margin-top : 16px;
+    }
+    .operation > .request-body > .info {
+        display:inline-block;
+    }
+    .header .path {
+        color : white;
+        background : green;
+        padding: 0.6em;
+        border-radius:12px;
+    }
+    .operation header {
+        display : inline-block;
+    }
+    .method {
+        text-transform:uppercase;
+    }
+</style><style>
+    pre {
+        background-color: #2d2d2d; /* Dark gray */
+        color: #e6e6e6;
+        border-radius: 5px;
+        font-size: 14px;
+        font-family: monospace;
+    }
+
+    .obj_dev {
+        color: #e6e6e6;
+    }
+
+    .obj_dec > .obj_name {
+        color: #8bc34a; /* Light green */
+    }
+
+    .obj_dec .mem_key {
+        color: #ef5350; /* Red */
+    }
+
+    .obj_dec .mem_type {
+        color: #42a5f5; /* Blue */
+    }
+</style><div class="path">
 <h1 class="title"> /v1/logs/list</h1>
 
 
@@ -30,31 +246,7 @@
 </code>
 </pre>
 </div>
-<style>
-    pre {
-        background-color: #2d2d2d; /* Dark gray */
-        color: #e6e6e6;
-        border-radius: 5px;
-        font-size: 14px;
-        font-family: monospace;
-    }
 
-    .obj_dev {
-        color: #e6e6e6;
-    }
-
-    .obj_dec > .obj_name {
-        color: #8bc34a; /* Light green */
-    }
-
-    .obj_dec .mem_key {
-        color: #ef5350; /* Red */
-    }
-
-    .obj_dec .mem_type {
-        color: #42a5f5; /* Blue */
-    }
-</style>
 </div>
     <div class="responses">
         <h3>Responses:</h3>
@@ -215,113 +407,28 @@
     .method {
         text-transform:uppercase;
     }
-</style><div class="path">
-<h1 class="title"> /v1/logs/list</h1>
+</style><style>
+    pre {
+        background-color: #2d2d2d; /* Dark gray */
+        color: #e6e6e6;
+        border-radius: 5px;
+        font-size: 14px;
+        font-family: monospace;
+    }
 
+    .obj_dev {
+        color: #e6e6e6;
+    }
 
-</div><div class="operation">
-    <div class="header">
-        <span class="method">post</span>
-    </div>
-    <div class="info">
-        Description <div class="description code-box">lists the logs for a package</div>
-        Summary <div class="summary code-box">List logs for a package</div>
-        OperationId <div class="operationId code-box">listLogs</div>
-    </div>
-    
-<div class="request-body">
-    <h3>Request Body</h3>
-    <div class="info">
-        
-        Description <div class="description code-box">Lists the logs for the given package and page</div>
-        Required <div class="required code-box">false</div>
-    </div>
-    <div class="obj_dec">
-<pre>
-<code>
-    {
-	<span class="mem_key">package_name</span> : <span class="mem_type">string</span>
-	<span class="mem_key">page</span> : <span class="mem_type">int</span>
-	<span class="mem_key">token</span> : <span class="mem_type">string</span>
+    .obj_dec > .obj_name {
+        color: #8bc34a; /* Light green */
     }
-</code>
-</pre>
-</div>
 
-</div>
-    <div class="responses">
-        <h3>Responses:</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Status Code</th>
-                    <th>Description</th>
-                    <th>Example Response</th>
-                    <th>Media Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                        <tr>
-                <td>200</td>
-                <td>Logs are returned</td>
-                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
-                <td><div class="obj_dec">
-<pre>
-<code>
-    {
-	<span class="mem_key">logs</span> : <span class="mem_type">list&lt;DatabaseLogEntry&gt;</span>
+    .obj_dec .mem_key {
+        color: #ef5350; /* Red */
     }
-</code>
-</pre>
-</div>
-</td>
-            </tr>            <tr>
-                <td>400</td>
-                <td>Error because of bad request</td>
-                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
-                <td><div class="obj_dec">
-<pre>
-<code>
-   <span class="obj_name">Error</span>  {
-	<span class="mem_key">error</span> : <span class="mem_type">string</span>
-	<span class="mem_key">message</span> : <span class="mem_type">string</span>
+
+    .obj_dec .mem_type {
+        color: #42a5f5; /* Blue */
     }
-</code>
-</pre>
-</div>
-</td>
-            </tr>            <tr>
-                <td>401</td>
-                <td>Error , request token couldn't be authorized</td>
-                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
-                <td><div class="obj_dec">
-<pre>
-<code>
-   <span class="obj_name">Error</span>  {
-	<span class="mem_key">error</span> : <span class="mem_type">string</span>
-	<span class="mem_key">message</span> : <span class="mem_type">string</span>
-    }
-</code>
-</pre>
-</div>
-</td>
-            </tr>            <tr>
-                <td>500</td>
-                <td>There was a server error listing the logs</td>
-                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
-                <td><div class="obj_dec">
-<pre>
-<code>
-   <span class="obj_name">Error</span>  {
-	<span class="mem_key">error</span> : <span class="mem_type">string</span>
-	<span class="mem_key">message</span> : <span class="mem_type">string</span>
-    }
-</code>
-</pre>
-</div>
-</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+</style>

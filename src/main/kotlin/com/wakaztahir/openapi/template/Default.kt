@@ -1,5 +1,9 @@
 package com.wakaztahir.openapi.template
 
+import com.reprezen.kaizen.oasparser.model3.OpenApi3
+import com.reprezen.kaizen.oasparser.model3.Operation
+import com.reprezen.kaizen.oasparser.model3.Path
+import com.reprezen.kaizen.oasparser.model3.Schema
 import com.wakaztahir.kate.OutputDestinationStream
 import com.wakaztahir.kate.RelativeResourceEmbeddingManager
 import com.wakaztahir.kate.model.model.KATEObject
@@ -58,4 +62,45 @@ fun List<KATEObject>.generateMultipleFromTemplate(
     val stream = output.outputStream()
     source.generateTo(OutputDestinationStream(stream))
     stream.close()
+}
+
+fun OpenApi3.generateForSingleLanguage(
+    generateSingleSchema: (Schema) -> Unit,
+    generateSchemaColl: (Collection<Schema>) -> Unit,
+    generateSingleOperation: (Operation, String) -> Unit,
+    generateOperationColl: (Collection<Operation>, String) -> Unit,
+    generateSinglePath: (Path) -> Unit,
+    generatePathColl: (Collection<Path>) -> Unit,
+    generateCompleteSpec: (OpenApi3) -> Unit
+) {
+
+    // each schema into its own file for its language
+    for (schema in getSchemas()) {
+        generateSingleSchema(schema.value)
+    }
+
+    // all schemas into a single file
+    generateSchemaColl(getSchemas().values)
+
+    for (path in getPaths()) {
+
+        // each operation of path into its own file
+        for (operation in path.value.getOperations()) {
+            generateSingleOperation(operation.value, path.value.getPathString()!!)
+        }
+
+        // all operations of path into a single
+        generateOperationColl(path.value.getOperations().values, path.value.getPathString()!!)
+
+        // each path into its own file
+        generateSinglePath(path.value)
+
+    }
+
+    // all paths into single file
+    generatePathColl(getPaths().values)
+
+    // whole spec into a single file
+    generateCompleteSpec(this)
+
 }
