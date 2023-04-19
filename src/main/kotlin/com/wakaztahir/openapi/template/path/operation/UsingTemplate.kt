@@ -17,7 +17,10 @@ fun Operation.generateUsingTemplate(
         name = "Operation",
         template = template,
         prefix = prefix,
-        output = File("output/$outputDir/$method$extension")
+        output = File("output/$outputDir").let {
+            it.mkdirs()
+            it.resolve("$method$extension")
+        }
     )
 }
 

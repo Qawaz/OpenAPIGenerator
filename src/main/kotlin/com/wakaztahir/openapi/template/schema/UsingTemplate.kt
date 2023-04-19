@@ -19,7 +19,10 @@ fun Schema.generateUsingTemplate(
         name = name,
         template = template,
         prefix = prefix,
-        output = File("output/$outputDir/${name}$extension")
+        output = File("output/$outputDir").let {
+            it.mkdirs()
+            it.resolve("${name}$extension")
+        }
     )
 }
 
