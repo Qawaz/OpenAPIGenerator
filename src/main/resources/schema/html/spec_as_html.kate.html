@@ -10,13 +10,13 @@
 
         @placeholder(object,info,spec.info)
 
-        @default_no_raw <h1>Paths</h1> @end_default_no_raw
+        @default_no_raw <h2>Paths</h2> @end_default_no_raw
 
         @for(@var path : spec.paths)
             @placeholder(object,path,path)
         @endfor
 
-        @default_no_raw <h1>Schemas</h1> @end_default_no_raw
+        @default_no_raw <h2>Schemas</h2> @end_default_no_raw
 
         @for(@var schema : spec.schemas)
             @placeholder(object,default,schema)

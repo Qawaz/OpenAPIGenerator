@@ -4,22 +4,12 @@
 
     @default_no_raw
     <div class="info">
+        <div class="title_container">
         @if(info.contains("title")) <h1 class="title">@var(info.title)</h1> @endif
+        @if(info.contains("version")) <span class="version">@var(info.version)</span> @endif
+        </div>
         @if(info.contains("description")) <h5 class="description"> @var(info.description)</h5> @endif
-        <table>
-            @if(info.contains("version"))
-            <tr>
-                <td>Version</td>
-                <td>@var(info.version)</td>
-            </tr>
-            @endif
-            @if(info.contains("termsOfService"))
-            <tr>
-                <td>Terms Of Service</td>
-                <td>@var(info.termsOfService)</td>
-            </tr>
-            @endif
-        </table>
+        @if(info.contains("termsOfService")) <a href="@var(info.termsOfService)" target="_blank">Terms of Services</a> @endif
     </div>
     @end_default_no_raw
 

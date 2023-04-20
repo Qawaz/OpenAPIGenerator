@@ -80,6 +80,8 @@
     @var fileName = "./spec.html"
     @var(set_stream(fileName))
     @placeholder(object,spec,this)
+    @embed ./styles/default_global_styles.kate.html
+    @embed ./styles/default_info_styles.kate.html
     @embed ./styles/default_path_styles.kate.html
     @embed ./styles/default_table_styles.kate.html
     @runtime.print_char('\n')
