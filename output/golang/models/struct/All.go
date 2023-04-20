@@ -3,7 +3,7 @@ type Success struct {
 }
 
 type Error struct {
-	Error string `json:"error" bson:"error"`
+	Type string `json:"type" bson:"type"`
 	Message string `json:"message" bson:"message"`
 }
 

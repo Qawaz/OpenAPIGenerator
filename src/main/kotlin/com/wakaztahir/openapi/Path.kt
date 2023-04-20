@@ -2,9 +2,8 @@ package com.wakaztahir.openapi
 
 import com.reprezen.jsonoverlay.JsonOverlay
 import com.reprezen.kaizen.oasparser.model3.*
-import com.wakaztahir.kate.model.model.KATEList
+import com.wakaztahir.kate.model.StringValue
 import com.wakaztahir.kate.model.model.KATEListImpl
-import com.wakaztahir.kate.model.model.KATEValue
 import com.wakaztahir.kate.model.model.MutableKATEObject
 
 fun MediaType.toMutableKATEObject(): MutableKATEObject {
@@ -39,6 +38,20 @@ fun RequestBody.toMutableKATEObject(): MutableKATEObject {
     }
 }
 
+fun SecurityParameter.toKATEList(): KATEListImpl<StringValue> {
+    return KATEListImpl(this.getParameters().map { StringValue(it) })
+}
+
+fun SecurityRequirement.toMutableKATEObject(): MutableKATEObject {
+    return MutableKATEObject {
+        putValue("requirements", MutableKATEObject {
+            for (requirement in getRequirements()) {
+                putValue(requirement.key, requirement.value.toKATEList())
+            }
+        })
+    }
+}
+
 fun Operation.toMutableKATEObject(method: String): MutableKATEObject {
     return MutableKATEObject {
         putValue("method", method)
@@ -47,6 +60,7 @@ fun Operation.toMutableKATEObject(method: String): MutableKATEObject {
         getOperationId()?.let { putValue("operationId", it) }
         getRequestBody()?.toMutableKATEObject()?.let { putValue("requestBody", it) }
         putValue("responses", KATEListImpl(getResponses().map { it.value.toMutableKATEObject(statusCode = it.key) }))
+        putValue("security", KATEListImpl(getSecurityRequirements().map { it.toMutableKATEObject() }))
     }
 }
 

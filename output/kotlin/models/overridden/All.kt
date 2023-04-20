@@ -7,7 +7,7 @@ data class Success(
 ) : ISuccess
 
 data class Error(
-    override val error: String,
+    override val type: String,
     override val message: String,
 ) : IError
 

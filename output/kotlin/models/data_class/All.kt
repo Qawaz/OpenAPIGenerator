@@ -3,7 +3,7 @@ data class Success(
 )
 
 data class Error(
-    val error: String,
+    val type: String,
     val message: String,
 )
 

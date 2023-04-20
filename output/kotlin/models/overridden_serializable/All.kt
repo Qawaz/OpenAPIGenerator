@@ -9,7 +9,7 @@ data class Success(
 
 @Serializable
 data class Error(
-    @SerialName("error") override val error: String,
+    @SerialName("type") override val type: String,
     @SerialName("message") override val message: String,
 ) : IError
 

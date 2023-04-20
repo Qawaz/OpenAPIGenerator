@@ -1,6 +1,12 @@
 {
   "openapi": "3.0.0",
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
     "schemas": {
       "Success": {
         "type": "object",
@@ -13,7 +19,7 @@
       "Error": {
         "type": "object",
         "properties": {
-          "error": {
+          "type": {
             "type": "string"
           },
           "message": {
@@ -268,6 +274,11 @@
       "post": {
         "parameters": [],
         "operationId": "uploadLogFile",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "The file has been uploaded",
@@ -317,9 +328,6 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "token": {
-                    "type": "string"
-                  },
                   "is_encrypted": {
                     "type": "string"
                   }
@@ -337,6 +345,11 @@
         "description": "lists the logs for a package",
         "parameters": [],
         "operationId": "listLogs",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Logs are returned",
@@ -394,13 +407,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "token": {
-                    "type": "string"
-                  },
                   "package_name": {
                     "type": "string"
                   },
-                  "page":  {
+                  "page": {
                     "type": "integer"
                   }
                 }
