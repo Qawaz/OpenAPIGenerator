@@ -9,12 +9,20 @@
         @default_no_raw
         <div class="path">
             <h1 class="title"> @var(path.path)</h1>
-            @if(path.contains("description"))
-                <div class="description">@var(path.description)</div>
-            @endif
-            @if(path.contains("summary"))
-                <div class="summary">@var(path.summary)</div>
-            @endif
+            <table>
+                @if(path.contains("description"))
+                <tr>
+                    <td>Description</td>
+                    <td>@var(path.description)</td>
+                </tr>
+                @endif
+                @if(path.contains("summary"))
+                <tr>
+                    <td>Summary</td>
+                    <td>@var(path.summary)</td>
+                </tr>
+                @endif
+            </table>
         </div>
         @end_default_no_raw
 

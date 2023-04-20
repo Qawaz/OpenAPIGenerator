@@ -22,9 +22,26 @@
                     <span class="method">@var(op.method)</span>
                 </div>
                 <div class="info">
-                    @if(op.contains("description")) Description <div class="description code-box">@var(op.description)</div> @endif
-                    @if(op.contains("summary")) Summary <div class="summary code-box">@var(op.summary)</div> @endif
-                    @if(op.contains("operationId")) OperationId <div class="operationId code-box">@var(op.operationId)</div> @endif
+                    <table>
+                        @if(op.contains("description"))
+                        <tr>
+                            <td>Description</td>
+                            <td>@var(op.description)</td>
+                        </tr>
+                        @endif
+                        @if(op.contains("summary"))
+                        <tr>
+                            <td>Summary</td>
+                            <td>@var(op.summary)</td>
+                        </tr>
+                        @endif
+                        @if(op.contains("operationId"))
+                        <tr>
+                            <td>OperationId</td>
+                            <td><span class="code-box">@var(op.operationId)</span></td>
+                        </tr>
+                        @endif
+                    </table>
                 </div>
                 @if(op.security.size() > 0)
                     @for(@var securitySingle : op.security)
