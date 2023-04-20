@@ -26,6 +26,24 @@
                     @if(op.contains("summary")) Summary <div class="summary code-box">@var(op.summary)</div> @endif
                     @if(op.contains("operationId")) OperationId <div class="operationId code-box">@var(op.operationId)</div> @endif
                 </div>
+                @if(op.security.size() > 0)
+                    @for(@var securitySingle : op.security)
+                    <h3>Security</h3>
+                    <div class="security">
+                    @var reqKeys = securitySingle.requirements.getKeys()
+                    @if(reqKeys.size() > 0)
+                        @for(@var reqKey : reqKeys)
+                            @var params = securitySingle.requirements[reqKey]
+                            <h4>@var(reqKey)</h4>
+                            @if(params.size() > 0) <h5>Parameters</h5> @endif
+                            @for(@var param : params)
+                                <div class="security_parameter">@var(param)</div>
+                            @endfor
+                        @endfor
+                    @endif
+                    </div>
+                    @endfor
+                @endif
                 @if(op.contains("requestBody"))
                 @var body = op.requestBody
                 <div class="request-body">
