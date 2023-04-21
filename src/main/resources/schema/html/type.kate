@@ -1,15 +1,15 @@
 @partial_raw
 
 @function getHtmlType(param)
-    @if(@var(param.getType()) == "object")
+    @if(@var(param.getType().startsWith("object")))
         @if(param.contains("__map_of__"))
             @return "map&lt;string, " + getHtmlType(param.__map_of__) + "&gt;"
         @else
             @return param.getName()
         @endif
-    @elseif(@var(param.getType()) == "list")
+    @elseif(@var(param.getType().startsWith("list")))
         @return "list&lt;" + getHtmlType(param[0]) + "&gt;"
-    @elseif(@var(param.getType()) == "mutable_list")
+    @elseif(@var(param.getType().startsWith("mutable_list")))
         @return "list&lt;" + getHtmlType(param[0]) + "&gt;"
     @else
         @return param.getType()

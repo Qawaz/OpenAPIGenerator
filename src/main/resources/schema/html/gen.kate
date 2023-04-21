@@ -77,7 +77,7 @@
 
     <%-- Generating single file for the whole spec --%>
     @var(console.log("Generating single file for whole spec spec.html"))
-    @var fileName = "./spec.html"
+    @set_var fileName = "./spec.html"
     @var(set_stream(fileName))
     @placeholder(object,spec,this)
     @embed ./styles/default_global_styles.kate.html

@@ -1,15 +1,15 @@
 @partial_raw
 
 @function getGolangType(param)
-    @if(param.getType() == "object")
+    @if(param.getType().startsWith("object"))
         @if(param.contains("__map_of__"))
             @return "map[string]" + getGolangType(param.__map_of__)
         @else
             @return param.getName()
         @endif
-    @elseif(param.getType() == "list")
+    @elseif(param.getType().startsWith("list"))
         @return "[]" + getGolangType(param[0])
-    @elseif(param.getType() == "mutable_list")
+    @elseif(param.getType().startsWith("mutable_list"))
         @return "[]" + getGolangType(param[0])
     @elseif(param.getType() == "boolean")
         @return "bool"

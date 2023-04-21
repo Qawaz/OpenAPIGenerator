@@ -2,6 +2,7 @@ package com.wakaztahir.openapi.template
 
 import com.wakaztahir.kate.OutputDestinationStream
 import com.wakaztahir.kate.RelativeResourceEmbeddingManager
+import com.wakaztahir.kate.model.ModelReference
 import com.wakaztahir.kate.model.PlaceholderInvocation
 import com.wakaztahir.kate.model.StringValue
 import com.wakaztahir.kate.model.model.*
@@ -25,8 +26,14 @@ fun MutableKATEObject.putStreamPlaceholderFunction(
     folder: File,
     destination: ChangeableDestinationStream
 ) {
-    putValue("set_stream", object : KATEFunction() {
-        override fun invoke(model: KATEObject, invokedOn: KATEValue, parameters: List<ReferencedValue>): KATEValue {
+    setValue("set_stream", object : KATEFunction() {
+        override fun invoke(
+            model: KATEObject,
+            path: List<ModelReference>,
+            pathIndex: Int,
+            invokedOn: KATEValue,
+            parameters: List<KATEValue>
+        ): KATEValue {
             require(parameters.size == 1) {
                 "parameters size must be 1 for stream_placeholder"
             }
@@ -70,7 +77,13 @@ fun MutableKATEObject.generateMultiFileTemplate(template: String, outputDir: Fil
     })
     putStreamPlaceholderFunction(folder = outputDir, destination = destination)
     StringImplementation.propertyMap["removePrefix"] = object : KATEFunction() {
-        override fun invoke(model: KATEObject, invokedOn: KATEValue, parameters: List<ReferencedValue>): KATEValue {
+        override fun invoke(
+            model: KATEObject,
+            path: List<ModelReference>,
+            pathIndex: Int,
+            invokedOn: KATEValue,
+            parameters: List<KATEValue>
+        ): KATEValue {
             val param = parameters.getOrNull(0)?.asNullablePrimitive(model)?.value as? String
             require(param != null) { "removePrefix expects a valid string value as parameter" }
             return StringValue((invokedOn as StringValue).value.removePrefix(param))

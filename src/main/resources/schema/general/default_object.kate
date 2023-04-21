@@ -31,7 +31,7 @@
 		@var keys = object.getKeys()
 
 		@for(@var i=0;i<keys.size();i++)
-            @if(object[keys[i]].getType() == "object")
+            @if(object[keys[i]].getType().startsWith("object"))
                 @if(object[keys[i]].contains("__no_nested__") == false)
                     @var(__write_object_and_its_nested_objects__(object[keys[i]]))
                     @runtime.print_string("\n\n")

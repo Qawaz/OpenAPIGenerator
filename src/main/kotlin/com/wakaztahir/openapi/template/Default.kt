@@ -20,7 +20,7 @@ fun KATEValue.generateFromTemplate(
 ) {
     val source = TextSourceStream(
         sourceCode = """@partial_raw @embed_once ./$template${"\n"}@default_no_raw $prefix@var(${name}) @end_default_no_raw @end_partial_raw""",
-        model = MutableKATEObject { putValue(name, this@generateFromTemplate) }.also {
+        model = MutableKATEObject { setValue(name, this@generateFromTemplate) }.also {
 //            println("Object $name , Template $template , Extension $extension")
 //            println(it)
         },
@@ -40,7 +40,7 @@ fun List<KATEObject>.generateMultipleFromTemplate(
 ) {
     val model = MutableKATEObject {
         for (obj in this@generateMultipleFromTemplate) {
-            putValue(obj.objectName, obj)
+            setValue(obj.objectName, obj)
         }
     }
     var sourceCode = "@partial_raw @embed_once ./$template\n@runtime.print_string(\"$prefix\")"
