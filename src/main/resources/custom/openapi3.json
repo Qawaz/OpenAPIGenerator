@@ -14,7 +14,10 @@
           "success": {
             "type": "boolean"
           }
-        }
+        },
+        "required": [
+          "success"
+        ]
       },
       "Error": {
         "type": "object",
@@ -25,7 +28,11 @@
           "message": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "type",
+          "message"
+        ]
       },
       "AppInformation": {
         "type": "object",
@@ -39,7 +46,12 @@
           "version_number": {
             "type": "integer"
           }
-        }
+        },
+        "required": [
+          "package_name",
+          "version",
+          "version_number"
+        ]
       },
       "UserInformation": {
         "type": "object",
@@ -53,7 +65,12 @@
           "user_name": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "user_id",
+          "user_email",
+          "user_name"
+        ]
       },
       "DeviceInformation": {
         "type": "object",
@@ -73,7 +90,12 @@
               "type": "string"
             }
           }
-        }
+        },
+        "required": [
+          "platform_type",
+          "os_name",
+          "info_map"
+        ]
       },
       "DisplayInformation": {
         "type": "object",
@@ -96,7 +118,15 @@
           "orientation": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "display_name",
+          "left",
+          "top",
+          "right",
+          "bottom",
+          "orientation"
+        ]
       },
       "DeviceStorageInformation": {
         "type": "object",
@@ -110,7 +140,12 @@
           "total_space": {
             "type": "integer"
           }
-        }
+        },
+        "required": [
+          "storage_name",
+          "free_space",
+          "total_space"
+        ]
       },
       "StackTraceElem": {
         "type": "object",
@@ -130,7 +165,13 @@
           "is_native_method": {
             "type": "boolean"
           }
-        }
+        },
+        "required": [
+          "class_name",
+          "method_name",
+          "line_number",
+          "is_native_method"
+        ]
       },
       "ThreadInformation": {
         "type": "object",
@@ -162,7 +203,17 @@
               "$ref": "#/components/schemas/StackTraceElem"
             }
           }
-        }
+        },
+        "required": [
+          "thread_id",
+          "thread_name",
+          "priority",
+          "is_alive",
+          "thread_state",
+          "is_daemon",
+          "is_interrupted",
+          "thread_traces"
+        ]
       },
       "DeviceState": {
         "type": "object",
@@ -194,7 +245,11 @@
               "type": "string"
             }
           }
-        }
+        },
+        "required": [
+          "current_thread",
+          "storage_information"
+        ]
       },
       "LogEntry": {
         "type": "object",
@@ -223,7 +278,15 @@
           "time_fired": {
             "type": "integer"
           }
-        }
+        },
+        "required": [
+          "tag",
+          "type",
+          "message",
+          "stack_trace",
+          "values",
+          "time_fired"
+        ]
       },
       "DatabaseLogEntry": {
         "type": "object",
@@ -258,7 +321,10 @@
           "state": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "state"
+        ]
       }
     }
   },
@@ -333,7 +399,10 @@
                   "is_encrypted": {
                     "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "is_encrypted"
+                ]
               }
             }
           },
@@ -415,7 +484,11 @@
                   "page": {
                     "type": "integer"
                   }
-                }
+                },
+                "required": [
+                  "package_name",
+                  "page"
+                ]
               }
             }
           },

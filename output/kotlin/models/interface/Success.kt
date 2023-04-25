@@ -1,5 +1,5 @@
 package `interface`
 
 interface Success {
-    val success: Boolean?
+    val success: Boolean
 }
