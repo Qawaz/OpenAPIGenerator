@@ -9,33 +9,33 @@ import com.wakaztahir.kate.model.model.MutableKATEObject
 
 fun MediaType.toMutableKATEObject(): MutableKATEObject {
     return MutableKATEObject {
-        getSchema()?.toKATEValue(allowNested = false)?.let { setValue("schema", it) }
+        getSchema()?.toKATEValue(allowNested = false)?.let { insertValue("schema", it) }
     }
 }
 
 fun Map<String, MediaType>.mediaTypesObject(): MutableKATEObject {
     return MutableKATEObject {
         for (item in this@mediaTypesObject) {
-            setValue(item.key, item.value.toMutableKATEObject())
+            insertValue(item.key, item.value.toMutableKATEObject())
         }
     }
 }
 
 fun Response.toMutableKATEObject(statusCode: String): MutableKATEObject {
     return MutableKATEObject {
-        setValue("statusCode", statusCode)
-        setValue("description", getDescription() ?: "")
-        setValue("example", "NO_EXAMPLE_YET")
-        setValue("mediaTypes", getContentMediaTypes().mediaTypesObject())
+        insertValue("statusCode", statusCode)
+        insertValue("description", getDescription() ?: "")
+        insertValue("example", "NO_EXAMPLE_YET")
+        insertValue("mediaTypes", getContentMediaTypes().mediaTypesObject())
     }
 }
 
 fun RequestBody.toMutableKATEObject(): MutableKATEObject {
     return MutableKATEObject {
-        getName()?.let { setValue("name", it) }
-        getDescription()?.let { setValue("description", it) }
-        setValue("mediaTypes", getContentMediaTypes().mediaTypesObject())
-        getRequired()?.let { setValue("required", it) }
+        getName()?.let { insertValue("name", it) }
+        getDescription()?.let { insertValue("description", it) }
+        insertValue("mediaTypes", getContentMediaTypes().mediaTypesObject())
+        getRequired()?.let { insertValue("required", it) }
     }
 }
 
@@ -45,9 +45,9 @@ fun SecurityParameter.toKATEList(): KATEListImpl<StringValue> {
 
 fun SecurityRequirement.toMutableKATEObject(): MutableKATEObject {
     return MutableKATEObject {
-        setValue("requirements", MutableKATEObject {
+        insertValue("requirements", MutableKATEObject {
             for (requirement in getRequirements()) {
-                setValue(requirement.key, requirement.value.toKATEList())
+                insertValue(requirement.key, requirement.value.toKATEList())
             }
         })
     }
@@ -55,13 +55,25 @@ fun SecurityRequirement.toMutableKATEObject(): MutableKATEObject {
 
 fun Operation.toMutableKATEObject(method: String): MutableKATEObject {
     return MutableKATEObject {
-        setValue("method", method)
-        getDescription()?.let { setValue("description", it) }
-        getSummary()?.let { setValue("summary", it) }
-        getOperationId()?.let { setValue("operationId", it) }
-        getRequestBody()?.toMutableKATEObject()?.let { setValue("requestBody", it) }
-        setValue("responses", KATEListImpl(getResponses().map { it.value.toMutableKATEObject(statusCode = it.key) },itemType = KATEType.Object(KATEType.Any)))
-        setValue("security", KATEListImpl(getSecurityRequirements().map { it.toMutableKATEObject() },itemType = KATEType.Object(KATEType.Any)))
+        insertValue("method", method)
+        getDescription()?.let { insertValue("description", it) }
+        getSummary()?.let { insertValue("summary", it) }
+        getOperationId()?.let { insertValue("operationId", it) }
+        getRequestBody()?.toMutableKATEObject()?.let { insertValue("requestBody", it) }
+        insertValue(
+            "responses",
+            KATEListImpl(
+                getResponses().map { it.value.toMutableKATEObject(statusCode = it.key) },
+                itemType = KATEType.Object(KATEType.Any)
+            )
+        )
+        insertValue(
+            "security",
+            KATEListImpl(
+                getSecurityRequirements().map { it.toMutableKATEObject() },
+                itemType = KATEType.Object(KATEType.Any)
+            )
+        )
     }
 }
 
@@ -71,19 +83,19 @@ fun Collection<Operation>.toKATEList(): KATEListImpl<*> {
 
 fun Collection<Operation>.toMutableKATEObject(path: String): MutableKATEObject {
     return MutableKATEObject {
-        setValue("path", path)
-        setValue("parameters", KATEListImpl(emptyList(),itemType = KATEType.Any))
-        setValue("operations", toKATEList())
+        insertValue("path", path)
+        insertValue("parameters", KATEListImpl(emptyList(), itemType = KATEType.Any))
+        insertValue("operations", toKATEList())
     }
 }
 
 fun Example.toMutableKATEObject(key: String): MutableKATEObject {
     return MutableKATEObject {
-        setValue("key", key)
-        getName()?.let { setValue("name", it) }
-        getDescription()?.let { setValue("description", it) }
-        getSummary()?.let { setValue("summary", it) }
-        getExternalValue()?.let { setValue("externalValue", it) }
+        insertValue("key", key)
+        getName()?.let { insertValue("name", it) }
+        getDescription()?.let { insertValue("description", it) }
+        getSummary()?.let { insertValue("summary", it) }
+        getExternalValue()?.let { insertValue("externalValue", it) }
     }
 }
 
@@ -93,28 +105,31 @@ fun Map<String, Example>.toKATEList(): KATEListImpl<MutableKATEObject> {
 
 fun Parameter.toMutableKATEObject(): MutableKATEObject {
     return MutableKATEObject {
-        getName()?.let { setValue("name", it) }
-        getDescription()?.let { setValue("description", it) }
-        getRequired()?.let { setValue("required", it) }
-        getIn()?.let { setValue("in", it) }
-        getAllowEmptyValue()?.let { setValue("allowEmptyValue", it) }
-        getAllowReserved()?.let { setValue("allowReserved", it) }
-        getDeprecated()?.let { setValue("deprecated", it) }
-        setValue("mediaTypes", getContentMediaTypes().mediaTypesObject())
-        getExplode()?.let { setValue("explode", it) }
-        getKey()?.let { setValue("key", it) }
-        getStyle()?.let { setValue("style", it) }
-        getSchema()?.let { setValue("schema", it.toKATEValue(allowNested = true)) }
-        setValue("examples", getExamples().toKATEList())
+        getName()?.let { insertValue("name", it) }
+        getDescription()?.let { insertValue("description", it) }
+        getRequired()?.let { insertValue("required", it) }
+        getIn()?.let { insertValue("in", it) }
+        getAllowEmptyValue()?.let { insertValue("allowEmptyValue", it) }
+        getAllowReserved()?.let { insertValue("allowReserved", it) }
+        getDeprecated()?.let { insertValue("deprecated", it) }
+        insertValue("mediaTypes", getContentMediaTypes().mediaTypesObject())
+        getExplode()?.let { insertValue("explode", it) }
+        getKey()?.let { insertValue("key", it) }
+        getStyle()?.let { insertValue("style", it) }
+        getSchema()?.let { insertValue("schema", it.toKATEValue(allowNested = true)) }
+        insertValue("examples", getExamples().toKATEList())
     }
 }
 
 fun Path.toMutableKATEObject(): MutableKATEObject {
     return MutableKATEObject {
-        setValue("path", getPathString()!!)
-        getDescription()?.let { setValue("description", it) }
-        getSummary()?.let { setValue("summary", it) }
-        setValue("parameters", KATEListImpl(getParameters().map { it.toMutableKATEObject() },itemType = KATEType.Object(KATEType.Any)))
-        setValue("operations", getOperations().values.toKATEList())
+        insertValue("path", getPathString()!!)
+        getDescription()?.let { insertValue("description", it) }
+        getSummary()?.let { insertValue("summary", it) }
+        insertValue(
+            "parameters",
+            KATEListImpl(getParameters().map { it.toMutableKATEObject() }, itemType = KATEType.Object(KATEType.Any))
+        )
+        insertValue("operations", getOperations().values.toKATEList())
     }
 }

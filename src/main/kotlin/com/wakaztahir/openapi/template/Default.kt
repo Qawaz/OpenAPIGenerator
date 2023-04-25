@@ -48,7 +48,7 @@ fun List<KATEObject>.generateMultipleFromTemplate(
 ) {
     val model = MutableKATEObject {
         for (obj in this@generateMultipleFromTemplate) {
-            setValue(obj.objectName, obj)
+            insertValue(obj.objectName, obj)
         }
     }
     var sourceCode = "@partial_raw @embed_once ./$template\n@runtime.print_string(\"$prefix\")"

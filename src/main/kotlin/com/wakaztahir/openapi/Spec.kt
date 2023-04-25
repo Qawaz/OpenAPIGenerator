@@ -10,27 +10,27 @@ import com.wakaztahir.kate.model.model.MutableKATEObject
 
 fun Contact.toMutableKATEObject(): MutableKATEObject {
     return MutableKATEObject {
-        getName()?.let { setValue("name", it) }
-        getUrl()?.let { setValue("url", it) }
-        getEmail()?.let { setValue("email", it) }
+        getName()?.let { insertValue("name", it) }
+        getUrl()?.let { insertValue("url", it) }
+        getEmail()?.let { insertValue("email", it) }
     }
 }
 
 fun License.toMutableKATEObject(): MutableKATEObject {
     return MutableKATEObject {
-        getName()?.let { setValue("name", it) }
-        getUrl()?.let { setValue("url", it) }
+        getName()?.let { insertValue("name", it) }
+        getUrl()?.let { insertValue("url", it) }
     }
 }
 
 fun Info.toMutableKATEObject(): MutableKATEObject {
     return MutableKATEObject {
-        getTitle()?.let { setValue("title", it) }
-        getDescription()?.let { setValue("description", it) }
-        getVersion()?.let { setValue("version", it) }
-        getTermsOfService()?.let { setValue("termsOfService", it) }
-        getContact()?.let { setValue("contact", it.toMutableKATEObject()) }
-        getLicense()?.let { setValue("license", it.toMutableKATEObject()) }
+        getTitle()?.let { insertValue("title", it) }
+        getDescription()?.let { insertValue("description", it) }
+        getVersion()?.let { insertValue("version", it) }
+        getTermsOfService()?.let { insertValue("termsOfService", it) }
+        getContact()?.let { insertValue("contact", it.toMutableKATEObject()) }
+        getLicense()?.let { insertValue("license", it.toMutableKATEObject()) }
     }
 }
 
