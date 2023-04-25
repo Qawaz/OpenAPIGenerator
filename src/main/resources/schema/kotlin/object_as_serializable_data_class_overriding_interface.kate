@@ -1,6 +1,6 @@
 @partial_raw
 
-    @embed_once ./object_as_interface.kate
+    @embed_once ./object_as_data_class_overriding_interface.kate
 
     @define_placeholder(__object_declaration__,overridable_interface_serializable_data_class)
         @default_no_raw
@@ -18,7 +18,7 @@
         @end_default_no_raw
     @end_define_placeholder
 
-    @define_placeholder(__object_declaration__,overridable_interface)
+    @define_placeholder(__object_declaration__,overridable_interface_2)
         @default_no_raw
             interface I@var(object.getName()) {
             @var(printMembers())
@@ -26,11 +26,13 @@
         @end_default_no_raw
     @end_define_placeholder
 
-    @define_placeholder(object,interface_and_data_class,currObj)
+    @define_placeholder(object,interface_and_sr_over_data_class,currObj)
 
         @use_placeholder(object,default)
 
         @use_placeholder(__object_member__,interface)
+
+        @use_placeholder(__object_declaration__,overridable_interface_2)
 
         @default_no_raw @var(currObj) @end_default_no_raw
 

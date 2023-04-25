@@ -1,4 +1,4 @@
-package overridden_serializable
+package `overridden_serializable`
 
 interface IUserInformation {
     val userEmail: String

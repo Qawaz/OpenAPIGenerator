@@ -1,4 +1,4 @@
-package data_class
+package `serializable_data_class`
 
 @Serializable
 data class DisplayInformation(

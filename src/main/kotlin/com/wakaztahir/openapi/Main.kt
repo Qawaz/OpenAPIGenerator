@@ -35,21 +35,10 @@ fun testCustomTemplate() {
         throw IllegalStateException("Schema isn't valid")
     }
 
-    // each schema into its own file for its language
-    for (schema in parsed.getSchemas()) {
-        schema.value.generateAsKotlinInterface()
-        schema.value.generateAsKotlinDataClass()
-        schema.value.generateAsSerializableKotlinDataClass()
-        schema.value.generateAsOverridableInterface()
-        schema.value.generateAsOverridableSerializableInterface()
-    }
-
-    // all schemas into a single file
-    parsed.getSchemas().values.generateAsKotlinInterface()
-    parsed.getSchemas().values.generateAsKotlinDataClass()
-    parsed.getSchemas().values.generateAsSerializableKotlinDataClass()
-    parsed.getSchemas().values.generateAsOverridableInterface()
-    parsed.getSchemas().values.generateAsOverridableSerializableInterface()
+    parsed.toMutableKATEObject().generateMultiFileTemplate(
+        template = "schema/kotlin/gen.kate",
+        outputDir = File("output/kotlin")
+    )
 
     parsed.toMutableKATEObject().generateMultiFileTemplate(
         template = "schema/html/gen.kate",

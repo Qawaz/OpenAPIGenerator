@@ -31,6 +31,8 @@
 
         @use_placeholder(__object_member__,interface)
 
+        @use_placeholder(__object_declaration__,overridable_interface)
+
         @default_no_raw @var(currObj) @end_default_no_raw
 
         @runtime.print_string("\n\n")

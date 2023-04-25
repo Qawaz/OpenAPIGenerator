@@ -1,4 +1,4 @@
-package overridden
+package `overridden`
 
 interface IAppInformation {
     val packageName: String

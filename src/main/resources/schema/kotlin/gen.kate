@@ -1,0 +1,52 @@
+@partial_raw
+
+    @function gen(path,placeholderFunc)
+        <%-- Generating each schema into its own file --%>
+        @for(@var schema : schemas)
+            @var fileName = "./models/" + path + "/" + schema.getName() + ".kt"
+            @var(console.log("Generating schema in kotlin for " + fileName))
+            @var(set_stream(fileName))
+            @runtime.print_string("package `" + path + "`\n\n")
+            @var(placeholderFunc(schema))
+        @endfor
+
+        <%-- Generating all schemas into single file --%>
+        @var(set_stream("./models/" + path + "/All.kt"))
+        @var(console.log("Generating single file for schemas All.kt"))
+        @runtime.print_string("package `" + path + "`\n\n")
+        @for(@var schema,index : schemas)
+            @var(placeholderFunc(schema))
+            @if(index != schemas.size() - 1) @runtime.print_string("\n\n") @endif
+        @endfor
+    @end_function
+
+    @embed_once ./object_as_interface.kate
+
+    @function interface(schema) @placeholder(object,default,schema) @end_function
+    @var(gen("interface",interface))
+
+    @embed_once ./object_as_data_class.kate
+
+    @function data_class(schema)
+        @placeholder(object,default,schema)
+    @end_function
+    @var(gen("data_class",data_class))
+
+    @embed_once ./object_as_data_class_overriding_interface.kate
+
+    @function overridden(schema)
+        @placeholder(object,interface_and_data_class,schema)
+    @end_function
+    @var(gen("overridden",overridden))
+
+    @embed_once ./object_as_serializable_data_class.kate
+
+    @function serializable_data_class(schema) @placeholder(object,,schema) @end_function
+    @var(gen("serializable_data_class",serializable_data_class))
+
+    @embed_once ./object_as_serializable_data_class_overriding_interface.kate
+
+    @function overridden_serializable(schema) @placeholder(object,interface_and_sr_over_data_class,schema) @end_function
+    @var(gen("overridden_serializable",overridden_serializable))
+
+@end_partial_raw
