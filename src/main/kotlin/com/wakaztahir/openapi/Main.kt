@@ -56,6 +56,11 @@ fun testCustomTemplate() {
     parsed.getSchemas().values.generateAsJson()
 
     parsed.toMutableKATEObject().generateMultiFileTemplate(
+        template = "schema/general/raw.gen.kate",
+        outputDir = File("output/raw")
+    )
+
+    parsed.toMutableKATEObject().generateMultiFileTemplate(
         template = "schema/html/gen.kate",
         outputDir = File("output/html")
     )

@@ -10,6 +10,8 @@ import com.wakaztahir.kate.model.model.KATEObject
 import com.wakaztahir.kate.model.model.KATEValue
 import com.wakaztahir.kate.model.model.MutableKATEObject
 import com.wakaztahir.kate.parser.stream.TextSourceStream
+import com.wakaztahir.kate.parser.stream.getErrorInfoAtCurrentPointer
+import com.wakaztahir.kate.parser.stream.printErrorLineNumberAndCharacterIndex
 import java.io.File
 
 fun KATEValue.generateFromTemplate(
@@ -20,15 +22,21 @@ fun KATEValue.generateFromTemplate(
 ) {
     val source = TextSourceStream(
         sourceCode = """@partial_raw @embed_once ./$template${"\n"}@default_no_raw $prefix@var(${name}) @end_default_no_raw @end_partial_raw""",
-        model = MutableKATEObject { setValue(name, this@generateFromTemplate) }.also {
+        model = MutableKATEObject { insertValue(name, this@generateFromTemplate) }.also {
 //            println("Object $name , Template $template , Extension $extension")
 //            println(it)
         },
         embeddingManager = RelativeResourceEmbeddingManager(basePath = "/", classLoader = object {}.javaClass)
     )
-    val stream = output.outputStream()
-    source.generateTo(OutputDestinationStream(stream))
-    stream.close()
+    try {
+        val stream = output.outputStream()
+        source.generateTo(OutputDestinationStream(stream))
+        stream.close()
+    }catch (e : Exception){
+        println("ERROR IN $template OCCURRED AT : ")
+        source.printErrorLineNumberAndCharacterIndex()
+        e.printStackTrace()
+    }
 }
 
 fun List<KATEObject>.generateMultipleFromTemplate(

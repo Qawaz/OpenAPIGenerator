@@ -48,9 +48,9 @@
                     @var(listValue(param))
                 @elseif(param.getType().startsWith("mutable_list"))
                     @var(listValue(param))
-                @elseif(param.getType() == "string")
+                @elseif(param.getType().startsWith("string"))
                     @default_no_raw "@var(param)" @end_default_no_raw
-                @elseif(param.getType() == "char")
+                @elseif(param.getType().startsWith("char"))
                     @default_no_raw "@var(param)" @end_default_no_raw
                 @else
                     @default_no_raw @var(param) @end_default_no_raw

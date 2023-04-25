@@ -1,0 +1,3 @@
+@var(set_stream("raw.kate"))
+
+@var(this)

@@ -1,0 +1,318 @@
+
+
+{
+	console : {
+		log : log(vararg params : string)
+	}
+	throw : throw(message : string)
+	paths : {
+	summary : Upload a logs file
+	path : /v1/logs/upload
+	operations : {
+	security : {
+	requirements : {
+		bearerAuth : 
+	}
+}
+	method : post
+	requestBody : {
+		mediaTypes : {
+			application/x-www-form-urlencoded : {
+				schema : {
+					is_encrypted : 
+				}
+			}
+		}
+		description : Request body for the log file upload request , containing token and is_encrypted
+		required : true
+	}
+	operationId : uploadLogFile
+	responses : {
+	mediaTypes : {
+		application/json : {
+			schema : {
+				success : false
+			}
+		}
+	}
+	description : The file has been uploaded
+	statusCode : 200
+	example : NO_EXAMPLE_YET
+},{
+	mediaTypes : {
+		application/json : {
+			schema : {
+				type : 
+				message : 
+			}
+		}
+	}
+	description : Bad request parameters
+	statusCode : 400
+	example : NO_EXAMPLE_YET
+},{
+	mediaTypes : {
+		application/json : {
+			schema : {
+				type : 
+				message : 
+			}
+		}
+	}
+	description : Request Token couldn't be authorized
+	statusCode : 401
+	example : NO_EXAMPLE_YET
+},{
+	mediaTypes : {
+		application/json : {
+			schema : {
+				type : 
+				message : 
+			}
+		}
+	}
+	description : File couldn't be uploaded or processed because of an internal error
+	statusCode : 500
+	example : NO_EXAMPLE_YET
+}
+}
+	description : Takes log file and saves it
+	parameters : 
+},{
+	path : /v1/logs/list
+	operations : {
+	summary : List logs for a package
+	security : {
+	requirements : {
+		bearerAuth : 
+	}
+}
+	method : post
+	requestBody : {
+		mediaTypes : {
+			application/json : {
+				schema : {
+					package_name : 
+					page : 0
+				}
+			}
+		}
+		description : Lists the logs for the given package and page
+		required : false
+	}
+	description : lists the logs for a package
+	operationId : listLogs
+	responses : {
+	mediaTypes : {
+		application/json : {
+			schema : {
+				logs : {
+				notes : 
+				log : {
+				device_state : {
+					__no_nested__ : true
+				}
+				time_fired : 0
+				values : {
+					__no_nested__ : true
+					__map_of__ : string
+				}
+				tag : 
+				stack_trace : 
+				type : 
+				message : 
+			}
+				created_at : 0
+				id : 
+				state : 
+				device : {
+					__no_nested__ : true
+				}
+				app_information : {
+					__no_nested__ : true
+				}
+				user_information : {
+					__no_nested__ : true
+				}
+			}
+			}
+		}
+	}
+	description : Logs are returned
+	statusCode : 200
+	example : NO_EXAMPLE_YET
+},{
+	mediaTypes : {
+		application/json : {
+			schema : {
+				type : 
+				message : 
+			}
+		}
+	}
+	description : Error because of bad request
+	statusCode : 400
+	example : NO_EXAMPLE_YET
+},{
+	mediaTypes : {
+		application/json : {
+			schema : {
+				type : 
+				message : 
+			}
+		}
+	}
+	description : Error , request token couldn't be authorized
+	statusCode : 401
+	example : NO_EXAMPLE_YET
+},{
+	mediaTypes : {
+		application/json : {
+			schema : {
+				type : 
+				message : 
+			}
+		}
+	}
+	description : There was a server error listing the logs
+	statusCode : 500
+	example : NO_EXAMPLE_YET
+}
+}
+	parameters : 
+}
+	set_stream : set_stream(path : string)
+	schemas : {
+	success : false
+},{
+	type : 
+	message : 
+},{
+	package_name : 
+	version_number : 0
+	version : 
+},{
+	user_email : 
+	user_id : 
+	user_name : 
+},{
+	platform_type : 
+	os_version : 
+	os_name : 
+	info_map : {
+		__no_nested__ : true
+		__map_of__ : string
+	}
+},{
+	orientation : 
+	top : 0
+	left : 0
+	bottom : 0
+	right : 0
+	display_name : 
+},{
+	storage_name : 
+	total_space : 0
+	free_space : 0
+},{
+	is_native_method : false
+	method_name : 
+	file_name : 
+	line_number : 0
+	class_name : 
+},{
+	thread_id : 0
+	is_interrupted : false
+	thread_name : 
+	is_alive : false
+	thread_traces : {
+	is_native_method : false
+	method_name : 
+	file_name : 
+	line_number : 0
+	class_name : 
+}
+	thread_state : 
+	is_daemon : false
+	priority : 0
+},{
+	other_threads : {
+	thread_id : 0
+	is_interrupted : false
+	thread_name : 
+	is_alive : false
+	thread_traces : {
+	is_native_method : false
+	method_name : 
+	file_name : 
+	line_number : 0
+	class_name : 
+}
+	thread_state : 
+	is_daemon : false
+	priority : 0
+}
+	current_thread : {
+		__no_nested__ : true
+	}
+	info_map : {
+		__no_nested__ : true
+		__map_of__ : string
+	}
+	is_connected_to_internet : false
+	time_zone : 
+	storage_information : {
+	storage_name : 
+	total_space : 0
+	free_space : 0
+}
+},{
+	device_state : {
+		__no_nested__ : true
+	}
+	time_fired : 0
+	values : {
+		__no_nested__ : true
+		__map_of__ : string
+	}
+	tag : 
+	stack_trace : 
+	type : 
+	message : 
+},{
+	notes : 
+	log : {
+	device_state : {
+		__no_nested__ : true
+	}
+	time_fired : 0
+	values : {
+		__no_nested__ : true
+		__map_of__ : string
+	}
+	tag : 
+	stack_trace : 
+	type : 
+	message : 
+}
+	created_at : 0
+	id : 
+	state : 
+	device : {
+		__no_nested__ : true
+	}
+	app_information : {
+		__no_nested__ : true
+	}
+	user_information : {
+		__no_nested__ : true
+	}
+}
+	info : {
+		contact : {}
+		description : Logging backend is the backend provider for log requests generated by mobile apps, for crashes and app analytical logging
+		termsOfService : https://qawaz.github.io/terms
+		title : Logging Backend Schema
+		version : 1.0.0
+	}
+}

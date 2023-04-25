@@ -2,6 +2,7 @@ package com.wakaztahir.openapi.template
 
 import com.wakaztahir.kate.OutputDestinationStream
 import com.wakaztahir.kate.RelativeResourceEmbeddingManager
+import com.wakaztahir.kate.model.KATEType
 import com.wakaztahir.kate.model.ModelReference
 import com.wakaztahir.kate.model.PlaceholderInvocation
 import com.wakaztahir.kate.model.StringValue
@@ -26,16 +27,15 @@ fun MutableKATEObject.putStreamPlaceholderFunction(
     folder: File,
     destination: ChangeableDestinationStream
 ) {
-    setValue("set_stream", object : KATEFunction() {
+    insertValue("set_stream", object : KATEFunction(returnedType = KATEType.Unit,KATEType.String) {
         override fun invoke(
             model: KATEObject,
-            path: List<ModelReference>,
-            pathIndex: Int,
             invokedOn: KATEValue,
-            parameters: List<KATEValue>
-        ): KATEValue {
+            explicitType : KATEType?,
+            parameters: List<ReferencedOrDirectValue>
+        ): ReferencedOrDirectValue {
             require(parameters.size == 1) {
-                "parameters size must be 1 for stream_placeholder"
+                "parameters size must be 1 for set_stream"
             }
             val path = parameters.getOrNull(0)?.asNullablePrimitive(model)?.let { it as? StringValue }
             require(path != null) { "${toString()} stream path cannot be null" }
@@ -76,21 +76,6 @@ fun MutableKATEObject.generateMultiFileTemplate(template: String, outputDir: Fil
         }
     })
     putStreamPlaceholderFunction(folder = outputDir, destination = destination)
-    StringImplementation.propertyMap["removePrefix"] = object : KATEFunction() {
-        override fun invoke(
-            model: KATEObject,
-            path: List<ModelReference>,
-            pathIndex: Int,
-            invokedOn: KATEValue,
-            parameters: List<KATEValue>
-        ): KATEValue {
-            val param = parameters.getOrNull(0)?.asNullablePrimitive(model)?.value as? String
-            require(param != null) { "removePrefix expects a valid string value as parameter" }
-            return StringValue((invokedOn as StringValue).value.removePrefix(param))
-        }
-
-        override fun toString(): String = "removePrefix(value : string) : string"
-    }
     source.generateTo(destination)
     println(value)
 }

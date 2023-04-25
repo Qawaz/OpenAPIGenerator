@@ -1,9 +1,9 @@
 package overridden
 
 interface ISuccess {
-    val success: Boolean
+    val success: Boolean?
 }
 
 data class Success(
-    override val success: Boolean,
+    override val success: Boolean?,
 ) : ISuccess
