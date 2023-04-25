@@ -18,7 +18,6 @@ class ChangeableDestinationStream(stream: WritableStream) : DestinationStream {
         private set
 
     fun updateStream(stream: WritableStream) {
-        if (stream is OutputStream) stream.close()
         this.stream = stream
     }
 }

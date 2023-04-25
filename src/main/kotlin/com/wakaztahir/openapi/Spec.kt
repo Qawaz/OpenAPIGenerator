@@ -34,10 +34,10 @@ fun Info.toMutableKATEObject(): MutableKATEObject {
     }
 }
 
-fun OpenApi3.toMutableKATEObject(): MutableKATEObject {
+fun OpenApi3.toMutableKATEObject(allowNested : Boolean = false): MutableKATEObject {
     return MutableKATEObject {
-        getInfo()?.let { setValue("info", it.toMutableKATEObject()) }
-        setValue("schemas", KATEListImpl(getSchemas().values.map { it.toKATEValue(allowNested = false) },itemType = KATEType.Any))
-        setValue("paths", KATEListImpl(getPaths().values.map { it.toMutableKATEObject() },itemType = KATEType.Any))
+        getInfo()?.let { insertValue("info", it.toMutableKATEObject()) }
+        insertValue("schemas", KATEListImpl(getSchemas().values.map { it.toKATEValue(allowNested = allowNested) },itemType = KATEType.Any))
+        insertValue("paths", KATEListImpl(getPaths().values.map { it.toMutableKATEObject() },itemType = KATEType.Any))
     }
 }

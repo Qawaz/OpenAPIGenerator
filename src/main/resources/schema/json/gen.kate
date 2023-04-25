@@ -1,0 +1,24 @@
+@partial_raw
+
+    @embed_once ./object_as_json.kate
+
+    <%-- Generating each schema into its own file --%>
+    @for(@var schema : schemas)
+        @var fileName = "./simple/" + schema.getName() + ".json"
+        @var(console.log("Generating schema in json for " + fileName))
+        @var(set_stream(fileName))
+        @placeholder(object,JsonObject,schema)
+    @endfor
+
+
+    <%-- Generating all schemas into single file --%>
+    @var(set_stream("./simple/All.json"))
+    @runtime.print_char('[')
+    @var(console.log("Generating single file for schemas All.json"))
+    @for(@var schema,index : schemas)
+        @placeholder(object,JsonObject,schema)
+        @if(index != schemas.size() - 1) @runtime.print_string(",\n") @endif
+    @endfor
+    @runtime.print_char(']')
+
+@end_partial_raw

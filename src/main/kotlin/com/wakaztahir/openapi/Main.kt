@@ -42,8 +42,6 @@ fun testCustomTemplate() {
         schema.value.generateAsSerializableKotlinDataClass()
         schema.value.generateAsOverridableInterface()
         schema.value.generateAsOverridableSerializableInterface()
-        schema.value.generateAsGolangStructs()
-        schema.value.generateAsJson()
     }
 
     // all schemas into a single file
@@ -52,8 +50,16 @@ fun testCustomTemplate() {
     parsed.getSchemas().values.generateAsSerializableKotlinDataClass()
     parsed.getSchemas().values.generateAsOverridableInterface()
     parsed.getSchemas().values.generateAsOverridableSerializableInterface()
-    parsed.getSchemas().values.generateAsGolangStructs()
-    parsed.getSchemas().values.generateAsJson()
+
+    parsed.toMutableKATEObject().generateMultiFileTemplate(
+        template = "schema/html/gen.kate",
+        outputDir = File("output/html")
+    )
+
+    parsed.toMutableKATEObject(allowNested = true).generateMultiFileTemplate(
+        template = "schema/json/gen.kate",
+        outputDir = File("output/json")
+    )
 
     parsed.toMutableKATEObject().generateMultiFileTemplate(
         template = "schema/general/raw.gen.kate",
@@ -61,9 +67,11 @@ fun testCustomTemplate() {
     )
 
     parsed.toMutableKATEObject().generateMultiFileTemplate(
-        template = "schema/html/gen.kate",
-        outputDir = File("output/html")
+        template = "schema/golang/gen.kate",
+        outputDir = File("output/golang")
     )
+
+
 
 }
 

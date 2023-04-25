@@ -1,0 +1,23 @@
+@partial_raw
+
+    @embed_once ./object_as_go_struct.kate
+
+    <%-- Generating each schema into its own file --%>
+    @for(@var schema : schemas)
+        @var fileName = "./models/struct/" + schema.getName() + ".go"
+        @var(console.log("Generating schema in goland for " + fileName))
+        @var(set_stream(fileName))
+        @runtime.print_string("package main\n\n")
+        @placeholder(object,default,schema)
+    @endfor
+
+    <%-- Generating all schemas into single file --%>
+    @var(set_stream("./models/struct/All.go"))
+    @var(console.log("Generating single file for schemas All.go"))
+    @runtime.print_string("package main\n\n")
+    @for(@var schema,index : schemas)
+        @placeholder(object,default,schema)
+        @if(index != schemas.size() - 1) @runtime.print_string("\n\n") @endif
+    @endfor
+
+@end_partial_raw
