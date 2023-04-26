@@ -20,9 +20,7 @@
         @else
             @return param.getName()
         @endif
-    @elseif(type.startsWith("list"))
-        @return "[]" + getGolangType(param[0])
-    @elseif(type.startsWith("mutable_list"))
+    @elseif(type.startsWith("list") || type.startsWith("mutable_list"))
         @return "[]" + getGolangType(param[0])
     @elseif(type.startsWith("boolean"))
         @return transformNullable(type,"bool")

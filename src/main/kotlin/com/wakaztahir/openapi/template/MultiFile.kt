@@ -75,6 +75,6 @@ fun MutableKATEObject.generateMultiFileTemplate(template: String, outputDir: Fil
         }
     })
     putStreamPlaceholderFunction(folder = outputDir, destination = destination)
-    source.generateTo(destination)
+    source.block.generateTo(destination)
     println(value)
 }

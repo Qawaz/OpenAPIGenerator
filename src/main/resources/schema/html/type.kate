@@ -7,9 +7,7 @@
         @else
             @return param.getName()
         @endif
-    @elseif(param.getType().startsWith("list"))
-        @return "list&lt;" + getHtmlType(param[0]) + "&gt;"
-    @elseif(param.getType().startsWith("mutable_list"))
+    @elseif(param.getType().startsWith("list") || param.getType().startsWith("mutable_list"))
         @return "list&lt;" + getHtmlType(param[0]) + "&gt;"
     @else
         @return param.getType()
