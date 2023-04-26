@@ -1,0 +1,11 @@
+@partial_raw
+
+    @default_no_raw
+
+        @embed_once ./go.mod.kate
+
+    @end_default_no_raw
+
+    @embed_once ./models.gen.kate
+
+@end_partial_raw

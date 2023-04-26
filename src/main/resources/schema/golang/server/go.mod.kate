@@ -1,0 +1,11 @@
+@partial_raw
+
+    set_stream("./go.mod")
+
+    @default_no_raw
+        module server
+
+        go 1.19
+    @end_default_no_raw
+
+@end_partial_raw
