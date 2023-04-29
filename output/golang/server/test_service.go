@@ -32,7 +32,7 @@ func (service TestService) UploadLogsFile(request req.UploadLogFileRequest) res.
 		log.Printf("ERROR : %s", request.DecodingError.Error())
 	}
 	log.Printf(
-		"token %s is_encrypted %s",
+		"token %s is_encrypted %t",
 		request.BearerToken,
 		request.Schema.IsEncrypted,
 	)

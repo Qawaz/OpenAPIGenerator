@@ -1,7 +1,7 @@
 package req
 
 type UploadLogFileRequestSchema struct {
-	IsEncrypted string `json:"is_encrypted" bson:"is_encrypted"`
+	IsEncrypted bool `json:"is_encrypted" bson:"is_encrypted"`
 }
 
 type UploadLogFileRequest struct {

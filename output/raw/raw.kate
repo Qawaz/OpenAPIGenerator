@@ -19,11 +19,11 @@
 		mediaTypes : {
 			application/x-www-form-urlencoded : {
 				schema : {
-					is_encrypted : 
+					is_encrypted : false
 				}
 			}
 		}
-		description : Request body for the log file upload request , containing token and is_encrypted
+		description : Request body for the log file upload request , containing is_encrypted
 		required : true
 	}
 	operationId : uploadLogFile
