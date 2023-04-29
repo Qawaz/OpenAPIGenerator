@@ -6,5 +6,6 @@ type UploadLogFileRequestSchema struct {
 
 type UploadLogFileRequest struct {
 	Schema        UploadLogFileRequestSchema
+	BearerToken   string
 	DecodingError error
 }

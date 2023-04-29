@@ -1,11 +1,12 @@
 package req
 
 type ListLogsRequestSchema struct {
-	PackageName string
-	Page        int32
+	PackageName string `json:"package_name"`
+	Page        int32  `json:"page"`
 }
 
 type ListLogsRequest struct {
 	Schema        ListLogsRequestSchema
+	BearerToken   string
 	DecodingError error
 }

@@ -15,7 +15,7 @@ func main() {
 			Port:     8080,
 			UseHttps: false,
 		},
-		Service: &DefaultService{},
+		Service: &TestService{},
 	}
 
 	server.SetupRouter()
