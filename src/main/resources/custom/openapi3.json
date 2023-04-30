@@ -336,6 +336,77 @@
     "contact": {}
   },
   "paths": {
+    "/v1/token":{
+      "summary": "Request a bearer token",
+      "description": "A bearer token is returned with expiration time",
+      "post": {
+        "parameters": [],
+        "operationId": "generateToken",
+        "responses": {
+          "200": {
+            "description": "A request token has been generated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "request_token": {
+                      "type": "string"
+                    },
+                    "exp_time": {
+                      "type": "string"
+                    },
+                    "encryption_key": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "A token that already exists is invalid and user must wait",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "error creating request token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "a token couldn't be created due to an internal error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/logs/upload": {
       "summary": "Upload a logs file",
       "description": "Takes log file and saves it",

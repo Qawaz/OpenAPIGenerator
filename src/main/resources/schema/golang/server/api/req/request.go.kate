@@ -26,6 +26,8 @@
 
         @for(@var op : path.operations)
 
+            @if(op.contains("requestBody") == false) @breakfor @endif
+
             @runtime.print_string("\n\n")
 
             @set_var currentSchemaName = op.operationId.capitalize() + "RequestSchema"

@@ -6,6 +6,7 @@ import (
 )
 
 type Service interface {
+	GenerateToken() res.GenerateTokenResponse
 	UploadLogFile(request req.UploadLogFileRequest) res.UploadLogFileResponse
 	ListLogs(request req.ListLogsRequest) res.ListLogsResponse
 }

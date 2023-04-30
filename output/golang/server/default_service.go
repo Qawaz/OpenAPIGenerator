@@ -9,6 +9,11 @@ type DefaultService struct {
 }
 
 
+func (service DefaultService) GenerateToken() res.GenerateTokenResponse {
+    // TODO not done yet
+    return nil
+}
+
 func (service DefaultService) UploadLogFile(request req.UploadLogFileRequest) res.UploadLogFileResponse {
     // TODO not done yet
     return nil

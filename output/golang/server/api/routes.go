@@ -17,6 +17,12 @@ type Routes []Route
 func CreateRoutes(c DefaultApiRouter) *Routes {
     return &Routes{
         {
+            "generateToken",
+            "POST",
+            "/v1/token",
+            c.GenerateToken,
+        },
+        {
             "uploadLogFile",
             "POST",
             "/v1/logs/upload",

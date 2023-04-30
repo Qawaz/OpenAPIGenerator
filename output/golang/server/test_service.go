@@ -10,6 +10,10 @@ import (
 type TestService struct {
 }
 
+func (service TestService) GenerateToken() res.GenerateTokenResponse {
+	return nil
+}
+
 func (service TestService) ListLogs(request req.ListLogsRequest) res.ListLogsResponse {
 	if request.DecodingError != nil {
 		log.Printf("ERROR : %s", request.DecodingError.Error())

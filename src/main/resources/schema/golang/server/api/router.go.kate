@@ -30,22 +30,26 @@
 
     @for(@var path : paths)
         @for(@var op : path.operations)
+            @var hasReqBody = op.contains("requestBody")
             @default_no_raw
                     func (b ServiceRouterBridge) @var(op.operationId.capitalize())(w http.ResponseWriter, r *http.Request) {
-                        bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
-                        request := req.@var(op.operationId.capitalize())Request{
-                            Schema:      req.@var(op.operationId.capitalize())RequestSchema{},
-                            BearerToken: bearerToken,
-                        }
-                        decoder := json.NewDecoder(r.Body)
-                        err := decoder.Decode(&request.Schema)
-                        if err != nil {
-                            request.DecodingError = err
-                        }
-                        response := b.Service.@var(op.operationId.capitalize())(request)
+                        @if(hasReqBody)
+                            bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
+                            request := req.@var(op.operationId.capitalize())Request{
+                                Schema:      req.@var(op.operationId.capitalize())RequestSchema{},
+                                BearerToken: bearerToken,
+                            }
+                            decoder := json.NewDecoder(r.Body)
+                            err := decoder.Decode(&request.Schema)
+                            if err != nil {
+                                request.DecodingError = err
+                            }
+                        @endif
+
+                        response := b.Service.@var(op.operationId.capitalize())(@if(hasReqBody) request @endif)
                         w.Header().Set("Content-Type", "application/json")
                         encoder := json.NewEncoder(w)
-                        err = encoder.Encode(response.Get@var(op.operationId.capitalize())Schema())
+                        err @if(hasReqBody == false) : @endif= encoder.Encode(response.Get@var(op.operationId.capitalize())Schema())
                         if err != nil {
                             log.Fatal(err.Error())
                         }

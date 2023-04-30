@@ -23,7 +23,7 @@
         @for(@var op,opIndex : path.operations)
             @runtime.print_string("\n\t")
             @default_no_raw
-                @var(op.operationId.capitalize())(request req.@var(requestObjName(op))) res.@var(responseObjName(op))
+                @var(op.operationId.capitalize())(@if(op.contains("requestBody")) request req.@var(requestObjName(op)) @endif) res.@var(responseObjName(op))
             @end_default_no_raw
         @endfor
     @endfor

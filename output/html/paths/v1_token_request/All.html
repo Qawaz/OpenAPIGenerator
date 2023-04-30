@@ -1,0 +1,207 @@
+<div class="operation">
+    <div class="header">
+        <span class="method">post</span>
+    </div>
+    <div class="info">
+        <table>
+            
+            
+                    <tr>
+            <td>OperationId</td>
+            <td><span class="code-box">generateRequestToken</span></td>
+        </tr>
+        </table>
+    </div>
+    
+    
+    <div class="responses">
+        <h3>Responses:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Status Code</th>
+                    <th>Description</th>
+                    <th>Example Response</th>
+                    <th>Media Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                        <tr>
+                <td>200</td>
+                <td>A request token has been generated</td>
+                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+    {
+	<span class="mem_key">request_token</span> : <span class="mem_type">string?</span>
+	<span class="mem_key">encryption_key</span> : <span class="mem_type">string?</span>
+	<span class="mem_key">exp_time</span> : <span class="mem_type">string?</span>
+    }
+</code>
+</pre>
+</div>
+</td>
+            </tr>            <tr>
+                <td>400</td>
+                <td>Bad request parameters</td>
+                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+   <span class="obj_name">Error</span>  {
+	<span class="mem_key">type</span> : <span class="mem_type">string</span>
+	<span class="mem_key">message</span> : <span class="mem_type">string</span>
+    }
+</code>
+</pre>
+</div>
+</td>
+            </tr>            <tr>
+                <td>401</td>
+                <td>A token that already exists is invalid and user must wait</td>
+                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+   <span class="obj_name">Error</span>  {
+	<span class="mem_key">type</span> : <span class="mem_type">string</span>
+	<span class="mem_key">message</span> : <span class="mem_type">string</span>
+    }
+</code>
+</pre>
+</div>
+</td>
+            </tr>            <tr>
+                <td>403</td>
+                <td>error creating request token</td>
+                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+   <span class="obj_name">Error</span>  {
+	<span class="mem_key">type</span> : <span class="mem_type">string</span>
+	<span class="mem_key">message</span> : <span class="mem_type">string</span>
+    }
+</code>
+</pre>
+</div>
+</td>
+            </tr>            <tr>
+                <td>500</td>
+                <td>a token couldn't be created due to an internal error</td>
+                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+   <span class="obj_name">Error</span>  {
+	<span class="mem_key">type</span> : <span class="mem_type">string</span>
+	<span class="mem_key">message</span> : <span class="mem_type">string</span>
+    }
+</code>
+</pre>
+</div>
+</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div><style>
+    table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        border-radius : 8px;
+        overflow:hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+    table th,
+    table td {
+        padding: 12px 15px;
+    }
+    table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    table tbody tr:last-of-type {
+        border-bottom: 2px solid #9879;
+    }
+    table tbody tr.active-row {
+        font-weight: bold;
+        color: #9879;
+    }
+</style>
+<style>
+    .operation {
+        background : rgba(0,0,0,0.2);
+        padding : 16px;
+        border-radius : 2em;
+    }
+    .operation .method {
+        background : green;
+        color : white;
+        padding:0.6em;
+        border-radius:12px;
+    }
+    .code-box {
+        padding:0.6em;
+        font-family:monospace;
+        color:white;
+        border-radius:12px;
+        background : rgba(16,16,16,0.6)
+    }
+    .operation > .info {
+        display:inline-block;
+        margin-top : 16px;
+    }
+    .operation > .request-body > .info {
+        display:inline-block;
+    }
+    .header .path {
+        color : white;
+        background : green;
+        padding: 0.6em;
+        border-radius:12px;
+    }
+    .operation header {
+        display : inline-block;
+    }
+    .method {
+        text-transform:uppercase;
+    }
+</style><style>
+    pre {
+        background-color: #2d2d2d; /* Dark gray */
+        color: #e6e6e6;
+        border-radius: 5px;
+        font-size: 14px;
+        font-family: monospace;
+    }
+
+    .obj_dev {
+        color: #e6e6e6;
+    }
+
+    .obj_dec > .obj_name {
+        color: #8bc34a; /* Light green */
+    }
+
+    .obj_dec .mem_key {
+        color: #ef5350; /* Red */
+    }
+
+    .obj_dec .mem_type {
+        color: #42a5f5; /* Blue */
+    }
+</style>

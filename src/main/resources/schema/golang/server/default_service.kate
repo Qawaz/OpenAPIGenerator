@@ -22,7 +22,7 @@ type DefaultService struct {
         @for(@var op,opIndex : path.operations)
             @runtime.print_string("\n")
             @default_no_raw
-                func (service DefaultService) @var(op.operationId.capitalize())(request req.@var(requestObjName(op))) res.@var(responseObjName(op)) {
+                func (service DefaultService) @var(op.operationId.capitalize())(@if(op.contains("requestBody")) request req.@var(requestObjName(op)) @endif) res.@var(responseObjName(op)) {
                     // TODO not done yet
                     return nil
                 }

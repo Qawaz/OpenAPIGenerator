@@ -6,6 +6,83 @@
 	}
 	throw : throw(message : string)
 	paths : {
+	summary : Request a bearer token
+	path : /v1/token
+	operations : {
+	security : 
+	method : post
+	operationId : generateToken
+	responses : {
+	mediaTypes : {
+		application/json : {
+			schema : {
+				request_token : 
+				encryption_key : 
+				exp_time : 
+			}
+		}
+	}
+	getSchemaRefName : (string) -> boolean
+	description : A request token has been generated
+	statusCode : 200
+	example : NO_EXAMPLE_YET
+},{
+	mediaTypes : {
+		application/json : {
+			schema : {
+				type : 
+				message : 
+			}
+		}
+	}
+	getSchemaRefName : (string) -> boolean
+	description : Bad request parameters
+	statusCode : 400
+	example : NO_EXAMPLE_YET
+},{
+	mediaTypes : {
+		application/json : {
+			schema : {
+				type : 
+				message : 
+			}
+		}
+	}
+	getSchemaRefName : (string) -> boolean
+	description : A token that already exists is invalid and user must wait
+	statusCode : 401
+	example : NO_EXAMPLE_YET
+},{
+	mediaTypes : {
+		application/json : {
+			schema : {
+				type : 
+				message : 
+			}
+		}
+	}
+	getSchemaRefName : (string) -> boolean
+	description : error creating request token
+	statusCode : 403
+	example : NO_EXAMPLE_YET
+},{
+	mediaTypes : {
+		application/json : {
+			schema : {
+				type : 
+				message : 
+			}
+		}
+	}
+	getSchemaRefName : (string) -> boolean
+	description : a token couldn't be created due to an internal error
+	statusCode : 500
+	example : NO_EXAMPLE_YET
+}
+}
+	description : A bearer token is returned with expiration time
+	parameters : 
+},{
 	summary : Upload a logs file
 	path : /v1/logs/upload
 	operations : {

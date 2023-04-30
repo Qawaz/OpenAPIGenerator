@@ -9,6 +9,7 @@ import (
 )
 
 type DefaultApiRouter interface {
+    GenerateToken(http.ResponseWriter, *http.Request)
     UploadLogFile(http.ResponseWriter, *http.Request)
     ListLogs(http.ResponseWriter, *http.Request)
 }
@@ -17,8 +18,21 @@ type ServiceRouterBridge struct {
     Service Service
 }
 
+
+func (b ServiceRouterBridge) GenerateToken(w http.ResponseWriter, r *http.Request) {
+    
+    response := b.Service.GenerateToken()
+    w.Header().Set("Content-Type", "application/json")
+    encoder := json.NewEncoder(w)
+    err := encoder.Encode(response.GetGenerateTokenSchema())
+    if err != nil {
+        log.Fatal(err.Error())
+    }
+}
+
+
 func (b ServiceRouterBridge) UploadLogFile(w http.ResponseWriter, r *http.Request) {
-    bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
+        bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
     request := req.UploadLogFileRequest{
         Schema:      req.UploadLogFileRequestSchema{},
         BearerToken: bearerToken,
@@ -37,8 +51,9 @@ func (b ServiceRouterBridge) UploadLogFile(w http.ResponseWriter, r *http.Reques
     }
 }
 
+
 func (b ServiceRouterBridge) ListLogs(w http.ResponseWriter, r *http.Request) {
-    bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
+        bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
     request := req.ListLogsRequest{
         Schema:      req.ListLogsRequestSchema{},
         BearerToken: bearerToken,
