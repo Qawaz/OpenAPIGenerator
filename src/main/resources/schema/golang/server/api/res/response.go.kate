@@ -1,0 +1,94 @@
+@partial_raw
+
+    @define_placeholder(__object_declaration__,operation_ref)
+        @default_no_raw
+            type @var(currentSchemaName)Schema struct {
+            @var(printMembers())
+            }
+
+            type @var(currentSchemaName) struct {
+                Schema @var(currentSchemaName)Schema
+            }
+        @end_default_no_raw
+    @end_define_placeholder
+
+    @define_placeholder(__object_member__,base_member)
+        @runtime.print_char('\t')
+        @default_no_raw
+            @var(getKey(keys[i])) @var(getGolangTypeWithBase(object[keys[i]],"models.")) `json:"@var(keys[i])" bson:"@var(keys[i])"`
+        @end_default_no_raw
+    @end_define_placeholder
+
+    @define_placeholder(ref_schema,res_schema,schema)
+        @default_no_raw
+            type @var(currentSchemaName) struct {
+                Schema models.@var(schema)
+            }
+        @end_default_no_raw
+    @end_define_placeholder
+
+    @for(@var path : paths)
+
+        set_stream("./api/res/" + path.path.removePrefix("/").replace("/","_") + ".go")
+
+        @default_no_raw package res @end_default_no_raw
+
+        @runtime.print_string("\n\n")
+
+        @default_no_raw import "server/models" @end_default_no_raw
+
+        @for(@var op : path.operations)
+
+           @runtime.print_string("\n\n")
+
+           @default_no_raw
+                type @var(op.operationId.capitalize())Response interface {
+                    Get@var(op.operationId.capitalize())Schema() any
+                }
+           @end_default_no_raw
+
+            @runtime.print_string("\n\n")
+
+            @for(@var response : op.responses)
+
+                @var keys = response.mediaTypes.getKeys()
+
+                @for(@var key : keys)
+                    @set_var currentSchemaName = op.operationId.capitalize() + "Response" + response.statusCode
+                    @if(response.mediaTypes[key].contains("schema"))
+                        @var refSchemaName = response.getSchemaRefName(key)
+                        @if(refSchemaName == "")
+                            @placeholder(object,default,response.mediaTypes[key].schema)
+                        @else
+                            @placeholder(ref_schema,res_schema,refSchemaName)
+                        @endif
+                        @runtime.print_string("\n\n")
+                    @endif
+                @endfor
+
+            @endfor
+
+            @for(@var response,resIndex : op.responses)
+
+                @var keys = response.mediaTypes.getKeys()
+
+                @for(@var key : keys)
+                    @set_var currentSchemaName = op.operationId.capitalize() + "Response" + response.statusCode
+                    @if(response.mediaTypes[key].contains("schema"))
+                        @default_no_raw
+                            func (r @var(currentSchemaName)) Get@var(op.operationId.capitalize())Schema() any {
+                                return r.Schema
+                            }
+                        @end_default_no_raw
+                        @if(resIndex < op.responses.size() - 1) @runtime.print_string("\n\n") @endif
+                    @endif
+                @endfor
+
+            @endfor
+
+        @endfor
+    @endfor
+
+    @use_placeholder(__object_declaration__,go_struct)
+
+@end_partial_raw

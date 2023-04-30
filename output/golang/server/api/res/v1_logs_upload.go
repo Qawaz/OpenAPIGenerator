@@ -2,38 +2,38 @@ package res
 
 import "server/models"
 
-type UploadLogsFileResponse interface {
-	IsUploadLogsFileResponse() bool
+type UploadLogFileResponse interface {
+    GetUploadLogFileSchema() any
 }
 
-type UploadLogsFileResponse200 struct {
-	Schema models.Success
+type UploadLogFileResponse200 struct {
+    Schema models.Success
 }
 
-type UploadLogsFileResponse400 struct {
-	Schema models.Error
+type UploadLogFileResponse400 struct {
+    Schema models.Error
 }
 
-type UploadLogsFileResponse401 struct {
-	Schema models.Error
+type UploadLogFileResponse401 struct {
+    Schema models.Error
 }
 
-type UploadLogsFileResponse500 struct {
-	Schema models.Error
+type UploadLogFileResponse500 struct {
+    Schema models.Error
 }
 
-func (r UploadLogsFileResponse200) IsUploadLogsFileResponse() bool {
-	return true
+func (r UploadLogFileResponse200) GetUploadLogFileSchema() any {
+    return r.Schema
 }
 
-func (r UploadLogsFileResponse400) IsUploadLogsFileResponse() bool {
-	return true
+func (r UploadLogFileResponse400) GetUploadLogFileSchema() any {
+    return r.Schema
 }
 
-func (r UploadLogsFileResponse401) IsUploadLogsFileResponse() bool {
-	return true
+func (r UploadLogFileResponse401) GetUploadLogFileSchema() any {
+    return r.Schema
 }
 
-func (r UploadLogsFileResponse500) IsUploadLogsFileResponse() bool {
-	return true
+func (r UploadLogFileResponse500) GetUploadLogFileSchema() any {
+    return r.Schema
 }

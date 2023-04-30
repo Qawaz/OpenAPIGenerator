@@ -1,6 +1,6 @@
 @partial_raw
 
-@function transformNullable(actual,nonNull)
+@function transformNullable(actual,nonNull,base)
     @if(actual.endsWith("?"))
         @if(nonNull.endsWith("?"))
             @return "*" + nonNull.substring(0,nonNull.size() - 1)
@@ -12,27 +12,31 @@
     @endif
 @end_function
 
-@function getGolangType(param)
+@function getGolangTypeWithBase(param,base)
     @var type = param.getType()
     @if(type.startsWith("object"))
         @if(param.contains("__map_of__"))
-            @return "map[string]" + getGolangType(param.__map_of__)
+            @return "map[string]" + base + getGolangType(param.__map_of__)
         @else
-            @return param.getName()
+            @return base + param.getName()
         @endif
     @elseif(type.startsWith("list") || type.startsWith("mutable_list"))
-        @return "[]" + getGolangType(param[0])
+        @return "[]" + base + getGolangType(param[0])
     @elseif(type.startsWith("boolean"))
-        @return transformNullable(type,"bool")
+        @return transformNullable(type,"bool","")
     @elseif(type.startsWith("double"))
-        @return transformNullable(type,"float64")
+        @return transformNullable(type,"float64","")
     @elseif(type.startsWith("long"))
-        @return transformNullable(type,"int64")
+        @return transformNullable(type,"int64","")
     @elseif(type.startsWith("char"))
-        @return transformNullable(type,"rune")
+        @return transformNullable(type,"rune","")
     @else
-        @return transformNullable(type,type)
+        @return transformNullable(type,type,base)
     @endif
+@end_function
+
+@function getGolangType(param)
+    @return getGolangTypeWithBase(param,"")
 @end_function
 
 @end_partial_raw

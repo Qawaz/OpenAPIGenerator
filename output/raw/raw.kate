@@ -23,6 +23,7 @@
 				}
 			}
 		}
+		getSchemaRefName : (string) -> boolean
 		description : Request body for the log file upload request , containing is_encrypted
 		required : true
 	}
@@ -35,6 +36,7 @@
 			}
 		}
 	}
+	getSchemaRefName : (string) -> boolean
 	description : The file has been uploaded
 	statusCode : 200
 	example : NO_EXAMPLE_YET
@@ -47,6 +49,7 @@
 			}
 		}
 	}
+	getSchemaRefName : (string) -> boolean
 	description : Bad request parameters
 	statusCode : 400
 	example : NO_EXAMPLE_YET
@@ -59,6 +62,7 @@
 			}
 		}
 	}
+	getSchemaRefName : (string) -> boolean
 	description : Request Token couldn't be authorized
 	statusCode : 401
 	example : NO_EXAMPLE_YET
@@ -71,6 +75,7 @@
 			}
 		}
 	}
+	getSchemaRefName : (string) -> boolean
 	description : File couldn't be uploaded or processed because of an internal error
 	statusCode : 500
 	example : NO_EXAMPLE_YET
@@ -97,6 +102,7 @@
 				}
 			}
 		}
+		getSchemaRefName : (string) -> boolean
 		description : Lists the logs for the given package and page
 		required : false
 	}
@@ -138,6 +144,7 @@
 			}
 		}
 	}
+	getSchemaRefName : (string) -> boolean
 	description : Logs are returned
 	statusCode : 200
 	example : NO_EXAMPLE_YET
@@ -150,6 +157,7 @@
 			}
 		}
 	}
+	getSchemaRefName : (string) -> boolean
 	description : Error because of bad request
 	statusCode : 400
 	example : NO_EXAMPLE_YET
@@ -162,6 +170,7 @@
 			}
 		}
 	}
+	getSchemaRefName : (string) -> boolean
 	description : Error , request token couldn't be authorized
 	statusCode : 401
 	example : NO_EXAMPLE_YET
@@ -174,6 +183,7 @@
 			}
 		}
 	}
+	getSchemaRefName : (string) -> boolean
 	description : There was a server error listing the logs
 	statusCode : 500
 	example : NO_EXAMPLE_YET

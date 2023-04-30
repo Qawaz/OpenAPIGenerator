@@ -1,11 +1,10 @@
-@partial_raw
+@raw
+    module server
 
-    set_stream("./go.mod")
+    go 1.19
 
-    @default_no_raw
-        module server
-
-        go 1.19
-    @end_default_no_raw
-
-@end_partial_raw
+    require (
+        github.com/golang-jwt/jwt/v4 v4.5.0
+        github.com/gorilla/mux v1.8.0
+    )
+@endraw

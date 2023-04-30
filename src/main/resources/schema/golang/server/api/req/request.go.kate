@@ -1,0 +1,60 @@
+@partial_raw
+
+    @var currentSchemaName = "NIL"
+
+    @define_placeholder(__object_declaration__,operation_ref)
+        @default_no_raw
+            type @var(currentSchemaName) struct {
+            @var(printMembers())
+            }
+        @end_default_no_raw
+    @end_define_placeholder
+
+    @define_placeholder(ref_schema,req_schema,schema)
+        @default_no_raw
+            type @var(currentSchemaName) struct {
+                Schema models.@var(schema)
+            }
+        @end_default_no_raw
+    @end_define_placeholder
+
+    @for(@var path : paths)
+
+        set_stream("./api/req/" + path.path.removePrefix("/").replace("/","_") + ".go")
+
+        @default_no_raw package req @end_default_no_raw
+
+        @for(@var op : path.operations)
+
+            @runtime.print_string("\n\n")
+
+            @set_var currentSchemaName = op.operationId.capitalize() + "RequestSchema"
+
+            @var keys = op.requestBody.mediaTypes.getKeys()
+
+            @for(@var key : keys)
+                @set_var currentSchemaName = op.operationId.capitalize() + "RequestSchema"
+                @if(op.requestBody.mediaTypes[key].contains("schema"))
+                    @var refSchemaName = op.requestBody.getSchemaRefName(key)
+                    @if(refSchemaName == "")
+                        @placeholder(object,default,op.requestBody.mediaTypes[key].schema)
+                    @else
+                        @placeholder(ref_schema,req_schema,refSchemaName)
+                    @endif
+                    @runtime.print_string("\n\n")
+                @endif
+            @endfor
+
+            @default_no_raw
+                type @var(op.operationId.capitalize())Request struct {
+                	Schema        @var(currentSchemaName)
+                	BearerToken   string
+                	DecodingError error
+                }
+            @end_default_no_raw
+        @endfor
+    @endfor
+
+    @use_placeholder(__object_declaration__,go_struct)
+
+@end_partial_raw

@@ -1,11 +1,13 @@
 package com.wakaztahir.openapi
 
 import com.reprezen.jsonoverlay.JsonOverlay
+import com.reprezen.jsonoverlay.Overlay
+import com.reprezen.jsonoverlay.PropertiesOverlay
 import com.reprezen.kaizen.oasparser.model3.*
+import com.reprezen.kaizen.oasparser.ovl3.MediaTypeImpl
 import com.wakaztahir.kate.model.KATEType
 import com.wakaztahir.kate.model.StringValue
-import com.wakaztahir.kate.model.model.KATEListImpl
-import com.wakaztahir.kate.model.model.MutableKATEObject
+import com.wakaztahir.kate.model.model.*
 
 fun MediaType.toMutableKATEObject(): MutableKATEObject {
     return MutableKATEObject {
@@ -27,6 +29,20 @@ fun Response.toMutableKATEObject(statusCode: String): MutableKATEObject {
         insertValue("description", getDescription() ?: "")
         insertValue("example", "NO_EXAMPLE_YET")
         insertValue("mediaTypes", getContentMediaTypes().mediaTypesObject())
+        insertValue("getSchemaRefName", object : KATEFunction(KATEType.Boolean, KATEType.String) {
+            override fun invoke(
+                model: KATEObject,
+                invokedOn: KATEValue,
+                explicitType: KATEType?,
+                parameters: List<ReferencedOrDirectValue>
+            ): ReferencedOrDirectValue {
+                val key = (parameters[0].getKATEValue(model) as StringValue).value
+                val mediaType = getContentMediaType(key)!! as PropertiesOverlay<*>
+                return StringValue(
+                    mediaType._getValueOverlayByPath("schema")!!._getReference()?.pointer?.segments?.lastOrNull() ?: ""
+                )
+            }
+        })
     }
 }
 
@@ -36,6 +52,20 @@ fun RequestBody.toMutableKATEObject(): MutableKATEObject {
         getDescription()?.let { insertValue("description", it) }
         insertValue("mediaTypes", getContentMediaTypes().mediaTypesObject())
         getRequired()?.let { insertValue("required", it) }
+        insertValue("getSchemaRefName", object : KATEFunction(KATEType.Boolean, KATEType.String) {
+            override fun invoke(
+                model: KATEObject,
+                invokedOn: KATEValue,
+                explicitType: KATEType?,
+                parameters: List<ReferencedOrDirectValue>
+            ): ReferencedOrDirectValue {
+                val key = (parameters[0].getKATEValue(model) as StringValue).value
+                val mediaType = getContentMediaType(key)!! as PropertiesOverlay<*>
+                return StringValue(
+                    mediaType._getValueOverlayByPath("schema")!!._getReference()?.pointer?.segments?.lastOrNull() ?: ""
+                )
+            }
+        })
     }
 }
 
@@ -78,7 +108,10 @@ fun Operation.toMutableKATEObject(method: String): MutableKATEObject {
 }
 
 fun Collection<Operation>.toKATEList(): KATEListImpl<*> {
-    return KATEListImpl(map { op -> op.toMutableKATEObject(method = (op as JsonOverlay<*>)._getPathInParent()) },itemType = KATEType.Object(KATEType.Any))
+    return KATEListImpl(
+        map { op -> op.toMutableKATEObject(method = (op as JsonOverlay<*>)._getPathInParent()) },
+        itemType = KATEType.Object(KATEType.Any)
+    )
 }
 
 fun Collection<Operation>.toMutableKATEObject(path: String): MutableKATEObject {
@@ -100,7 +133,7 @@ fun Example.toMutableKATEObject(key: String): MutableKATEObject {
 }
 
 fun Map<String, Example>.toKATEList(): KATEListImpl<MutableKATEObject> {
-    return KATEListImpl(map { it.value.toMutableKATEObject(key = it.key) },itemType = KATEType.Object(KATEType.Any))
+    return KATEListImpl(map { it.value.toMutableKATEObject(key = it.key) }, itemType = KATEType.Object(KATEType.Any))
 }
 
 fun Parameter.toMutableKATEObject(): MutableKATEObject {

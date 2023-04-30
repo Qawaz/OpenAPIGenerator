@@ -60,11 +60,11 @@ fun Schema.getMapOf(): String? {
     return null
 }
 
-fun Schema.toMutableKATEObject(allowNested: Boolean): MutableKATEObject {
+fun Schema.toMutableKATEObject(allowNested: Boolean,fallbackName : String = ""): MutableKATEObject {
 
     require(this.getType() == "object")
 
-    val name = this.getName() ?: ""
+    val name = this.getName() ?: fallbackName
 
     val kateObj = MutableKATEObject(name = name) { }
 

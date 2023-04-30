@@ -22,12 +22,21 @@ func (service TestService) ListLogs(request req.ListLogsRequest) res.ListLogsRes
 	)
 	return res.ListLogsResponse200{
 		Schema: res.ListLogsResponse200Schema{
-			Logs: []models.DatabaseLogEntry{},
+			Logs: []models.DatabaseLogEntry{{
+				Notes:           nil,
+				Log:             nil,
+				CreatedAt:       nil,
+				Id:              nil,
+				State:           "",
+				Device:          models.DeviceInformation{},
+				AppInformation:  models.AppInformation{},
+				UserInformation: models.UserInformation{},
+			}},
 		},
 	}
 }
 
-func (service TestService) UploadLogsFile(request req.UploadLogFileRequest) res.UploadLogsFileResponse {
+func (service TestService) UploadLogFile(request req.UploadLogFileRequest) res.UploadLogFileResponse {
 	if request.DecodingError != nil {
 		log.Printf("ERROR : %s", request.DecodingError.Error())
 	}
@@ -36,7 +45,7 @@ func (service TestService) UploadLogsFile(request req.UploadLogFileRequest) res.
 		request.BearerToken,
 		request.Schema.IsEncrypted,
 	)
-	return res.UploadLogsFileResponse200{
+	return res.UploadLogFileResponse200{
 		Schema: models.Success{Success: true},
 	}
 }

@@ -1,0 +1,33 @@
+@partial_raw
+
+    @raw
+        package api
+
+        import (
+        	"server/api/req"
+        	"server/api/res"
+        )
+
+        type Service interface {
+    @endraw
+
+    @function requestObjName(operation)
+        @return operation.operationId.capitalize() + "Request"
+    @end_function
+
+    @function responseObjName(operation)
+        @return operation.operationId.capitalize() + "Response"
+    @end_function
+
+    @for(@var path,pathIndex : paths)
+        @for(@var op,opIndex : path.operations)
+            @runtime.print_string("\n\t")
+            @default_no_raw
+                @var(op.operationId.capitalize())(request req.@var(requestObjName(op))) res.@var(responseObjName(op))
+            @end_default_no_raw
+        @endfor
+    @endfor
+
+    @runtime.print_string("\n}")
+
+@end_partial_raw

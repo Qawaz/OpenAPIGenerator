@@ -1,0 +1,34 @@
+package main
+
+import (
+    "server/api/req"
+    "server/api/res"
+)
+
+type DefaultService struct {
+}
+
+@partial_raw
+
+    @function requestObjName(operation)
+        @return operation.operationId.capitalize() + "Request"
+    @end_function
+
+    @function responseObjName(operation)
+        @return operation.operationId.capitalize() + "Response"
+    @end_function
+
+    @for(@var path,pathIndex : paths)
+        @for(@var op,opIndex : path.operations)
+            @runtime.print_string("\n")
+            @default_no_raw
+                func (service DefaultService) @var(op.operationId.capitalize())(request req.@var(requestObjName(op))) res.@var(responseObjName(op)) {
+                    // TODO not done yet
+                    return nil
+                }
+            @end_default_no_raw
+            @runtime.print_string("\n")
+        @endfor
+    @endfor
+
+@end_partial_raw

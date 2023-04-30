@@ -3,41 +3,41 @@ package res
 import "server/models"
 
 type ListLogsResponse interface {
-	IsListLogsResponse() bool
+    GetListLogsSchema() any
 }
 
 type ListLogsResponse200Schema struct {
-	Logs []models.DatabaseLogEntry `json:"logs"`
+	Logs []models.DatabaseLogEntry `json:"logs" bson:"logs"`
 }
 
 type ListLogsResponse200 struct {
-	Schema ListLogsResponse200Schema
+    Schema ListLogsResponse200Schema
 }
 
 type ListLogsResponse400 struct {
-	Schema models.Error
+    Schema models.Error
 }
 
 type ListLogsResponse401 struct {
-	Schema models.Error
+    Schema models.Error
 }
 
 type ListLogsResponse500 struct {
-	Schema models.Error
+    Schema models.Error
 }
 
-func (r ListLogsResponse200) IsListLogsResponse() bool {
-	return true
+func (r ListLogsResponse200) GetListLogsSchema() any {
+    return r.Schema
 }
 
-func (r ListLogsResponse400) IsListLogsResponse() bool {
-	return true
+func (r ListLogsResponse400) GetListLogsSchema() any {
+    return r.Schema
 }
 
-func (r ListLogsResponse401) IsListLogsResponse() bool {
-	return true
+func (r ListLogsResponse401) GetListLogsSchema() any {
+    return r.Schema
 }
 
-func (r ListLogsResponse500) IsListLogsResponse() bool {
-	return true
+func (r ListLogsResponse500) GetListLogsSchema() any {
+    return r.Schema
 }

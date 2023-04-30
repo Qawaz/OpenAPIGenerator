@@ -1,11 +1,41 @@
 @partial_raw
 
-    @default_no_raw
+    set_stream("./go.mod")
 
-        @embed_once ./go.mod.kate
+    @embed_once ./go.mod.kate
 
-    @end_default_no_raw
+    set_stream("./go.sum")
+
+    @embed_once ./go.sum.kate
+
+    set_stream("./api/service.go")
+
+    @embed_once ./api/service.go.kate
+
+    set_stream("./default_service.go")
+
+    @embed_once ./default_service.kate
+
+    set_stream("./api/server.go")
+
+    @embed_once ./api/server.go.kate
+
+    set_stream("./api/routes.go")
+
+    @embed_once ./api/routes.go.kate
 
     @embed_once ./models.gen.kate
+
+    set_stream("./api/auth/token.go")
+
+    @embed_once ./api/auth/token.go.kate
+
+    @embed_once ./api/req/request.go.kate
+
+    @embed_once ./api/res/response.go.kate
+
+    set_stream("./api/router.go")
+
+    @embed_once ./api/router.go.kate
 
 @end_partial_raw

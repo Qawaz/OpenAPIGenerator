@@ -1,0 +1,60 @@
+@partial_raw
+    @default_no_raw
+        package api
+
+        import (
+            "encoding/json"
+            "log"
+            "net/http"
+            token "server/api/auth"
+            "server/api/req"
+        )
+
+        type DefaultApiRouter interface {
+    @end_default_no_raw
+    @for(@var path : paths)
+        @for(@var op : path.operations)
+            @runtime.print_char('\n')
+            @default_no_raw
+                    @var(op.operationId.capitalize())(http.ResponseWriter, *http.Request)
+            @end_default_no_raw
+        @endfor
+    @endfor
+    @default_no_raw
+
+        }
+
+        type ServiceRouterBridge struct {
+            Service Service
+        }
+
+    @for(@var path : paths)
+        @for(@var op : path.operations)
+            @default_no_raw
+                    func (b ServiceRouterBridge) @var(op.operationId.capitalize())(w http.ResponseWriter, r *http.Request) {
+                        bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
+                        request := req.@var(op.operationId.capitalize())Request{
+                            Schema:      req.@var(op.operationId.capitalize())RequestSchema{},
+                            BearerToken: bearerToken,
+                        }
+                        decoder := json.NewDecoder(r.Body)
+                        err := decoder.Decode(&request.Schema)
+                        if err != nil {
+                            request.DecodingError = err
+                        }
+                        response := b.Service.@var(op.operationId.capitalize())(request)
+                        w.Header().Set("Content-Type", "application/json")
+                        encoder := json.NewEncoder(w)
+                        err = encoder.Encode(response.Get@var(op.operationId.capitalize())Schema())
+                        if err != nil {
+                            log.Fatal(err.Error())
+                        }
+                    }
+
+
+            @end_default_no_raw
+        @endfor
+    @endfor
+
+    @end_default_no_raw
+@end_partial_raw

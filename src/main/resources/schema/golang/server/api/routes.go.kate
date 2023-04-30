@@ -1,0 +1,40 @@
+@partial_raw
+    @raw
+        package api
+
+        import (
+            "net/http"
+        )
+
+        type Route struct {
+            Name        string
+            Method      string
+            Pattern     string
+            HandlerFunc http.HandlerFunc
+        }
+
+        type Routes []Route
+
+        // CreateRoutes returns all the api routes for the DefaultApiController
+        func CreateRoutes(c DefaultApiRouter) *Routes {
+            return &Routes{
+    @endraw
+    @runtime.print_char('\n')
+    @for(@var path : paths)
+        @for(@var op : path.operations)
+            @default_no_raw
+                        {
+                            "@var(op.operationId)",
+                            "@var(op.method.uppercase())",
+                            "@var(path.path)",
+                            c.@var(op.operationId.capitalize()),
+                        },
+            @end_default_no_raw
+            @runtime.print_char('\n')
+        @endfor
+    @endfor
+    @raw
+            }
+        }
+    @endraw
+@end_partial_raw

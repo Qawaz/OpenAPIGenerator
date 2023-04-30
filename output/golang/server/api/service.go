@@ -6,6 +6,6 @@ import (
 )
 
 type Service interface {
+	UploadLogFile(request req.UploadLogFileRequest) res.UploadLogFileResponse
 	ListLogs(request req.ListLogsRequest) res.ListLogsResponse
-	UploadLogsFile(request req.UploadLogFileRequest) res.UploadLogsFileResponse
 }
