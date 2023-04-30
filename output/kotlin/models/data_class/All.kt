@@ -73,7 +73,7 @@ data class DeviceState(
 
 data class LogEntry(
     val deviceState: DeviceState,
-    val timeFired: Int,
+    val timeFired: Long,
     val values: Map<String, String>,
     val tag: String,
     val stackTrace: String,

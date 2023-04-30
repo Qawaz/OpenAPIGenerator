@@ -276,7 +276,8 @@
             }
           },
           "time_fired": {
-            "type": "integer"
+            "type": "integer",
+            "format": "int64"
           }
         },
         "required": [

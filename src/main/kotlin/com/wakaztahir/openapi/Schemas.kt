@@ -18,7 +18,11 @@ fun Schema.toKATEValue(allowNested: Boolean): KATEValue {
         }
 
         "integer" -> {
-            IntValue(0)
+            if (this.getFormat() == "int64") {
+                LongValue(0)
+            } else {
+                IntValue(0)
+            }
         }
 
         "boolean" -> {
@@ -60,7 +64,7 @@ fun Schema.getMapOf(): String? {
     return null
 }
 
-fun Schema.toMutableKATEObject(allowNested: Boolean,fallbackName : String = ""): MutableKATEObject {
+fun Schema.toMutableKATEObject(allowNested: Boolean, fallbackName: String = ""): MutableKATEObject {
 
     require(this.getType() == "object")
 

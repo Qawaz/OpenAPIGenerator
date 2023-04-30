@@ -2,7 +2,7 @@ package models
 
 type LogEntry struct {
 	DeviceState DeviceState `json:"device_state" bson:"device_state"`
-	TimeFired int `json:"time_fired" bson:"time_fired"`
+	TimeFired int64 `json:"time_fired" bson:"time_fired"`
 	Values map[string]string `json:"values" bson:"values"`
 	Tag string `json:"tag" bson:"tag"`
 	StackTrace string `json:"stack_trace" bson:"stack_trace"`

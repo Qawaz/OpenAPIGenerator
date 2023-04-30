@@ -2,7 +2,7 @@ package `overridden`
 
 interface ILogEntry {
     val deviceState: DeviceState
-    val timeFired: Int
+    val timeFired: Long
     val values: Map<String, String>
     val tag: String
     val stackTrace: String
@@ -12,7 +12,7 @@ interface ILogEntry {
 
 data class LogEntry(
     override val deviceState: DeviceState,
-    override val timeFired: Int,
+    override val timeFired: Long,
     override val values: Map<String, String>,
     override val tag: String,
     override val stackTrace: String,
