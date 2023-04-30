@@ -20,9 +20,22 @@
 
     @for(@var path : paths)
 
+        @var hasSingleBody = false
+        @for(@var op : path.operations)
+            @if(op.contains("requestBody"))
+                hasSingleBody = true
+            @endif
+        @endfor
+
+        @if(hasSingleBody == false) @breakfor @endif
+
         set_stream("./api/req/" + path.path.removePrefix("/").replace("/","_") + ".go")
 
-        @default_no_raw package req @end_default_no_raw
+        @default_no_raw
+            package req
+
+            import "net/http"
+        @end_default_no_raw
 
         @for(@var op : path.operations)
 
@@ -50,6 +63,8 @@
             @default_no_raw
                 type @var(op.operationId.capitalize())Request struct {
                 	Schema        @var(currentSchemaName)
+                    Writer        http.ResponseWriter
+                    Request       *http.Request
                 	BearerToken   string
                 	DecodingError error
                 }

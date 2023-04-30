@@ -36,6 +36,8 @@ func (b ServiceRouterBridge) UploadLogFile(w http.ResponseWriter, r *http.Reques
         bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
     request := req.UploadLogFileRequest{
         Schema:      req.UploadLogFileRequestSchema{},
+        Request:     r,
+        Writer:      w,
         BearerToken: bearerToken,
     }
     decoder := json.NewDecoder(r.Body)
@@ -58,6 +60,8 @@ func (b ServiceRouterBridge) ListLogs(w http.ResponseWriter, r *http.Request) {
         bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
     request := req.ListLogsRequest{
         Schema:      req.ListLogsRequestSchema{},
+        Request:     r,
+        Writer:      w,
         BearerToken: bearerToken,
     }
     decoder := json.NewDecoder(r.Body)

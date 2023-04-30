@@ -37,6 +37,8 @@
                             bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
                             request := req.@var(op.operationId.capitalize())Request{
                                 Schema:      req.@var(op.operationId.capitalize())RequestSchema{},
+                                Request:     r,
+                                Writer:      w,
                                 BearerToken: bearerToken,
                             }
                             decoder := json.NewDecoder(r.Body)
