@@ -49,6 +49,7 @@
                         response := b.Service.@var(op.operationId.capitalize())(@if(hasReqBody) request @endif)
                         w.Header().Set("Content-Type", "application/json")
                         encoder := json.NewEncoder(w)
+                        w.WriteHeader(response.GetStatusCode())
                         err @if(hasReqBody == false) : @endif= encoder.Encode(response.Get@var(op.operationId.capitalize())Schema())
                         if err != nil {
                             log.Fatal(err.Error())

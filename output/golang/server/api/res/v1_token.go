@@ -4,6 +4,7 @@ import "server/models"
 
 type GenerateTokenResponse interface {
     GetGenerateTokenSchema() any
+    GetStatusCode() int
 }
 
 type GenerateTokenResponse200Schema struct {
@@ -36,18 +37,38 @@ func (r GenerateTokenResponse200) GetGenerateTokenSchema() any {
     return r.Schema
 }
 
+func (r GenerateTokenResponse200) GetStatusCode() int {
+    return 200
+}
+
 func (r GenerateTokenResponse400) GetGenerateTokenSchema() any {
     return r.Schema
+}
+
+func (r GenerateTokenResponse400) GetStatusCode() int {
+    return 400
 }
 
 func (r GenerateTokenResponse401) GetGenerateTokenSchema() any {
     return r.Schema
 }
 
+func (r GenerateTokenResponse401) GetStatusCode() int {
+    return 401
+}
+
 func (r GenerateTokenResponse403) GetGenerateTokenSchema() any {
     return r.Schema
 }
 
+func (r GenerateTokenResponse403) GetStatusCode() int {
+    return 403
+}
+
 func (r GenerateTokenResponse500) GetGenerateTokenSchema() any {
     return r.Schema
+}
+
+func (r GenerateTokenResponse500) GetStatusCode() int {
+    return 500
 }

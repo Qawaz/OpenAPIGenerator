@@ -24,6 +24,7 @@ func (b ServiceRouterBridge) GenerateToken(w http.ResponseWriter, r *http.Reques
     response := b.Service.GenerateToken()
     w.Header().Set("Content-Type", "application/json")
     encoder := json.NewEncoder(w)
+    w.WriteHeader(response.GetStatusCode())
     err := encoder.Encode(response.GetGenerateTokenSchema())
     if err != nil {
         log.Fatal(err.Error())
@@ -45,6 +46,7 @@ func (b ServiceRouterBridge) UploadLogFile(w http.ResponseWriter, r *http.Reques
     response := b.Service.UploadLogFile(request)
     w.Header().Set("Content-Type", "application/json")
     encoder := json.NewEncoder(w)
+    w.WriteHeader(response.GetStatusCode())
     err = encoder.Encode(response.GetUploadLogFileSchema())
     if err != nil {
         log.Fatal(err.Error())
@@ -66,6 +68,7 @@ func (b ServiceRouterBridge) ListLogs(w http.ResponseWriter, r *http.Request) {
     response := b.Service.ListLogs(request)
     w.Header().Set("Content-Type", "application/json")
     encoder := json.NewEncoder(w)
+    w.WriteHeader(response.GetStatusCode())
     err = encoder.Encode(response.GetListLogsSchema())
     if err != nil {
         log.Fatal(err.Error())

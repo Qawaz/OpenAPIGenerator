@@ -44,6 +44,7 @@
            @default_no_raw
                 type @var(op.operationId.capitalize())Response interface {
                     Get@var(op.operationId.capitalize())Schema() any
+                    GetStatusCode() int
                 }
            @end_default_no_raw
 
@@ -78,6 +79,10 @@
                         @default_no_raw
                             func (r @var(currentSchemaName)) Get@var(op.operationId.capitalize())Schema() any {
                                 return r.Schema
+                            }
+
+                            func (r @var(currentSchemaName)) GetStatusCode() int {
+                                return @var(response.statusCode)
                             }
                         @end_default_no_raw
                         @if(resIndex < op.responses.size() - 1) @runtime.print_string("\n\n") @endif
