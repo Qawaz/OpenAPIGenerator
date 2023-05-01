@@ -35,7 +35,7 @@
 
         @runtime.print_string("\n\n")
 
-        @default_no_raw import "server/models" @end_default_no_raw
+        @default_no_raw import "@var(config.golang.pkgName)/models" @end_default_no_raw
 
         @for(@var op : path.operations)
 
