@@ -1,15 +1,15 @@
 @partial_raw
 
-    @raw
+    @default_no_raw
         package api
 
         import (
-        	"server/api/req"
-        	"server/api/res"
+        	"@var(config.golang.pkgName)/api/req"
+        	"@var(config.golang.pkgName)/api/res"
         )
 
         type Service interface {
-    @endraw
+    @end_default_no_raw
 
     @function requestObjName(operation)
         @return operation.operationId.capitalize() + "Request"

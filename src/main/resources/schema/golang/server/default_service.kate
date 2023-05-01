@@ -1,8 +1,8 @@
 package main
 
 import (
-    "server/api/req"
-    "server/api/res"
+    "@var(config.golang.pkgName)/api/req"
+    "@var(config.golang.pkgName)/api/res"
 )
 
 type DefaultService struct {

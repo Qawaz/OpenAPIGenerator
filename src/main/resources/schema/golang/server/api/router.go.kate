@@ -6,8 +6,8 @@
             "encoding/json"
             "log"
             "net/http"
-            token "server/api/auth"
-            "server/api/req"
+            token "@var(config.golang.pkgName)/api/auth"
+            "@var(config.golang.pkgName)/api/req"
         )
 
         type DefaultApiRouter interface {

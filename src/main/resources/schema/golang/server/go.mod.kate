@@ -1,6 +1,6 @@
-@raw
-    module server
+module @var(config.golang.pkgName)
 
+@raw
     go 1.19
 
     require (
