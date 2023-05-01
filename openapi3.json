@@ -337,6 +337,37 @@
     "contact": {}
   },
   "paths": {
+    "/status": {
+      "summary": "Status of the api",
+      "description": "Information about version of api",
+      "get": {
+        "operationId": "getApiStatus",
+        "responses": {
+          "200": {
+            "description": "api is working",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "version"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/token":{
       "summary": "Request a bearer token",
       "description": "A bearer token is returned with expiration time",

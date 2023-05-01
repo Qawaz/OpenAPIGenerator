@@ -17,6 +17,12 @@ type Routes []Route
 func CreateRoutes(c DefaultApiRouter) *Routes {
     return &Routes{
         {
+            "getApiStatus",
+            "GET",
+            "/status",
+            c.GetApiStatus,
+        },
+        {
             "generateToken",
             "POST",
             "/v1/token",

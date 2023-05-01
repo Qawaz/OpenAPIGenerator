@@ -9,6 +9,7 @@ import (
 )
 
 type DefaultApiRouter interface {
+    GetApiStatus(http.ResponseWriter, *http.Request)
     GenerateToken(http.ResponseWriter, *http.Request)
     UploadLogFile(http.ResponseWriter, *http.Request)
     ListLogs(http.ResponseWriter, *http.Request)
@@ -16,6 +17,19 @@ type DefaultApiRouter interface {
 
 type ServiceRouterBridge struct {
     Service Service
+}
+
+
+func (b ServiceRouterBridge) GetApiStatus(w http.ResponseWriter, r *http.Request) {
+    
+    response := b.Service.GetApiStatus()
+    w.Header().Set("Content-Type", "application/json")
+    encoder := json.NewEncoder(w)
+    w.WriteHeader(response.GetStatusCode())
+    err := encoder.Encode(response.GetGetApiStatusSchema())
+    if err != nil {
+        log.Fatal(err.Error())
+    }
 }
 
 
