@@ -1,0 +1,8 @@
+
+    
+    @var generationType = "golang-server"
+    @var outputDir = "/"
+
+    @define_object(golang)
+        @var pkgName = "server"
+    @end_define_object

@@ -5,7 +5,7 @@
     <%-- Generating each schema into its own file --%>
     @for(@var schema : schemas)
         @var fileName = "./models/" + schema.getName() + ".go"
-        @var(console.log("Generating schema in golang for " + fileName + " for the server impl"))
+        @var(console.log("Generating " + fileName))
         @var(set_stream(fileName))
         @runtime.print_string("package models\n\n")
         @placeholder(object,default,schema)

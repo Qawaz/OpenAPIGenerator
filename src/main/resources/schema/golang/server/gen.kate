@@ -1,39 +1,51 @@
 @partial_raw
 
+    console.log("Beginning Generation for Golang-Server")
+
+    console.log("Generating ./go.mod")
     set_stream("./go.mod")
 
     @embed_once ./go.mod.kate
 
+    console.log("Generating ./go.sum")
     set_stream("./go.sum")
 
     @embed_once ./go.sum.kate
 
+    console.log("Generating ./api/service.go")
     set_stream("./api/service.go")
 
     @embed_once ./api/service.go.kate
 
+    console.log("Generating ./default_service.go")
     set_stream("./default_service.go")
 
     @embed_once ./default_service.kate
 
+    console.log("Generating ./api/server.go")
     set_stream("./api/server.go")
 
     @embed_once ./api/server.go.kate
 
+    console.log("Generating ./api/routes.go")
     set_stream("./api/routes.go")
 
     @embed_once ./api/routes.go.kate
 
     @embed_once ./models.gen.kate
 
+    console.log("Generating ./api/auth/token.go")
     set_stream("./api/auth/token.go")
 
     @embed_once ./api/auth/token.go.kate
 
+    console.log("Generating ./api/req/{requests}")
     @embed_once ./api/req/request.go.kate
 
+    console.log("Generating ./api/res/{responses}")
     @embed_once ./api/res/response.go.kate
 
+    console.log("Generating ./api/router.go")
     set_stream("./api/router.go")
 
     @embed_once ./api/router.go.kate
