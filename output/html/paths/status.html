@@ -1,0 +1,168 @@
+<div class="path">
+<h1 class="title"> /status</h1>
+<table>
+    <tr>
+    <td>Description</td>
+    <td>Information about version of api</td>
+</tr>
+    <tr>
+    <td>Summary</td>
+    <td>Status of the api</td>
+</tr>
+</table>
+</div><div class="operation">
+    <div class="header">
+        <span class="method">get</span>
+    </div>
+    <div class="info">
+        <table>
+            
+            
+                    <tr>
+            <td>OperationId</td>
+            <td><span class="code-box">getApiStatus</span></td>
+        </tr>
+        </table>
+    </div>
+    
+    
+    <div class="responses">
+        <h3>Responses:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Status Code</th>
+                    <th>Description</th>
+                    <th>Example Response</th>
+                    <th>Media Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                        <tr>
+                <td>200</td>
+                <td>api is working</td>
+                <td><pre><code>NO_EXAMPLE_YET</code></pre></td>
+                <td><div class="obj_dec">
+<pre>
+<code>
+    {
+	<span class="mem_key">version</span> : <span class="mem_type">int</span>
+	<span class="mem_key">status</span> : <span class="mem_type">string</span>
+    }
+</code>
+</pre>
+</div>
+</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div><style>
+    .path .title {
+        background:rgba(60,30,190,0.8);
+        color:white;
+        padding:0.5em;
+        border-radius:12px;
+        display:inline-block;
+        margin:0;
+        margin-bottom:8px;
+    }
+</style><style>
+    table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        border-radius : 8px;
+        overflow:hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+    table th,
+    table td {
+        padding: 12px 15px;
+    }
+    table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    table tbody tr:last-of-type {
+        border-bottom: 2px solid #9879;
+    }
+    table tbody tr.active-row {
+        font-weight: bold;
+        color: #9879;
+    }
+</style>
+<style>
+    .operation {
+        background : rgba(0,0,0,0.2);
+        padding : 16px;
+        border-radius : 2em;
+    }
+    .operation .method {
+        background : green;
+        color : white;
+        padding:0.6em;
+        border-radius:12px;
+    }
+    .code-box {
+        padding:0.6em;
+        font-family:monospace;
+        color:white;
+        border-radius:12px;
+        background : rgba(16,16,16,0.6)
+    }
+    .operation > .info {
+        display:inline-block;
+        margin-top : 16px;
+    }
+    .operation > .request-body > .info {
+        display:inline-block;
+    }
+    .header .path {
+        color : white;
+        background : green;
+        padding: 0.6em;
+        border-radius:12px;
+    }
+    .operation header {
+        display : inline-block;
+    }
+    .method {
+        text-transform:uppercase;
+    }
+</style><style>
+    pre {
+        background-color: #2d2d2d; /* Dark gray */
+        color: #e6e6e6;
+        border-radius: 5px;
+        font-size: 14px;
+        font-family: monospace;
+    }
+
+    .obj_dev {
+        color: #e6e6e6;
+    }
+
+    .obj_dec > .obj_name {
+        color: #8bc34a; /* Light green */
+    }
+
+    .obj_dec .mem_key {
+        color: #ef5350; /* Red */
+    }
+
+    .obj_dec .mem_type {
+        color: #42a5f5; /* Blue */
+    }
+</style>

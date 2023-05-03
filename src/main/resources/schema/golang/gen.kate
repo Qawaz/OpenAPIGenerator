@@ -4,7 +4,7 @@
 
     <%-- Generating each schema into its own file --%>
     @for(@var schema : schemas)
-        @var fileName = "./models/struct/" + schema.getName() + ".go"
+        @var fileName = "./struct/" + schema.getName() + ".go"
         @var(console.log("Generating schema in goland for " + fileName))
         @var(set_stream(fileName))
         @runtime.print_string("package main\n\n")
@@ -12,7 +12,7 @@
     @endfor
 
     <%-- Generating all schemas into single file --%>
-    @var(set_stream("./models/struct/All.go"))
+    @var(set_stream("./struct/All.go"))
     @var(console.log("Generating single file for schemas All.go"))
     @runtime.print_string("package main\n\n")
     @for(@var schema,index : schemas)
