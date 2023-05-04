@@ -1,16 +1,17 @@
 @partial_raw
 
 @function getKotlinType(param)
-    @if(param.getType().startsWith("object"))
-        @if(param.contains("__map_of__"))
-            @return "Map<String, " + getKotlinType(param.__map_of__) + ">"
+    @var type = param.getType()
+    @if(type.startsWith("object"))
+        @if(type.substring(7,type.size() - 1) != "any")
+            @return "Map<String, " + getKotlinType(type.substring(7,type.size() - 1)) + ">"
         @else
             @return param.getName()
         @endif
-    @elseif(param.getType().startsWith("list") || param.getType().startsWith("mutable_list"))
+    @elseif(type.startsWith("list") || type.startsWith("mutable_list"))
         @return "List<" + getKotlinType(param[0]) + ">"
     @else
-        @return param.getType().capitalize()
+        @return type.capitalize()
     @endif
 @end_function
 

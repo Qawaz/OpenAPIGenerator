@@ -222,7 +222,6 @@
 				time_fired : 0
 				values : {
 					__no_nested__ : true
-					__map_of__ : string
 				}
 				tag : 
 				stack_trace : 
@@ -312,7 +311,6 @@
 	os_name : 
 	info_map : {
 		__no_nested__ : true
-		__map_of__ : string
 	}
 },{
 	orientation : 
@@ -368,7 +366,6 @@
 	}
 	info_map : {
 		__no_nested__ : true
-		__map_of__ : string
 	}
 	is_connected_to_internet : false
 	time_zone : 
@@ -384,7 +381,6 @@
 	time_fired : 0
 	values : {
 		__no_nested__ : true
-		__map_of__ : string
 	}
 	tag : 
 	stack_trace : 
@@ -399,7 +395,6 @@
 	time_fired : 0
 	values : {
 		__no_nested__ : true
-		__map_of__ : string
 	}
 	tag : 
 	stack_trace : 

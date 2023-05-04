@@ -52,16 +52,16 @@ fun MutableKATEObject.addNoNested(): MutableKATEObject {
     return this
 }
 
-fun MutableKATEObject.addMapOf(value: String): MutableKATEObject {
-    insertValue("__map_of__", value)
-    return this
+private fun String.openApiTypeToKATEType(): KATEType? {
+    return when (this) {
+        "string" -> KATEType.String
+        else -> null
+    }
 }
 
-fun Schema.getMapOf(): String? {
-    if (this.getAdditionalPropertiesSchema()?.getType() == "string") {
-        return "string"
-    }
-    return null
+
+fun Schema.getMapOfType(): KATEType? {
+    return this.getAdditionalPropertiesSchema()?.getType()?.openApiTypeToKATEType()
 }
 
 fun Schema.toMutableKATEObject(allowNested: Boolean, fallbackName: String = ""): MutableKATEObject {
@@ -79,18 +79,19 @@ fun Schema.toMutableKATEObject(allowNested: Boolean, fallbackName: String = ""):
             if (propertiesOverlay.isReference(property.key)) {
                 kateObj.insertValue(
                     property.key,
-                    ModelObjectImpl(property.value.getName()!!, itemType = KATEType.Any).addNoNested().also { obj ->
-                        property.value.getMapOf()?.let { obj.addMapOf(it) }
-                    })
+                    ModelObjectImpl(
+                        property.value.getName()!!,
+                        itemType = property.value.getMapOfType() ?: KATEType.Any
+                    ).addNoNested()
+                )
                 continue
             } else {
-                val mapOf = property.value.getMapOf()
+                val mapOf = property.value.getMapOfType()
                 if (mapOf != null) {
                     kateObj.insertValue(
                         property.key,
-                        ModelObjectImpl(property.value.getName()!!, itemType = KATEType.Any).addNoNested().also { obj ->
-                            property.value.getMapOf()?.let { obj.addMapOf(it) }
-                        })
+                        ModelObjectImpl(property.value.getName()!!, itemType = mapOf).addNoNested()
+                    )
                     continue
                 }
             }

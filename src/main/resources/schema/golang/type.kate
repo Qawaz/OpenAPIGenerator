@@ -15,8 +15,8 @@
 @function getGolangTypeWithBase(param,base)
     @var type = param.getType()
     @if(type.startsWith("object"))
-        @if(param.contains("__map_of__"))
-            @return "map[string]" + base + getGolangType(param.__map_of__)
+        @if(type.substring(7,type.size() - 1) != "any")
+            @return "map[string]" + base + getGolangType(type.substring(7,type.size() - 1))
         @else
             @return base + param.getName()
         @endif
