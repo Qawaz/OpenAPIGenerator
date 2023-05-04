@@ -216,13 +216,9 @@
 				logs : {
 				notes : 
 				log : {
-				device_state : {
-					__no_nested__ : true
-				}
+				device_state : {}
 				time_fired : 0
-				values : {
-					__no_nested__ : true
-				}
+				values : {}
 				tag : 
 				stack_trace : 
 				type : 
@@ -231,15 +227,9 @@
 				created_at : 0
 				id : 
 				state : 
-				device : {
-					__no_nested__ : true
-				}
-				app_information : {
-					__no_nested__ : true
-				}
-				user_information : {
-					__no_nested__ : true
-				}
+				device : {}
+				app_information : {}
+				user_information : {}
 			}
 			}
 		}
@@ -309,9 +299,7 @@
 	platform_type : 
 	os_version : 
 	os_name : 
-	info_map : {
-		__no_nested__ : true
-	}
+	info_map : {}
 },{
 	orientation : 
 	top : 0
@@ -361,12 +349,8 @@
 	is_daemon : false
 	priority : 0
 }
-	current_thread : {
-		__no_nested__ : true
-	}
-	info_map : {
-		__no_nested__ : true
-	}
+	current_thread : {}
+	info_map : {}
 	is_connected_to_internet : false
 	time_zone : 
 	storage_information : {
@@ -375,13 +359,9 @@
 	free_space : 0
 }
 },{
-	device_state : {
-		__no_nested__ : true
-	}
+	device_state : {}
 	time_fired : 0
-	values : {
-		__no_nested__ : true
-	}
+	values : {}
 	tag : 
 	stack_trace : 
 	type : 
@@ -389,13 +369,9 @@
 },{
 	notes : 
 	log : {
-	device_state : {
-		__no_nested__ : true
-	}
+	device_state : {}
 	time_fired : 0
-	values : {
-		__no_nested__ : true
-	}
+	values : {}
 	tag : 
 	stack_trace : 
 	type : 
@@ -404,15 +380,9 @@
 	created_at : 0
 	id : 
 	state : 
-	device : {
-		__no_nested__ : true
-	}
-	app_information : {
-		__no_nested__ : true
-	}
-	user_information : {
-		__no_nested__ : true
-	}
+	device : {}
+	app_information : {}
+	user_information : {}
 }
 	config : {
 		console : {

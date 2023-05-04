@@ -47,11 +47,6 @@ fun Schema.toKATEValue(allowNested: Boolean): KATEValue {
     }
 }
 
-fun MutableKATEObject.addNoNested(): MutableKATEObject {
-    insertValue("__no_nested__", true)
-    return this
-}
-
 private fun String.openApiTypeToKATEType(): KATEType? {
     return when (this) {
         "string" -> KATEType.String
@@ -82,7 +77,7 @@ fun Schema.toMutableKATEObject(allowNested: Boolean, fallbackName: String = ""):
                     ModelObjectImpl(
                         property.value.getName()!!,
                         itemType = property.value.getMapOfType() ?: KATEType.Any
-                    ).addNoNested()
+                    )
                 )
                 continue
             } else {
@@ -90,7 +85,7 @@ fun Schema.toMutableKATEObject(allowNested: Boolean, fallbackName: String = ""):
                 if (mapOf != null) {
                     kateObj.insertValue(
                         property.key,
-                        ModelObjectImpl(property.value.getName()!!, itemType = mapOf).addNoNested()
+                        ModelObjectImpl(property.value.getName()!!, itemType = mapOf)
                     )
                     continue
                 }
