@@ -59,6 +59,10 @@ fun Schema.getMapOfType(): KATEType? {
     return this.getAdditionalPropertiesSchema()?.getType()?.openApiTypeToKATEType()
 }
 
+class TypedModelObject(objectName: String, val type: KATEType?) : ModelObjectImpl(objectName = objectName) {
+    override fun getKnownKATEType(): KATEType = type ?: super.getKnownKATEType()
+}
+
 fun Schema.toMutableKATEObject(allowNested: Boolean, fallbackName: String = ""): MutableKATEObject {
 
     require(this.getType() == "object")
@@ -74,10 +78,7 @@ fun Schema.toMutableKATEObject(allowNested: Boolean, fallbackName: String = ""):
             if (propertiesOverlay.isReference(property.key)) {
                 kateObj.insertValue(
                     property.key,
-                    ModelObjectImpl(
-                        property.value.getName()!!,
-                        itemType = property.value.getMapOfType() ?: KATEType.Any
-                    )
+                    TypedModelObject(property.value.getName()!!, property.value.getMapOfType()?.let { KATEType.Object(it) })
                 )
                 continue
             } else {
@@ -85,7 +86,7 @@ fun Schema.toMutableKATEObject(allowNested: Boolean, fallbackName: String = ""):
                 if (mapOf != null) {
                     kateObj.insertValue(
                         property.key,
-                        ModelObjectImpl(property.value.getName()!!, itemType = mapOf)
+                        TypedModelObject(property.value.getName()!!, property.value.getMapOfType()?.let { KATEType.Object(it) })
                     )
                     continue
                 }

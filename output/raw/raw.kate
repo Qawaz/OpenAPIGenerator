@@ -1,400 +1,400 @@
 
 
 {
-	console : {
-		log : log(vararg params : string)
+	console : object = {
+		log : (string) -> unit = log(vararg params : string)
 	}
-	throw : throw(message : string)
-	paths : {
-	summary : Status of the api
-	path : /status
-	operations : {
-	security : 
-	method : get
-	operationId : getApiStatus
-	responses : {
-	mediaTypes : {
-		application/json : {
-			schema : {
-				version : 0
-				status : 
+	throw : (string) -> unit = throw(message : string)
+	paths : list<any> = {
+	summary : string = Status of the api
+	path : string = /status
+	operations : list<object<any>> = {
+	security : list<object<any>> = 
+	method : string = get
+	operationId : string = getApiStatus
+	responses : list<object<any>> = {
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				version : int = 0
+				status : string = 
 			}
 		}
 	}
-	getSchemaRefName : (string) -> boolean
-	description : api is working
-	statusCode : 200
-	example : NO_EXAMPLE_YET
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = api is working
+	statusCode : string = 200
+	example : string = NO_EXAMPLE_YET
 }
 }
-	description : Information about version of api
-	parameters : 
+	description : string = Information about version of api
+	parameters : list<object<any>> = 
 },{
-	summary : Request a bearer token
-	path : /v1/token
-	operations : {
-	security : 
-	method : post
-	operationId : generateToken
-	responses : {
-	mediaTypes : {
-		application/json : {
-			schema : {
-				request_token : 
-				encryption_key : 
-				exp_time : 
+	summary : string = Request a bearer token
+	path : string = /v1/token
+	operations : list<object<any>> = {
+	security : list<object<any>> = 
+	method : string = post
+	operationId : string = generateToken
+	responses : list<object<any>> = {
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				request_token : string? = 
+				encryption_key : string? = 
+				exp_time : string? = 
 			}
 		}
 	}
-	getSchemaRefName : (string) -> boolean
-	description : A request token has been generated
-	statusCode : 200
-	example : NO_EXAMPLE_YET
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = A request token has been generated
+	statusCode : string = 200
+	example : string = NO_EXAMPLE_YET
 },{
-	mediaTypes : {
-		application/json : {
-			schema : {
-				type : 
-				message : 
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				type : string = 
+				message : string = 
 			}
 		}
 	}
-	getSchemaRefName : (string) -> boolean
-	description : Bad request parameters
-	statusCode : 400
-	example : NO_EXAMPLE_YET
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = Bad request parameters
+	statusCode : string = 400
+	example : string = NO_EXAMPLE_YET
 },{
-	mediaTypes : {
-		application/json : {
-			schema : {
-				type : 
-				message : 
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				type : string = 
+				message : string = 
 			}
 		}
 	}
-	getSchemaRefName : (string) -> boolean
-	description : A token that already exists is invalid and user must wait
-	statusCode : 401
-	example : NO_EXAMPLE_YET
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = A token that already exists is invalid and user must wait
+	statusCode : string = 401
+	example : string = NO_EXAMPLE_YET
 },{
-	mediaTypes : {
-		application/json : {
-			schema : {
-				type : 
-				message : 
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				type : string = 
+				message : string = 
 			}
 		}
 	}
-	getSchemaRefName : (string) -> boolean
-	description : error creating request token
-	statusCode : 403
-	example : NO_EXAMPLE_YET
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = error creating request token
+	statusCode : string = 403
+	example : string = NO_EXAMPLE_YET
 },{
-	mediaTypes : {
-		application/json : {
-			schema : {
-				type : 
-				message : 
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				type : string = 
+				message : string = 
 			}
 		}
 	}
-	getSchemaRefName : (string) -> boolean
-	description : a token couldn't be created due to an internal error
-	statusCode : 500
-	example : NO_EXAMPLE_YET
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = a token couldn't be created due to an internal error
+	statusCode : string = 500
+	example : string = NO_EXAMPLE_YET
 }
 }
-	description : A bearer token is returned with expiration time
-	parameters : 
+	description : string = A bearer token is returned with expiration time
+	parameters : list<object<any>> = 
 },{
-	summary : Upload a logs file
-	path : /v1/logs/upload
-	operations : {
-	security : {
-	requirements : {
-		bearerAuth : 
+	summary : string = Upload a logs file
+	path : string = /v1/logs/upload
+	operations : list<object<any>> = {
+	security : list<object<any>> = {
+	requirements : object = {
+		bearerAuth : list<string> = 
 	}
 }
-	method : post
-	requestBody : {
-		mediaTypes : {
-			application/x-www-form-urlencoded : {
-				schema : {
-					is_encrypted : false
+	method : string = post
+	requestBody : object = {
+		mediaTypes : object = {
+			application/x-www-form-urlencoded : object = {
+				schema : object = {
+					is_encrypted : boolean = false
 				}
 			}
 		}
-		getSchemaRefName : (string) -> boolean
-		description : Request body for the log file upload request , containing is_encrypted
-		required : true
+		getSchemaRefName : (string) -> boolean = (string) -> boolean
+		description : string = Request body for the log file upload request , containing is_encrypted
+		required : boolean = true
 	}
-	operationId : uploadLogFile
-	responses : {
-	mediaTypes : {
-		application/json : {
-			schema : {
-				success : false
+	operationId : string = uploadLogFile
+	responses : list<object<any>> = {
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				success : boolean = false
 			}
 		}
 	}
-	getSchemaRefName : (string) -> boolean
-	description : The file has been uploaded
-	statusCode : 200
-	example : NO_EXAMPLE_YET
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = The file has been uploaded
+	statusCode : string = 200
+	example : string = NO_EXAMPLE_YET
 },{
-	mediaTypes : {
-		application/json : {
-			schema : {
-				type : 
-				message : 
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				type : string = 
+				message : string = 
 			}
 		}
 	}
-	getSchemaRefName : (string) -> boolean
-	description : Bad request parameters
-	statusCode : 400
-	example : NO_EXAMPLE_YET
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = Bad request parameters
+	statusCode : string = 400
+	example : string = NO_EXAMPLE_YET
 },{
-	mediaTypes : {
-		application/json : {
-			schema : {
-				type : 
-				message : 
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				type : string = 
+				message : string = 
 			}
 		}
 	}
-	getSchemaRefName : (string) -> boolean
-	description : Request Token couldn't be authorized
-	statusCode : 401
-	example : NO_EXAMPLE_YET
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = Request Token couldn't be authorized
+	statusCode : string = 401
+	example : string = NO_EXAMPLE_YET
 },{
-	mediaTypes : {
-		application/json : {
-			schema : {
-				type : 
-				message : 
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				type : string = 
+				message : string = 
 			}
 		}
 	}
-	getSchemaRefName : (string) -> boolean
-	description : File couldn't be uploaded or processed because of an internal error
-	statusCode : 500
-	example : NO_EXAMPLE_YET
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = File couldn't be uploaded or processed because of an internal error
+	statusCode : string = 500
+	example : string = NO_EXAMPLE_YET
 }
 }
-	description : Takes log file and saves it
-	parameters : 
+	description : string = Takes log file and saves it
+	parameters : list<object<any>> = 
 },{
-	path : /v1/logs/list
-	operations : {
-	summary : List logs for a package
-	security : {
-	requirements : {
-		bearerAuth : 
+	path : string = /v1/logs/list
+	operations : list<object<any>> = {
+	summary : string = List logs for a package
+	security : list<object<any>> = {
+	requirements : object = {
+		bearerAuth : list<string> = 
 	}
 }
-	method : post
-	requestBody : {
-		mediaTypes : {
-			application/json : {
-				schema : {
-					package_name : 
-					page : 0
+	method : string = post
+	requestBody : object = {
+		mediaTypes : object = {
+			application/json : object = {
+				schema : object = {
+					package_name : string = 
+					page : int = 0
 				}
 			}
 		}
-		getSchemaRefName : (string) -> boolean
-		description : Lists the logs for the given package and page
-		required : false
+		getSchemaRefName : (string) -> boolean = (string) -> boolean
+		description : string = Lists the logs for the given package and page
+		required : boolean = false
 	}
-	description : lists the logs for a package
-	operationId : listLogs
-	responses : {
-	mediaTypes : {
-		application/json : {
-			schema : {
-				logs : {
-				notes : 
-				log : {
-				device_state : {}
-				time_fired : 0
-				values : {}
-				tag : 
-				stack_trace : 
-				type : 
-				message : 
+	description : string = lists the logs for a package
+	operationId : string = listLogs
+	responses : list<object<any>> = {
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				logs : list<any>? = {
+				notes : list<any>? = 
+				log : list<any>? = {
+				device_state : object = {}
+				time_fired : long = 0
+				values : object = {}
+				tag : string = 
+				stack_trace : string = 
+				type : string = 
+				message : string = 
 			}
-				created_at : 0
-				id : 
-				state : 
-				device : {}
-				app_information : {}
-				user_information : {}
+				created_at : int? = 0
+				id : string? = 
+				state : string = 
+				device : object = {}
+				app_information : object = {}
+				user_information : object = {}
 			}
-			}
-		}
-	}
-	getSchemaRefName : (string) -> boolean
-	description : Logs are returned
-	statusCode : 200
-	example : NO_EXAMPLE_YET
-},{
-	mediaTypes : {
-		application/json : {
-			schema : {
-				type : 
-				message : 
 			}
 		}
 	}
-	getSchemaRefName : (string) -> boolean
-	description : Error because of bad request
-	statusCode : 400
-	example : NO_EXAMPLE_YET
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = Logs are returned
+	statusCode : string = 200
+	example : string = NO_EXAMPLE_YET
 },{
-	mediaTypes : {
-		application/json : {
-			schema : {
-				type : 
-				message : 
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				type : string = 
+				message : string = 
 			}
 		}
 	}
-	getSchemaRefName : (string) -> boolean
-	description : Error , request token couldn't be authorized
-	statusCode : 401
-	example : NO_EXAMPLE_YET
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = Error because of bad request
+	statusCode : string = 400
+	example : string = NO_EXAMPLE_YET
 },{
-	mediaTypes : {
-		application/json : {
-			schema : {
-				type : 
-				message : 
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				type : string = 
+				message : string = 
 			}
 		}
 	}
-	getSchemaRefName : (string) -> boolean
-	description : There was a server error listing the logs
-	statusCode : 500
-	example : NO_EXAMPLE_YET
-}
-}
-	parameters : 
-}
-	set_stream : set_stream(path : string)
-	schemas : {
-	success : false
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = Error , request token couldn't be authorized
+	statusCode : string = 401
+	example : string = NO_EXAMPLE_YET
 },{
-	type : 
-	message : 
-},{
-	package_name : 
-	version_number : 0
-	version : 
-},{
-	user_email : 
-	user_id : 
-	user_name : 
-},{
-	platform_type : 
-	os_version : 
-	os_name : 
-	info_map : {}
-},{
-	orientation : 
-	top : 0
-	left : 0
-	bottom : 0
-	right : 0
-	display_name : 
-},{
-	storage_name : 
-	total_space : 0
-	free_space : 0
-},{
-	is_native_method : false
-	method_name : 
-	file_name : 
-	line_number : 0
-	class_name : 
-},{
-	thread_id : 0
-	is_interrupted : false
-	thread_name : 
-	is_alive : false
-	thread_traces : {
-	is_native_method : false
-	method_name : 
-	file_name : 
-	line_number : 0
-	class_name : 
-}
-	thread_state : 
-	is_daemon : false
-	priority : 0
-},{
-	other_threads : {
-	thread_id : 0
-	is_interrupted : false
-	thread_name : 
-	is_alive : false
-	thread_traces : {
-	is_native_method : false
-	method_name : 
-	file_name : 
-	line_number : 0
-	class_name : 
-}
-	thread_state : 
-	is_daemon : false
-	priority : 0
-}
-	current_thread : {}
-	info_map : {}
-	is_connected_to_internet : false
-	time_zone : 
-	storage_information : {
-	storage_name : 
-	total_space : 0
-	free_space : 0
-}
-},{
-	device_state : {}
-	time_fired : 0
-	values : {}
-	tag : 
-	stack_trace : 
-	type : 
-	message : 
-},{
-	notes : 
-	log : {
-	device_state : {}
-	time_fired : 0
-	values : {}
-	tag : 
-	stack_trace : 
-	type : 
-	message : 
-}
-	created_at : 0
-	id : 
-	state : 
-	device : {}
-	app_information : {}
-	user_information : {}
-}
-	config : {
-		console : {
-			log : log(vararg params : string)
+	mediaTypes : object = {
+		application/json : object = {
+			schema : object = {
+				type : string = 
+				message : string = 
+			}
 		}
-		throw : throw(message : string)
 	}
-	info : {
-		contact : {}
-		description : Logging backend is the backend provider for log requests generated by mobile apps, for crashes and app analytical logging
-		termsOfService : https://qawaz.github.io/terms
-		title : Logging Backend Schema
-		version : 1.0.0
+	getSchemaRefName : (string) -> boolean = (string) -> boolean
+	description : string = There was a server error listing the logs
+	statusCode : string = 500
+	example : string = NO_EXAMPLE_YET
+}
+}
+	parameters : list<object<any>> = 
+}
+	set_stream : (string) -> unit = set_stream(path : string)
+	schemas : list<any> = {
+	success : boolean = false
+},{
+	type : string = 
+	message : string = 
+},{
+	package_name : string = 
+	version_number : int = 0
+	version : string = 
+},{
+	user_email : string = 
+	user_id : string = 
+	user_name : string = 
+},{
+	platform_type : string = 
+	os_version : string? = 
+	os_name : string = 
+	info_map : object = {}
+},{
+	orientation : string = 
+	top : int = 0
+	left : int = 0
+	bottom : int = 0
+	right : int = 0
+	display_name : string = 
+},{
+	storage_name : string = 
+	total_space : int = 0
+	free_space : int = 0
+},{
+	is_native_method : boolean = false
+	method_name : string = 
+	file_name : string? = 
+	line_number : int = 0
+	class_name : string = 
+},{
+	thread_id : int = 0
+	is_interrupted : boolean = false
+	thread_name : string = 
+	is_alive : boolean = false
+	thread_traces : list<any> = {
+	is_native_method : boolean = false
+	method_name : string = 
+	file_name : string? = 
+	line_number : int = 0
+	class_name : string = 
+}
+	thread_state : string = 
+	is_daemon : boolean = false
+	priority : int = 0
+},{
+	other_threads : list<any>? = {
+	thread_id : int = 0
+	is_interrupted : boolean = false
+	thread_name : string = 
+	is_alive : boolean = false
+	thread_traces : list<any> = {
+	is_native_method : boolean = false
+	method_name : string = 
+	file_name : string? = 
+	line_number : int = 0
+	class_name : string = 
+}
+	thread_state : string = 
+	is_daemon : boolean = false
+	priority : int = 0
+}
+	current_thread : object = {}
+	info_map : object = {}
+	is_connected_to_internet : boolean? = false
+	time_zone : string? = 
+	storage_information : list<any> = {
+	storage_name : string = 
+	total_space : int = 0
+	free_space : int = 0
+}
+},{
+	device_state : object = {}
+	time_fired : long = 0
+	values : object = {}
+	tag : string = 
+	stack_trace : string = 
+	type : string = 
+	message : string = 
+},{
+	notes : list<any>? = 
+	log : list<any>? = {
+	device_state : object = {}
+	time_fired : long = 0
+	values : object = {}
+	tag : string = 
+	stack_trace : string = 
+	type : string = 
+	message : string = 
+}
+	created_at : int? = 0
+	id : string? = 
+	state : string = 
+	device : object = {}
+	app_information : object = {}
+	user_information : object = {}
+}
+	config : object = {
+		console : object = {
+			log : (string) -> unit = log(vararg params : string)
+		}
+		throw : (string) -> unit = throw(message : string)
+	}
+	info : object = {
+		contact : object = {}
+		description : string = Logging backend is the backend provider for log requests generated by mobile apps, for crashes and app analytical logging
+		termsOfService : string = https://qawaz.github.io/terms
+		title : string = Logging Backend Schema
+		version : string = 1.0.0
 	}
 }

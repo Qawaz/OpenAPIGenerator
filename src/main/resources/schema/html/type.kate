@@ -3,7 +3,7 @@
 @function getHtmlType(param)
     @var type = param.getType()
     @if(type.startsWith("object"))
-        @if(type.substring(7,type.size() - 1) != "any")
+        @if(type.startsWith("object<{") == false)
             @return "map&lt;string, " + getHtmlType(type.substring(7,type.size() - 1)) + "&gt;"
         @else
             @return param.getName()

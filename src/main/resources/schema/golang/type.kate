@@ -15,7 +15,7 @@
 @function getGolangTypeWithBase(param,base)
     @var type = param.getType()
     @if(type.startsWith("object"))
-        @if(type.substring(7,type.size() - 1) != "any")
+        @if(type.startsWith("object<{") == false)
             @return "map[string]" + base + getGolangType(type.substring(7,type.size() - 1))
         @else
             @return base + param.getName()
