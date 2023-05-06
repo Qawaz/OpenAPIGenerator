@@ -18,6 +18,12 @@ Main file takes three command line parameters
 
 3 - output_dir_path (output directory path)
 
+An example command to generate a golang-server would look like this
+
+```shell
+./OpenAPIGenerator.exe golang-server ./openapi3.json ./
+```
+
 ## Customization
 
 When you generate for the first , In the output folder the generator generates a KATE configuration file

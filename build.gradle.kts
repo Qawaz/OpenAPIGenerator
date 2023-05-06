@@ -22,6 +22,7 @@ graalvmNative {
 }
 
 nativeBuild {
+    this.buildArgs.add("--enable-url-protocols=https")
     fallback.value(false)
     mainClass.value("com.wakaztahir.openapi.MainKt")
 }
