@@ -2,6 +2,9 @@
 
 @function getHtmlType(param)
     @var type = param.getType()
+    @if(type.indexOf("`") > -1)
+        type = type.substring(0,type.indexOf("`"))
+    @endif
     @if(type.startsWith("object"))
         @if(type.startsWith("object<{") == false)
             @return "map&lt;string, " + getHtmlType(type.substring(7,type.size() - 1)) + "&gt;"

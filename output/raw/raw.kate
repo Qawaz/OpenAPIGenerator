@@ -225,7 +225,7 @@
 				message : string = 
 			}
 				created_at : int? = 0
-				id : string? = 
+				id : string?`golang-format=*primitive.ObjectId,golang-bson-name=_id` = 
 				state : string = 
 				device : object = {}
 				app_information : object = {}
@@ -378,7 +378,7 @@
 	message : string = 
 }
 	created_at : int? = 0
-	id : string? = 
+	id : string?`golang-format=*primitive.ObjectId,golang-bson-name=_id` = 
 	state : string = 
 	device : object = {}
 	app_information : object = {}

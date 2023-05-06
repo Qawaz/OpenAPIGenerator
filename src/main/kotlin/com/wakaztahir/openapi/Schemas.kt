@@ -59,10 +59,10 @@ fun Schema.getMapOfType(): KATEType? {
     return this.getAdditionalPropertiesSchema()?.getType()?.openApiTypeToKATEType()
 }
 
-fun Schema.getExtensionsAsProperty(type: KATEType): KATEType.Class.Property? {
+fun Schema.addExtensionsAsMetadata(type: KATEType): KATEType? {
     val extensions = this.getExtensions()
     if (extensions.isNotEmpty()) {
-        val property = KATEType.Class.Property(type = type, meta = mutableMapOf())
+        val property = KATEType.TypeWithMetadata(actual = type, mutableMapOf())
         for (extension in extensions) {
             val extensionKey = extension.key.removePrefix("x-")
             val extensionValue = extension.value.toString()
@@ -77,24 +77,13 @@ class TypedModelObject(objectName: String, val type: KATEType?) : ModelObjectImp
     override fun getKnownKATEType(): KATEType = type ?: super.getKnownKATEType()
 }
 
-class MergedTypeModelObject(objectName: String, val types: MutableMap<String, KATEType.Class.Property>) :
-    ModelObjectImpl(objectName = objectName) {
-    override fun getKnownKATEType(): KATEType {
-        if (types.isEmpty()) return super.getKnownKATEType()
-        val upper = ((super.getKnownKATEType() as KATEType.Object).itemsType as KATEType.Class).members as MutableMap
-        for (member in types) upper[member.key] = member.value
-        return KATEType.Object(KATEType.Class(upper))
-    }
-}
-
 fun Schema.toMutableKATEObject(allowNested: Boolean, fallbackName: String = ""): MutableKATEObject {
 
     require(this.getType() == "object")
 
     val name = this.getName() ?: fallbackName
 
-    val types = mutableMapOf<String, KATEType.Class.Property>()
-    val kateObj = MergedTypeModelObject(objectName = name, types = types)
+    val kateObj = ModelObjectImpl(objectName = name)
 
     val properties = this.getProperties()
     val propertiesOverlay = Overlay.of(properties)
@@ -128,11 +117,14 @@ fun Schema.toMutableKATEObject(allowNested: Boolean, fallbackName: String = ""):
             }
         }
         val value = property.value.toKATEValue(allowNested = allowNested)
-        property.value.getExtensionsAsProperty(type = value.getKnownKATEType())?.let {
-            types[property.key] = it
-        }
+
+        var typeName: KATEType? = null
         if (!isRequired) {
-            kateObj.setExplicitType(property.key, KATEType.NullableKateType(value.getKnownKATEType()))
+            typeName = KATEType.NullableKateType(value.getKnownKATEType())
+        }
+        typeName = property.value.addExtensionsAsMetadata(typeName ?: value.getKnownKATEType()) ?: typeName
+        if (typeName != null) {
+            kateObj.setExplicitType(property.key, typeName)
         }
         kateObj.insertValue(property.key, value)
     }
