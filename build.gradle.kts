@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm")
+    id("org.graalvm.buildtools.native").version("0.9.12")
 }
 
 dependencies {
@@ -9,9 +10,20 @@ dependencies {
     implementation("com.wakaztahir.openapi:parser:1.1.1")
     implementation("com.wakaztahir.openapi:validator:1.1.1")
 
+    implementation("org.graalvm.sdk:graal-sdk:22.3.2")
+
     testImplementation("junit:junit:4.13.1")
     testImplementation(kotlin("test"))
 
+}
+
+graalvmNative {
+    toolchainDetection.value(true)
+}
+
+nativeBuild {
+    fallback.value(false)
+    mainClass.value("com.wakaztahir.openapi.MainKt")
 }
 
 fun RepositoryHandler.githubPackages(){
