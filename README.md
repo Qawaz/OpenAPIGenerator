@@ -36,21 +36,23 @@ If you'd like to customize kotlin models , add annotations on them or change how
 
 You'd need to override the template , I'd say better make a fork of this repo and see how templates are written
 
-This would be very easy since KATE placeholders are used , You just need to 
+This would be very easy since KATE placeholders are used , You just need to
 
 You can also open an issue for it , I'd love to support that customization using placeholders
 so further customization is easier
 
 ## Supported
 
-| Language Generation Type     | Command Line Parameter |     |
-|------------------------------|------------------------|-----|
-| Golang Models (Struct)       | golang-models          |     |
-| Golang Server (uses gorilla) | golang-server          |     |
-| HTML                         | html                   |     |
-| Kotlin                       | kotlin                 |     |
-| JSON (Models)                | json                   |     |
-| Raw                          | raw                    |     |
+| Language Generation Type     | Command Line Parameter | Supported |
+|------------------------------|------------------------|-----------|
+| Golang Models (Struct)       | golang-models          | &check;   |
+| Golang Server (uses gorilla) | golang-server          | &check;   |
+| HTML                         | html                   | &check;   |
+| Kotlin Models Only           | kotlin                 | &check;   |
+| JSON (Models)                | json                   | &check;   |
+| Raw                          | raw                    | &check;   |
+| Kotlin Ktor Client           | kotlin-ktor-client     | TODO      |
+| Markdown                     | markdown-docs          | &cross;   |
 
 ## Licensing
 
