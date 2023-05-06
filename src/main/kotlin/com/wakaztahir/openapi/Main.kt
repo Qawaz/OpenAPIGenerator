@@ -14,8 +14,9 @@ fun main(strArr: Array<String>) {
     val languageGenType: String = strArr[0]
     val schemaPath: String = strArr[1]
     val outputDirPath: String = strArr[2]
-    val isForcedDefault: Boolean = strArr.getOrNull(3)?.let { it.equals("true", ignoreCase = true) } ?: false
-    val isForcedDefaultWrite: Boolean = strArr.getOrNull(4)?.let { it.equals("true", ignoreCase = true) } ?: false
+    val templatesDirPath: String = strArr.getOrNull(3) ?: "./templates"
+    val isForcedDefault: Boolean = strArr.getOrNull(4)?.let { it.equals("true", ignoreCase = true) } ?: false
+    val isForcedDefaultWrite: Boolean = strArr.getOrNull(5)?.let { it.equals("true", ignoreCase = true) } ?: false
 
     // KATE Configuration file
 
@@ -43,6 +44,7 @@ fun main(strArr: Array<String>) {
         parsed.toMutableKATEObject(allowNested = gen.allowNested).apply {
             insertValue("config", config)
         }.generateMultiFileTemplate(
+            templatesDir = templatesDirPath,
             template = gen.template,
             outputDir = outputDir
         )

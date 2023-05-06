@@ -18,7 +18,13 @@ Main file takes three command line parameters
 
 3 - output_dir_path (output directory path)
 
-An example command to generate a golang-server would look like this
+4 - templates directory path (default ./templates)
+
+5 - force default (default false when true will use default configuration without reading / writing configuration from output dir)
+
+6 - force write default (default false when true will write default configuration to config file in output dir)
+
+An example command to generate a golang-server would look like this when templates are in default "templates" directory
 
 ```shell
 ./OpenAPIGenerator.exe golang-server ./openapi3.json ./

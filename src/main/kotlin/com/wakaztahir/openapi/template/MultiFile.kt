@@ -1,16 +1,15 @@
 package com.wakaztahir.openapi.template
 
+import com.wakaztahir.kate.InputSourceStream
 import com.wakaztahir.kate.OutputDestinationStream
+import com.wakaztahir.kate.RelativeFileEmbeddingManager
 import com.wakaztahir.kate.RelativeResourceEmbeddingManager
-import com.wakaztahir.kate.model.KATEType
-import com.wakaztahir.kate.model.ModelReference
-import com.wakaztahir.kate.model.PlaceholderInvocation
-import com.wakaztahir.kate.model.StringValue
+import com.wakaztahir.kate.model.*
 import com.wakaztahir.kate.model.model.*
 import com.wakaztahir.kate.parser.stream.*
 import com.wakaztahir.kate.runtime.StringImplementation
-import java.io.File
-import java.io.OutputStream
+import java.io.*
+import java.nio.ByteBuffer
 
 class ChangeableDestinationStream(stream: WritableStream) : DestinationStream {
 
@@ -58,11 +57,11 @@ fun MutableKATEObject.putStreamPlaceholderFunction(
     })
 }
 
-fun MutableKATEObject.generateMultiFileTemplate(template: String, outputDir: File) {
+fun MutableKATEObject.generateMultiFileTemplate(templatesDir : String,template: String, outputDir: File) {
     val source = TextSourceStream(
         sourceCode = """@partial_raw @embed_once ./$template${'\n'} @end_partial_raw""",
         model = this,
-        embeddingManager = RelativeResourceEmbeddingManager(basePath = "/", classLoader = object {}.javaClass)
+        embeddingManager = RelativeFileEmbeddingManager(File(templatesDir))
     )
     var value = ""
     val destination = ChangeableDestinationStream(object : WritableStream {
