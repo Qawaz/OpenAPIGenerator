@@ -60,10 +60,10 @@ fun Schema.getMapOfType(): KATEType? {
 }
 
 fun Schema.addExtensionsAsMetadata(type: KATEType): KATEType? {
-    val extensions = this.getExtensions()
-    if (extensions.isNotEmpty()) {
-        val metaMap = mutableMapOf<String,KATEValue>()
-        for (extension in extensions) {
+    if (this.getExtensions().isNotEmpty() || this.getFormat() != null) {
+        val metaMap = mutableMapOf<String, KATEValue>()
+        this.getFormat()?.let { metaMap["format"] = StringValue(it) }
+        for (extension in this.getExtensions()) {
             val extensionKey = extension.key.removePrefix("x-")
             val extensionValue = extension.value as? String
             if (extensionValue != null) {

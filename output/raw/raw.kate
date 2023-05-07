@@ -217,7 +217,7 @@
 				notes : list<any>? = 
 				log : list<any>? = {
 				device_state : object = {}
-				time_fired : long = 0
+				time_fired : long`format=int64` = 0
 				values : object = {}
 				tag : string = 
 				stack_trace : string = 
@@ -360,7 +360,7 @@
 }
 },{
 	device_state : object = {}
-	time_fired : long = 0
+	time_fired : long`format=int64` = 0
 	values : object = {}
 	tag : string = 
 	stack_trace : string = 
@@ -370,7 +370,7 @@
 	notes : list<any>? = 
 	log : list<any>? = {
 	device_state : object = {}
-	time_fired : long = 0
+	time_fired : long`format=int64` = 0
 	values : object = {}
 	tag : string = 
 	stack_trace : string = 
