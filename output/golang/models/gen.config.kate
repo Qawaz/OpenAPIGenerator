@@ -1,4 +1,6 @@
 
+    @var ignore : list<string> = @list()
+
     @define_object(golang)
         @var pkgName = "server"
     @end_define_object

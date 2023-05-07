@@ -5,7 +5,9 @@ import com.wakaztahir.kate.parser.stream.TextDestinationStream
 import com.wakaztahir.kate.parser.stream.TextSourceStream
 import java.io.File
 
-internal const val DefaultConfig = """"""
+internal const val DefaultConfig = """
+    @var ignore : list<string> = @list()
+"""
 
 internal const val GolangDefaultConfig = """
     @define_object(golang)

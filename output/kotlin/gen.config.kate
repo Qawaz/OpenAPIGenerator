@@ -1,0 +1,2 @@
+
+    @var ignore : list<string> = @list()

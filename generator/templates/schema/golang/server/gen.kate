@@ -2,15 +2,21 @@
 
     console.log("Beginning Generation for Golang-Server")
 
-    console.log("Generating ./go.mod")
-    set_stream("./go.mod")
+    @if(config.ignore.contains("go.mod") == false)
+        console.log("Generating ./go.mod")
+        set_stream("./go.mod")
+        @embed_once ./go.mod.kate
+    @else
+        console.log("Skipped Generating ./go.mod")
+    @endif
 
-    @embed_once ./go.mod.kate
-
-    console.log("Generating ./go.sum")
-    set_stream("./go.sum")
-
-    @embed_once ./go.sum.kate
+    @if(config.ignore.contains("go.sum") == false)
+        console.log("Generating ./go.sum")
+        set_stream("./go.sum")
+        @embed_once ./go.sum.kate
+    @else
+        console.log("Skipped Generating ./go.sum")
+    @endif
 
     console.log("Generating ./api/service.go")
     set_stream("./api/service.go")

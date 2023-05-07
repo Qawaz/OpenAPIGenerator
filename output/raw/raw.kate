@@ -389,6 +389,7 @@
 			log : (string) -> unit = log(vararg params : string)
 		}
 		throw : (string) -> unit = throw(message : string)
+		ignore : list<string> = 
 	}
 	info : object = {
 		contact : object = {}
