@@ -15,18 +15,21 @@ fun main(strArr: Array<String>) {
     val schemaPath: String = strArr[1]
     val outputDirPath: String = strArr[2]
     val templatesDirPath: String = strArr.getOrNull(3) ?: "./templates"
-    val isForcedDefault: Boolean = strArr.getOrNull(4)?.let { it.equals("true", ignoreCase = true) } ?: false
-    val isForcedDefaultWrite: Boolean = strArr.getOrNull(5)?.let { it.equals("true", ignoreCase = true) } ?: false
+    val verifySchema: Boolean = strArr.getOrNull(4)?.let { it.equals("true", ignoreCase = true) } ?: true
+    val isForcedDefault: Boolean = strArr.getOrNull(5)?.let { it.equals("true", ignoreCase = true) } ?: false
+    val isForcedDefaultWrite: Boolean = strArr.getOrNull(6)?.let { it.equals("true", ignoreCase = true) } ?: false
 
     // KATE Configuration file
 
     val input = File(schemaPath)
     val parser = OpenApiParser()
     val parsed = parser.parse(input)
-    val results = parsed.validate().getItems()
-    if (results.isNotEmpty()) {
-        for (result in results) println(result)
-        throw IllegalStateException("input schema isn't valid")
+    if (verifySchema) {
+        val results = parsed.validate().getItems()
+        if (results.isNotEmpty()) {
+            for (result in results) println(result)
+            throw IllegalStateException("input schema isn't valid")
+        }
     }
     val gens = if (languageGenType == "all") LanguageGeneration.values().toList() else listOf(
         LanguageGeneration.values().find { it.value == languageGenType }

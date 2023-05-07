@@ -1,15 +1,13 @@
 package com.wakaztahir.openapi.template
 
-import com.wakaztahir.kate.InputSourceStream
-import com.wakaztahir.kate.OutputDestinationStream
 import com.wakaztahir.kate.RelativeFileEmbeddingManager
-import com.wakaztahir.kate.RelativeResourceEmbeddingManager
-import com.wakaztahir.kate.model.*
+import com.wakaztahir.kate.model.KATEType
+import com.wakaztahir.kate.model.StringValue
 import com.wakaztahir.kate.model.model.*
-import com.wakaztahir.kate.parser.stream.*
-import com.wakaztahir.kate.runtime.StringImplementation
-import java.io.*
-import java.nio.ByteBuffer
+import com.wakaztahir.kate.parser.stream.DestinationStream
+import com.wakaztahir.kate.parser.stream.TextSourceStream
+import com.wakaztahir.kate.parser.stream.WritableStream
+import java.io.File
 
 class ChangeableDestinationStream(stream: WritableStream) : DestinationStream {
 
