@@ -36,7 +36,7 @@ fun Response.toMutableKATEObject(statusCode: String): MutableKATEObject {
                 explicitType: KATEType?,
                 parameters: List<ReferencedOrDirectValue>
             ): ReferencedOrDirectValue {
-                val key = (parameters[0].getKATEValue(model) as StringValue).value
+                val key = (parameters[0].getKATEValue() as StringValue).value
                 val mediaType = getContentMediaType(key)!! as PropertiesOverlay<*>
                 return StringValue(
                     mediaType._getValueOverlayByPath("schema")!!._getReference()?.pointer?.segments?.lastOrNull() ?: ""
@@ -59,7 +59,7 @@ fun RequestBody.toMutableKATEObject(): MutableKATEObject {
                 explicitType: KATEType?,
                 parameters: List<ReferencedOrDirectValue>
             ): ReferencedOrDirectValue {
-                val key = (parameters[0].getKATEValue(model) as StringValue).value
+                val key = (parameters[0].getKATEValue() as StringValue).value
                 val mediaType = getContentMediaType(key)!! as PropertiesOverlay<*>
                 return StringValue(
                     mediaType._getValueOverlayByPath("schema")!!._getReference()?.pointer?.segments?.lastOrNull() ?: ""

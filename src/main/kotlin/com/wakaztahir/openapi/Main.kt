@@ -4,6 +4,8 @@ import com.reprezen.kaizen.oasparser.OpenApiParser
 import com.reprezen.kaizen.oasparser.validate
 import com.wakaztahir.openapi.template.generateMultiFileTemplate
 import java.io.File
+import kotlin.system.measureNanoTime
+import kotlin.time.Duration.Companion.nanoseconds
 
 fun main(strArr: Array<String>) {
     if (strArr.size < 3) {
@@ -35,6 +37,7 @@ fun main(strArr: Array<String>) {
         LanguageGeneration.values().find { it.value == languageGenType }
             ?: throw IllegalStateException("generation type $languageGenType not found")
     )
+    val start = System.nanoTime()
     for (gen in gens) {
         val outputDir = File(if (languageGenType == "all") gen.outputFolder else outputDirPath)
         val configFile = outputDir.resolve("gen.config.kate")
@@ -52,4 +55,6 @@ fun main(strArr: Array<String>) {
             outputDir = outputDir
         )
     }
+    val nanoTime = System.nanoTime() - start
+    println("Completed in ${nanoTime.nanoseconds.inWholeMilliseconds} milliseconds")
 }

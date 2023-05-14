@@ -33,7 +33,7 @@ fun MutableKATEObject.putStreamPlaceholderFunction(
             require(parameters.size == 1) {
                 "parameters size must be 1 for set_stream"
             }
-            val path = parameters.getOrNull(0)?.asNullablePrimitive(model)?.let { it as? StringValue }
+            val path = parameters.getOrNull(0)?.asNullablePrimitive()?.let { it as? StringValue }
             require(path != null) { "${toString()} stream path cannot be null" }
             val file = folder.resolve(path.value)
             val parentFolder = file.parentFile

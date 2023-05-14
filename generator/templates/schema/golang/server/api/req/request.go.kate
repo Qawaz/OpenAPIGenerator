@@ -27,19 +27,24 @@
             @endif
         @endfor
 
-        @if(hasSingleBody == false) @breakfor @endif
+        @var fileName = "./api/req/" + path.path.removePrefix("/").replace("/","_") + ".go"
 
-        set_stream("./api/req/" + path.path.removePrefix("/").replace("/","_") + ".go")
+        @if(hasSingleBody == false)
+            <%--console.log("Skipped Generating " + fileName)--%>
+            @continue
+        @endif
+
+        set_stream(fileName)
 
         @default_no_raw
-            package req
+            @var(console.log(fileName,hasSingleBody))package req
 
             import "net/http"
         @end_default_no_raw
 
         @for(@var op : path.operations)
 
-            @if(op.contains("requestBody") == false) @breakfor @endif
+            @if(op.contains("requestBody") == false) @break @endif
 
             @runtime.print_string("\n\n")
 
