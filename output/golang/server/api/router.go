@@ -19,7 +19,6 @@ type ServiceRouterBridge struct {
     Service Service
 }
 
-
 func (b ServiceRouterBridge) GetApiStatus(w http.ResponseWriter, r *http.Request) {
     
     response := b.Service.GetApiStatus()
@@ -31,7 +30,6 @@ func (b ServiceRouterBridge) GetApiStatus(w http.ResponseWriter, r *http.Request
         log.Fatal(err.Error())
     }
 }
-
 
 func (b ServiceRouterBridge) GenerateToken(w http.ResponseWriter, r *http.Request) {
     
@@ -45,7 +43,6 @@ func (b ServiceRouterBridge) GenerateToken(w http.ResponseWriter, r *http.Reques
     }
 }
 
-
 func (b ServiceRouterBridge) UploadLogFile(w http.ResponseWriter, r *http.Request) {
         bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
     request := req.UploadLogFileRequest{
@@ -54,21 +51,18 @@ func (b ServiceRouterBridge) UploadLogFile(w http.ResponseWriter, r *http.Reques
         Writer:      w,
         BearerToken: bearerToken,
     }
-    decoder := json.NewDecoder(r.Body)
-    err := decoder.Decode(&request.Schema)
-    if err != nil {
-        request.DecodingError = err
-    }
+        
+            request.Schema.IsEncrypted = strings.EqualFold(r.PostFormValue("is_encrypted"),"true")   
+
     response := b.Service.UploadLogFile(request)
     w.Header().Set("Content-Type", "application/json")
     encoder := json.NewEncoder(w)
     w.WriteHeader(response.GetStatusCode())
-    err = encoder.Encode(response.GetUploadLogFileSchema())
+    err := encoder.Encode(response.GetUploadLogFileSchema())
     if err != nil {
         log.Fatal(err.Error())
     }
 }
-
 
 func (b ServiceRouterBridge) ListLogs(w http.ResponseWriter, r *http.Request) {
         bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
@@ -78,11 +72,11 @@ func (b ServiceRouterBridge) ListLogs(w http.ResponseWriter, r *http.Request) {
         Writer:      w,
         BearerToken: bearerToken,
     }
-    decoder := json.NewDecoder(r.Body)
+        decoder := json.NewDecoder(r.Body)
     err := decoder.Decode(&request.Schema)
     if err != nil {
         request.DecodingError = err
-    }
+    } 
     response := b.Service.ListLogs(request)
     w.Header().Set("Content-Type", "application/json")
     encoder := json.NewEncoder(w)

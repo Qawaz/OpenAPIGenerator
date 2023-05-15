@@ -28,40 +28,64 @@
             Service Service
         }
 
+
+    @end_default_no_raw
+
     @for(@var path : paths)
         @for(@var op : path.operations)
             @var hasReqBody = op.contains("requestBody")
+            @var mediaTypeKey = ""
+            @if(hasReqBody)
+                @var keys = op.requestBody.mediaTypes.getKeys()
+                @for(@var mediaType: keys)
+                    mediaTypeKey = mediaType
+                @endfor
+            @endif
+
+            @var errorInitialized = false
             @default_no_raw
-                    func (b ServiceRouterBridge) @var(op.operationId.capitalize())(w http.ResponseWriter, r *http.Request) {
-                        @if(hasReqBody)
-                            bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
-                            request := req.@var(op.operationId.capitalize())Request{
-                                Schema:      req.@var(op.operationId.capitalize())RequestSchema{},
-                                Request:     r,
-                                Writer:      w,
-                                BearerToken: bearerToken,
-                            }
+                func (b ServiceRouterBridge) @var(op.operationId.capitalize())(w http.ResponseWriter, r *http.Request) {
+                    @if(hasReqBody)
+                        bearerToken := token.ExtractTokenFromAuthorizationHeader(r)
+                        request := req.@var(op.operationId.capitalize())Request{
+                            Schema:      req.@var(op.operationId.capitalize())RequestSchema{},
+                            Request:     r,
+                            Writer:      w,
+                            BearerToken: bearerToken,
+                        }
+                        @if(mediaTypeKey == "application/json")
                             decoder := json.NewDecoder(r.Body)
                             err := decoder.Decode(&request.Schema)
                             if err != nil {
                                 request.DecodingError = err
-                            }
+                            } @set_var errorInitialized = true
+                        @elseif(mediaTypeKey == "application/x-www-form-urlencoded")
+                            @var schema = op.requestBody.mediaTypes[mediaTypeKey].schema
+                            @for(@var key : schema.getKeys())
+                                @if(schema[key].getMetaProperty("format") == "binary")
+                                    request.Schema.@var(getKey(key)),request.Schema.@var(getKey(key))Header,request.Schema.@var(getKey(key))Error = r.FormFile("@var(key)")
+                                @elseif(schema[key].getType() == "boolean")
+                                    request.Schema.@var(getKey(key)) = strings.EqualFold(r.PostFormValue("@var(key)"),"true")
+                                @else
+                                    request.Schema.@var(getKey(key)) = r.PostFormValue("@var(key)")
+                                @endif
+                               @runtime.print_char('\n')
+                            @endfor
                         @endif
+                    @endif
 
-                        response := b.Service.@var(op.operationId.capitalize())(@if(hasReqBody) request @endif)
-                        w.Header().Set("Content-Type", "application/json")
-                        encoder := json.NewEncoder(w)
-                        w.WriteHeader(response.GetStatusCode())
-                        err @if(hasReqBody == false) : @endif= encoder.Encode(response.Get@var(op.operationId.capitalize())Schema())
-                        if err != nil {
-                            log.Fatal(err.Error())
-                        }
+                    response := b.Service.@var(op.operationId.capitalize())(@if(hasReqBody) request @endif)
+                    w.Header().Set("Content-Type", "application/json")
+                    encoder := json.NewEncoder(w)
+                    w.WriteHeader(response.GetStatusCode())
+                    err @if(errorInitialized == false) : @endif= encoder.Encode(response.Get@var(op.operationId.capitalize())Schema())
+                    if err != nil {
+                        log.Fatal(err.Error())
                     }
+                }
 
 
             @end_default_no_raw
         @endfor
     @endfor
-
-    @end_default_no_raw
 @end_partial_raw

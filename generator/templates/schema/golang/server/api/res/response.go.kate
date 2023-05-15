@@ -35,11 +35,28 @@
 
         @runtime.print_string("\n\n")
 
-        @default_no_raw import "@var(config.golang.pkgName)/models" @end_default_no_raw
+        @var importModels = false
 
         @for(@var op : path.operations)
+            @for(@var response: op.responses)
+                @var keys = response.mediaTypes.getKeys()
+                @for(@var key : keys)
+                    @if(response.mediaTypes[key].contains("schema"))
+                        @var refSchemaName = response.getSchemaRefName(key)
+                        @if(refSchemaName != "")
+                            importModels = true
+                        @endif
+                    @endif
+                @endfor
+            @endfor
+        @endfor
 
-           @runtime.print_string("\n\n")
+        @if(importModels)
+            @default_no_raw import "@var(config.golang.pkgName)/models" @end_default_no_raw
+            @runtime.print_string("\n\n")
+        @endif
+
+        @for(@var op,opIndex : path.operations)
 
            @default_no_raw
                 type @var(op.operationId.capitalize())Response interface {
@@ -90,6 +107,8 @@
                 @endfor
 
             @endfor
+
+            @if(opIndex < path.operations.size() - 1) @runtime.print_string("\n\n") @endif
 
         @endfor
     @endfor

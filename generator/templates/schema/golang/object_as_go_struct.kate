@@ -22,17 +22,25 @@
 
     @define_placeholder(__object_member__,go_struct_member)
         @runtime.print_char('\t')
-        @var format = object[keys[i]].getMetaProperty("golang-format")
-        @if(format == "")
-            format = getGolangType(object[keys[i]])
-        @endif
         @var bsonName = object[keys[i]].getMetaProperty("golang-bson-name")
         @if(bsonName == "")
             bsonName = keys[i]
         @endif
-        @default_no_raw
-            @var(getKey(keys[i])) @var(format) `json:"@var(keys[i])" bson:"@var(bsonName)"`
-        @end_default_no_raw
+        @if(object[keys[i]].getMetaProperty("format") == "binary")
+            @default_no_raw
+                @var(getKey(keys[i])) multipart.File `json:"@var(keys[i])" bson:"@var(bsonName)"`
+                    @var(getKey(keys[i]))Header *multipart.FileHeader
+                    @var(getKey(keys[i]))Error  error
+            @end_default_no_raw
+        @else
+            @var golangFormat = object[keys[i]].getMetaProperty("golang-format")
+            @if(golangFormat == "")
+                golangFormat = getGolangType(object[keys[i]])
+            @endif
+            @default_no_raw
+                @var(getKey(keys[i])) @var(golangFormat) `json:"@var(keys[i])" bson:"@var(bsonName)"`
+            @end_default_no_raw
+        @endif
     @end_define_placeholder
 
 @end_partial_raw

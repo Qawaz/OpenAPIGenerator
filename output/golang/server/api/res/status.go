@@ -1,7 +1,5 @@
 package res
 
-import "server/models"
-
 type GetApiStatusResponse interface {
     GetGetApiStatusSchema() any
     GetStatusCode() int
