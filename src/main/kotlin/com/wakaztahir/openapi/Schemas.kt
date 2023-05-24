@@ -10,7 +10,11 @@ import com.wakaztahir.kate.model.model.*
 fun Schema.toKATEValue(allowNested: Boolean): KATEValue {
     return when (this.getType()) {
         "string" -> {
-            StringValue("")
+            if(this.getEnums().isNotEmpty()){
+                KATEEnum(this.getEnums().map { it as String })
+            } else {
+                StringValue("")
+            }
         }
 
         "number" -> {

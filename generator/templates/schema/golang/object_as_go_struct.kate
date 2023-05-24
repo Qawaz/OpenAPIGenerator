@@ -4,6 +4,17 @@
 
     @embed_once ./../general/default_object.kate
 
+    @define_placeholder(enum,go_enum,enum)
+        @runtime.print_string("const (\n")
+        @var keys = enum.getKeys()
+        @for(@var item,index : keys)
+            @runtime.print_char('\t')
+            @default_no_raw @var(item.capitalize()) @if(index == 0) string  @endif = "@var(item)" @end_default_no_raw
+            @if(index < keys.size() - 1) @runtime.print_char('\n') @endif
+        @endfor
+        @runtime.print_string("\n)")
+    @end_define_placeholder
+
     @define_placeholder(__object_declaration__,go_struct)
         @default_no_raw
             type @var(object.getName()) struct {

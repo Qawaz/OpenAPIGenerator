@@ -3,6 +3,7 @@
 
 /generator/OpenAPIGenerator.exe
 /generator/generator.zip
+test/
 
 build
 

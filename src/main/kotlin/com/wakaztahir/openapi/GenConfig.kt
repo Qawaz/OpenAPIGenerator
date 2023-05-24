@@ -31,7 +31,7 @@ fun loadConfigurationObject(
         configFile.outputStream().use { it.writer().use { w -> w.write(configString()) } }
     }
     val stream = TextSourceStream(sourceCode = configuration)
-    stream.block.generateTo(TextDestinationStream())
+    stream.block.parse().generateTo(TextDestinationStream())
     input?.close()
     return stream.model
 }
